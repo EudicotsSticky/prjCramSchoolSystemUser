@@ -1,0 +1,24 @@
+﻿@page
+@model ResetAuthenticatorModel
+@{
+    ViewData["Title"] = "Reset authenticator key";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>如果您重設驗證金鑰，直到重新設定驗證App之前將無法使用二階段驗證碼。</strong>
+    </p>
+    <p>
+        此動作將取消您的二階段驗證直到您至App確認您的驗證碼。
+        如果您未完成二階段驗證App設定，您可能無法登入您的個人帳號。
+    </p>
+</div>
+<div>
+    <form id="reset-authenticator-form" method="post" class="form-group">
+        <button id="reset-authenticator-button" class="btn btn-danger" type="submit">重設二階段驗證金鑰</button>
+    </form>
+</div>

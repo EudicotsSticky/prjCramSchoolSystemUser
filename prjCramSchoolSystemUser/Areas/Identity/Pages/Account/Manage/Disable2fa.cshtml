@@ -1,0 +1,25 @@
+﻿@page
+@model Disable2faModel
+@{
+    ViewData["Title"] = "取消二階段驗證(2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <strong>此動作僅會取消您的二階段驗證。</strong>
+    </p>
+    <p>
+        取消二階段驗證並不會改變您驗證APP使用的金鑰，如果您想改變驗證金鑰，請您
+        <a asp-page="./ResetAuthenticator">重設二階段驗證金鑰</a>。
+    </p>
+</div>
+
+<div>
+    <form method="post" class="form-group">
+        <button class="btn btn-danger" type="submit">取消二階段驗證</button>
+    </form>
+</div>

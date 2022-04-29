@@ -1,0 +1,57 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "二階段驗證(2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>您已無任何備用碼。</strong>
+            <p>在您使用備用碼登入以前，您必須<a asp-page="./GenerateRecoveryCodes">產生新的備用碼</a>。</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>您剩餘一組備用碼。</strong>
+            <p>您可以<a asp-page="./GenerateRecoveryCodes">產生新的備用碼</a>。</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>您尚餘 @Model.RecoveryCodesLeft 組備用碼</strong>
+            <p>您可以<a asp-page="./GenerateRecoveryCodes">產生新的備用碼</a>。</p>
+        </div>
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+        <form method="post" style="display: inline-block">
+            <button type="submit" class="btn btn-default">在此瀏覽器忘記我</button>
+        </form>
+    }
+    <a asp-page="./Disable2fa" class="btn btn-default">取消二階段驗證(2FA)</a>
+    <a asp-page="./GenerateRecoveryCodes" class="btn btn-default">重設備用碼</a>
+}
+
+<h5>驗證App</h5>
+@if (!Model.HasAuthenticator)
+{
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-default">加入二階段驗證App</a>
+}
+else
+{
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-default">設定二階段驗證App</a>
+    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-default">重設二階段驗證App</a>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,28 @@
+﻿@page
+@model LoginWithRecoveryCodeModel
+@{
+    ViewData["Title"] = "備用碼驗證";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<p>
+    您將使用備用碼進行登入。直到您使用二階段驗證登入或取消二階段驗證前，此登入將不會被記住。
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.RecoveryCode"></label>
+                <input asp-for="Input.RecoveryCode" class="form-control" autocomplete="off" />
+                <span asp-validation-for="Input.RecoveryCode" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">登入</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

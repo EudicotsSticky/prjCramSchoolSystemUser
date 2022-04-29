@@ -1,0 +1,370 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-prjCramSchoolSystem-FB025DAD-29A7-400F-B12A-E6DE9C8B6FD3</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Areas\**" />
+    <Compile Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
+    <Content Remove="Controllers\Areas\**" />
+    <Content Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
+    <EmbeddedResource Remove="Controllers\Areas\**" />
+    <EmbeddedResource Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
+    <None Remove="Controllers\Areas\**" />
+    <None Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
+    <Content Remove="Views\Order\AioCheckOut.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\barfiller.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\elegant-icons.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\flaticon.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\font-awesome.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\magnific-popup.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\nice-select.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\owl.carousel.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\slicknav.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\style.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\ElegantIcons.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\ElegantIcons.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\ElegantIcons.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\ElegantIcons.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\Flaticon.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\Flaticon.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\Flaticon.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\Flaticon.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\fontawesome-webfont.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\fontawesome-webfont.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\fontawesome-webfont.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\fontawesome-webfont.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\fonts\FontAwesome.otf" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\about-video.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\blog-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\blog-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\blog-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\blog-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\br-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\br-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\br-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\br-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\br-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\blog-author.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\blog-details.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\blog-hero.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\clock.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\comment-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\comment-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\comment-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\blog\details\user.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\cake-piece.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class-video.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class\class-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class\class-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class\class-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class\class-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class\class-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\class\class-6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\footer-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\footer-logo.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\hero\hero-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\icon\cart.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\icon\heart.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\icon\search.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\instagram\cake-piece.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\instagram\instagram-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\instagram\instagram-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\instagram\instagram-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\instagram\instagram-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\instagram\instagram-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\logo.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\cart\cart-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\cart\cart-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\cart\cart-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\cart\cart-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\product-big-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\product-big-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\product-big-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\product-big-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\product-big-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\thumb-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\thumb-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\thumb-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\thumb-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\details\thumb-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-10.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-11.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-12.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-5.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\shop\product-9.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\team\team-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\team\team-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\team\team-3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\team\team-4.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\testimonial\ta-1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\testimonial\ta-2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery-3.3.1.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery.barfiller.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery.magnific-popup.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery.nice-select.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery.nicescroll.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery.slicknav.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\main.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\owl.carousel.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\Account\AccessDenied.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ConfirmEmail.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ConfirmEmailChange.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ExternalLogin.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ForgotPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ForgotPasswordConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Lockout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\LoginWith2fa.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\LoginWithRecoveryCode.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Logout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Disable2fa.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\DownloadPersonalData.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Email.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\EnableAuthenticator.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ExternalLogins.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\GenerateRecoveryCodes.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Index.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\PersonalData.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ResetAuthenticator.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\SetPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ShowRecoveryCodes.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_Layout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\RegisterConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ResendEmailConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ResetPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_StatusMessage.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\Error.cshtml" />
+    <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+    <None Include="Views\CourseModel\Detail.cshtml" />
+    <None Include="Views\CourseModel\Edit.cshtml" />
+    <None Include="Views\CourseModel\List.cshtml" />
+    <None Include="Views\Course\Detail.cshtml" />
+    <None Include="Views\Course\Detail1.cshtml" />
+    <None Include="Views\Course\Detail2.cshtml" />
+    <None Include="Views\Course\Edit.cshtml" />
+    <None Include="Views\Course\List.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Order\CheckOutFeedback.cshtml" />
+    <None Include="Views\Order\Create.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_LoginPartial.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\Shopping\Shoppingcart.cshtml" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.16">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\LICENSE">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\additional-methods.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\jquery.validate.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\LICENSE.md">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\dist\jquery.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\dist\jquery.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\dist\jquery.min.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Models\RoleModels\" />
+    <Folder Include="wwwroot\Files\thumbnail\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,297 @@
+﻿@model prjCramSchoolSystemUser.ViewModel.CCourseModelAllViewModel
+
+@{
+    ViewData["Title"] = "test";
+}
+<!-- Checkout Section Begin -->
+<form class="checkout spad" asp-action="Detail">
+    <div class="container product__details__tab">
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Additional information</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                    <div class="container-fluid">
+                        <div class="checkout__form">
+                            <div>
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8 col-md-10">
+                                        <input id="txtCourseId" type="hidden" asp-for="@Model.c_model.FCourseId" class="form-control" />
+                                        <input type="hidden" asp-for="@Model.c_model.FModleSate" class="form-control" />
+                                        @*<div class="checkout__input">
+                                                <p><label asp-for="@Model.c_model.FCategory" class="control-label"></label><span>*</span></p>
+                                                <input asp-for="@Model.c_model.FCategory" class="form-control" />
+                                                <span asp-validation-for="@Model.c_model.FCategory" class="text-danger"></span>
+                                            </div>*@
+                                        <div class="checkout__input">
+                                            <p><label asp-for="@Model.c_model.FCategory" class="control-label"></label><span>*</span></p>
+                                            @*@Html.DropDownListFor(model=>model.c_model.FCategory,(IEnumerable<SelectListItem>)ViewBag.CategoryDropDown, new { @class = "form-control" })*@
+                                            @Html.DropDownListFor(model => model.c_model.FCategory, (IEnumerable<SelectListItem>)Model.CategoryDDL, new { @class = "form-control", id = "txtCategory" })
+                                            <span asp-validation-for="@Model.c_model.FCategory" class="text-danger"></span>
+                                        </div>
+                                        <div class="checkout__input">
+                                            <p><label asp-for="@Model.c_model.FName" class="control-label"></label><span>*</span></p>
+                                            <input asp-for="@Model.c_model.FName" class="form-control" />
+                                            <span asp-validation-for="@Model.c_model.FName" class="text-danger"></span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="checkout__input">
+                                                    <p><label asp-for="@Model.c_model.FTotalHours" class="control-label"></label><span>*</span></p>
+                                                    <input asp-for="@Model.c_model.FTotalHours" class="form-control" />
+                                                    <span asp-validation-for="@Model.c_model.FTotalHours" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="checkout__input">
+                                                    <p><label asp-for="@Model.c_model.FTotalNumber" class="control-label"></label><span>*</span></p>
+                                                    <input asp-for="@Model.c_model.FTotalNumber" class="form-control" />
+                                                    <span asp-validation-for="@Model.c_model.FTotalNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="checkout__input">
+                                                    <p><label asp-for="@Model.c_model.FGrade" class="control-label"></label><span>*</span></p>
+                                                    <input asp-for="@Model.c_model.FGrade" class="form-control" />
+                                                    <span asp-validation-for="@Model.c_model.FGrade" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="checkout__input">
+                                                    <p><label asp-for="@Model.c_model.FGrade" class="control-label"></label><span>*</span></p>
+                                                    @*<input asp-for="@Model.c_model.FSchoolYear" class="form-control" />*@
+                                                    @Html.DropDownListFor(model => model.c_model.FSchoolYear, (IEnumerable<SelectListItem>)Model.SchoolYearDDL, new { @class = "form-contrl" })
+                                                    <span asp-validation-for="@Model.c_model.FSchoolYear" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="checkout__input">
+                                                    <p><label asp-for="@Model.c_model.FSchoolYear" class="control-label"></label><span>*</span></p>
+                                                    <input asp-for="@Model.c_model.FOriginalPrice" class="form-control" />
+                                                    <span asp-validation-for="@Model.c_model.FOriginalPrice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="checkout__input">
+                                                    <p><label asp-for="@Model.c_model.FSpecialOffer" class="control-label"></label><span>*</span></p>
+                                                    <input asp-for="@Model.c_model.FOriginalPrice" class="form-control" />
+                                                    <span asp-validation-for="@Model.c_model.FSpecialOffer" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="checkout__input">
+                                            <p><label asp-for="@Model.c_model.FSpecialOffer" class="control-label"></label><span>*</span></p>
+                                            <input asp-for="@Model.c_model.FSpecialOffer" class="form-control" />
+                                            <span asp-validation-for="@Model.c_model.FSummary" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>課堂數&nbsp;&nbsp;<input id="txtCDetail_CourseNumber" type="text">&emsp;課堂進度(頁數)&nbsp;&nbsp;<input id="txtCDetail_Schedule" type="text">&emsp;授課方式&nbsp;&nbsp;<input id="txtCDetail_TeachingMethod" type="text" /></li>
+                            <li>課堂進度說明&nbsp;&nbsp;<textarea id="txtCDetail_ScheduleDetail"></textarea>授課備註&nbsp;&nbsp;<textarea id="txtCDetail_Remark"></textarea></li>
+                        </ul>
+                        <input type="button" id="btnAddDetail" value="addDetail" />
+                    </div>
+                    @*晚點用*@
+                    @*<input id="tabQuantity" type="hidden" asp-for="@Model.c_model_detail_list.Count"/>*@
+                    <table>
+                        <thead>
+                            <tr>
+                                @*<th>@Html.DisplayNameFor(model => model.c_model_detail.FCourseId)</th>*@
+                                <th>序號</th>
+                                <th>@Html.DisplayNameFor(model => model.c_model_detail.FCourseNumber)</th>
+                                <th>@Html.DisplayNameFor(model => model.c_model_detail.FSchedule)</th>
+                                <th>@Html.DisplayNameFor(model => model.c_model_detail.FScheduleDetail)</th>
+                                <th>@Html.DisplayNameFor(model => model.c_model_detail.FTeachingMethod)</th>
+                                <th>@Html.DisplayNameFor(model => model.c_model_detail.FRemark)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailtbody">
+                            @{
+                                if (Model.c_model_detail_list != null)
+                                {
+
+                                    int count = 0;
+                                    for (int i = 0; i < Model.c_model_detail_list.Count; i++)
+                                    {
+                                        count++;
+                                        <tr>
+                                            @*<td>@Html.EditorFor(modelItem => Model.c_model_detail_list[i].FCourseId)</td>*@
+                                            <td class="tdCount">@count</td>
+                                            <td class="tdCourseNumber">@Html.EditorFor(modelItem => Model.c_model_detail_list[i].FCourseNumber)</td>
+                                            <td class="tdSchedule">@Html.EditorFor(modelItem => Model.c_model_detail_list[i].FSchedule)</td>
+                                            <td class="tdScheduleDetail">@Html.EditorFor(modelItem => Model.c_model_detail_list[i].FScheduleDetail)</td>
+                                            <td class="tdTeachingMethod">@Html.EditorFor(modelItem => Model.c_model_detail_list[i].FTeachingMethod)</td>
+                                            <td class="tdRemark">@Html.EditorFor(modelItem => Model.c_model_detail_list[i].FRemark)</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" id="submit" />
+    </div>
+
+</form>
+<!-- Checkout Section End -->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    //一開始先將資料放進session裡
+    readDetail();
+
+    function readDetail() {
+        let length = $("tbody").find("tr").length;
+        let count = document.getElementsByClassName("tdCount");
+        let arrDetail = []
+        for (let i = 0; i < length; i++) {
+            let CourseNumber = $(`#c_model_detail_list_${i}__FCourseNumber`).val();
+            let Schedule = $(`#c_model_detail_list_${i}__FSchedule`).val();
+            let TeachingMethod = $(`#c_model_detail_list_${i}__FTeachingMethod`).val();
+            let ScheduleDetail = $(`#c_model_detail_list_${i}__FScheduleDetail`).val();
+            let Remark = $(`#c_model_detail_list_${i}__FRemark`).val();
+
+            let objDetail = {
+                _Count: parseInt(count[i].innerHTML),
+                FCourseNumber: parseInt(CourseNumber),
+                FSchedule: Schedule,
+                FScheduleDetail: ScheduleDetail,
+                FTeachingMethod: TeachingMethod,
+                FRemark: Remark
+            }
+            arrDetail.push(objDetail)
+        }
+        console.log(arrDetail)
+        sessionStorage.setItem("detailList", JSON.stringify(arrDetail));
+    }
+
+
+    $("#btnAddDetail").click(function () {
+        let arrDetail = JSON.parse(sessionStorage.getItem("detailList"));
+
+        const length = $("tbody").find("tr").length;
+        let count = "0";
+        if (length != 0) {
+            count = document.querySelectorAll(".tdCount")[length - 1].innerHTML;
+        }
+        const CourseNumber = document.getElementById("txtCDetail_CourseNumber").value;
+        const Schedule = document.getElementById("txtCDetail_Schedule").value;
+        const TeachingMethod = document.getElementById("txtCDetail_TeachingMethod").value;
+        const ScheduleDetail = document.getElementById("txtCDetail_ScheduleDetail").value;
+        const Remark = document.getElementById("txtCDetail_Remark").value;
+
+        let newDetail = {
+            _Count: parseInt(count) + 1,
+            FCourseNumber: parseInt(CourseNumber),
+            FSchedule: Schedule,
+            FScheduleDetail: ScheduleDetail,
+            FTeachingMethod: TeachingMethod,
+            FRemark: Remark
+        }
+        arrDetail.push(newDetail);
+        sessionStorage.setItem("detailList", JSON.stringify(arrDetail));
+        
+        const cell1 = $(`<td"></td>`).text(parseInt(count) + 1).addClass("tdCount");
+        //const cell2 = $(`<input></input>`).val(CourseNumber);
+        const cell2 = $(document.createElement("input")).attr("value", CourseNumber);
+        const cell3 = $(`<input></input>`).attr("value", Schedule);
+        const cell4 = $(`<input></input>`).attr("value", ScheduleDetail);
+        const cell5 = $("<input></input>").attr("value", TeachingMethod);
+        const cell6 = $("<input></input>").attr("value", Remark);
+
+        const td2 = $(`<td></td>`).addClass("tdCourseNumber").append(cell2);
+        const td3 = $("<td></td>").addClass("tdSchedule").append(cell3);
+        const td4 = $("<td></td>").addClass("tdScheduleDetail").append(cell4);
+        const td5 = $("<td></td>").addClass("tdTeachingMethod").append(cell5);
+        const td6 = $("<td></td>").addClass("tdRemark").append(cell6);
+        const row = $("<tr></tr>").append([cell1, td2, td3, td4, td5, td6]);
+
+        $('#detailtbody').append(row);
+    })
+
+    $("#submit").click(function () {
+        let arrDetail = JSON.parse(sessionStorage.getItem("detailList"));
+
+        const docFrag = $(document.createDocumentFragment());
+        let num = 0;
+        console.log(arrDetail)
+        $.each(arrDetail, function (idx, arr) {
+            const { _Count, FCourseNumber, FSchedule, FScheduleDetail, FTeachingMethod, FRemark } = arr;
+            const cell1 = $(`<td"></td>`).text(_Count);
+            //const cell2 = $("<input></input>").attr({ name: `c_model_detail_list[${num}].FCourseNumber`, value: FCourseNumber });
+            const cell2 = $("<input></input>").attr({ name: `c_model_detail_list[${num}].FCourseNumber`,value: FCourseNumber});
+            const cell3 = $("<input></input>").attr({ name: `c_model_detail_list[${num}].FSchedule`, value: FSchedule });
+            const cell4 = $("<input></input>").attr({ name: `c_model_detail_list[${num}].FScheduleDetail`, value: FScheduleDetail });
+            const cell5 = $("<input></input>").attr({ name: `c_model_detail_list[${num}].FTeachingMethod`, value: FTeachingMethod });
+            const cell6 = $("<input></input>").attr({ name: `c_model_detail_list[${num}].FRemark`, value: FRemark });
+
+            const td2 = $(`<td></td>`).addClass("tdCourseNumber").append(cell2);
+            const td3 = $("<td></td>").addClass("tdSchedule").append(cell3);
+            const td4 = $("<td></td>").addClass("tdScheduleDetail").append(cell4);
+            const td5 = $("<td></td>").addClass("tdTeachingMethod").append(cell5);
+            const td6 = $("<td></td>").addClass("tdRemark").append(cell6);
+            const row = $("<tr></tr>").append([cell1, td2, td3, td4, td5, td6]);
+            docFrag.append(row);
+            num = num + 1;
+        })
+        //let tbody = document.getElementById("detailtbody");
+        $('#detailtbody').html(docFrag);
+    })
+
+    function checkDetail() {
+        let arrDetail = JSON.parse(sessionStorage.getItem("detailList"));
+
+        const docFrag = $(document.createDocumentFragment());
+        let num = 0;
+        arrDetail.forEach(function (value, index) {
+            num = num + 1;
+            const { _Count, FCourseNumber, FSchedule, FScheduleDetail, FTeachingMethod, FRemark } = value;
+            const cell1 = $(`<td"></td>`).text(_Count).addClass("tdCount");
+            // id="c_model_detail_list[${num}].FCourseNumber" name="c_model_detail_list[${num}].FCourseNumber" value="${FCourseNumber}
+            const cell2 = $("<input></input>").attr({ id: `c_model_detail_list[${num}].FCourseNumber` });
+            const cell3 = $(`<input id="c_model_detail_list[${num}].FSchedule" name="c_model_detail_list[${num}].FSchedule value="${FSchedule}"></input>`);
+            const cell4 = $(`<input id="c_model_detail_list[${num}].FScheduleDetail" name="c_model_detail_list[${num}].FScheduleDetail value="${FScheduleDetail}"></input>`);
+            const cell5 = $(`<input id="c_model_detail_list[${num}].FScheduleDetail" name="c_model_detail_list[${num}].FScheduleDetail value="${FTeachingMethod}"></input>`);
+            const cell6 = $(`<input id="c_model_detail_list[${num}].FScheduleDetail" name="c_model_detail_list[${num}].FScheduleDetail value="${FRemark}">></input>`);
+
+            //.addClass("tdCourseNumber")
+            const td2 = $(`<td"></td>`).append(cell2);
+            const td3 = $(`<td class="tdSchedule"></td>`).append(cell3);
+            const td4 = $(`<td class="tdScheduleDetail"></td>`).append(cell4);
+            const td5 = $(`<td class="tdTeachingMethod"></td>`).append(cell5);
+            const td6 = $(`<td class="tdRemark"></td>`).append(cell6);
+            const row = $("<tr></tr>").append([cell1, td2, td3, td4, td5, td6]);
+            console.log(row)
+            docFrag.append(row);
+        })
+        $("tbody").innerHTML = docFrag;
+    }
+
+</script>
+}

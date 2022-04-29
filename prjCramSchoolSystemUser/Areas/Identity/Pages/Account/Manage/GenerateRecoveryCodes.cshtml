@@ -1,0 +1,27 @@
+﻿@page
+@model GenerateRecoveryCodesModel
+@{
+    ViewData["Title"] = "產生二階段驗證(2FA)備用碼";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>請妥善保存此備用碼。</strong>
+    </p>
+    <p>
+如果您遺失裝置且無備用碼，您將無法登入帳號。
+    </p>
+    <p>
+        產生備用碼並不會改變您二階段驗證App登記的金鑰，如果您想要改變金鑰，您應該至
+        <a asp-page="./ResetAuthenticator">此處</a>重設金鑰。
+    </p>
+</div>
+<div>
+    <form method="post" class="form-group">
+        <button class="btn btn-danger" type="submit">產生備用碼</button>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "身分新增與刪除";
+}
+<!-- Instagram Section Begin -->
+<section class="instagram spad">
+    <div class="container">
+        <div class="row">
+            <form method="post" asp-action="AddRole" asp-controller="RoleManager">
+                <div class="input-group">
+                    <input name="roleName" class="form-control w-25">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info">Add New Role</button>
+                    </span>
+                </div>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Role</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model)
+                    {
+                        <tr>
+                            <td>@role.Id</td>
+                            <td>@role.Name</td>
+                            <td><a asp-action="DeleteRole" asp-route-id="@role.Id">刪除</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- Instagram Section End -->

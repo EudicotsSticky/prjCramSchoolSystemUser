@@ -1,0 +1,238 @@
+﻿@model prjCramSchoolSystemUser.ViewModel.CCourseViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Detail</h1>
+
+<h4>TCourseInformation</h4>
+<hr />
+
+<form asp-action="Detail" class="product-details spad">
+    <div class="row">
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Shop Details Section Begin -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="product__details__img">
+                            <div id="divImg" class="product__details__big__img team__item">
+                                <img class="big_img" src="@Url.Content("~/img/shop/details/product-big-1.jpg")" alt="">
+                                <div class="team__item__text">
+                                    <input type="file" name="photo" />
+                                </div>
+                            </div>
+                            <div class="product__details__thumb">
+                                <div class="pt__item active imgclick">
+                                    <img data-imgbigurl="@Url.Content("~/img/shop/details/product-big-2.jpg")"
+                                         src="@Url.Content("~/img/shop/details/product-big-2.jpg")" alt="">
+                                </div>
+                                <div class="pt__item">
+                                    <img data-imgbigurl="@Url.Content("~/img/shop/details/product-big-1.jpg")"
+                                         src="@Url.Content("~/img/shop/details/product-big-1.jpg")" alt="">
+                                </div>
+                                <div class="pt__item">
+                                    <img data-imgbigurl="@Url.Content("~/img/shop/details/product-big-4.jpg")"
+                                         src="@Url.Content("~/img/shop/details/product-big-4.jpg")" alt="">
+                                </div>
+                                <div class="pt__item">
+                                    <img data-imgbigurl="@Url.Content("~/img/shop/details/product-big-3.jpg")"
+                                         src="@Url.Content("~/img/shop/details/product-big-3.jpg")" alt="">
+                                </div>
+                                <div class="pt__item">
+                                    <img data-imgbigurl="@Url.Content("~/img/shop/details/product-big-5.jpg")"
+                                         src="@Url.Content("~/img/shop/details/product-big-5.jpg")" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product__details__text">
+                            <div class="product__label">Cupcake</div>
+                            <h4>
+                                <label asp-for="@Model.course.FEchelonId" class="control-label"></label>：<input asp-for="@Model.course.FEchelonId" class="" />
+                            </h4>
+                            <span asp-validation-for="@Model.course.FEchelonId" class="text-danger"></span>
+                            <div>
+                                @Html.DropDownListFor(model => model.course.FCourseId, (IEnumerable<SelectListItem>)Model.CourseDDL, new { @class = "form-control", id = "txtCategory" })
+                            </div>
+                            <br />
+                            <br />
+                            <ul>
+                                <li><label asp-for="@Model.course.FStartTime" class="control-label"></label>: <span><input asp-for="@Model.course.FStartTime" class="" /></span></li>
+                                <li><span asp-validation-for="@Model.course.FStartTime" class="text-danger"></span></li>
+                                <li><label asp-for="@Model.course.FEndTime" class="control-label"></label>: <span><input asp-for="@Model.course.FEndTime" class="" /></span></li>
+                                <li><span asp-validation-for="@Model.course.FEndTime" class="text-danger"></span></li>
+                                <li><label asp-for="@Model.course.FTime" class="control-label"></label>: <span><input asp-for="@Model.course.FTime" class="" /></span></li>
+                                <li><span asp-validation-for="@Model.course.FTime" class="text-danger"></span></li>
+                                @*<li><input name="test1" value="123"/></li>*@
+
+                                <li>
+                                    <label asp-for="@Model.course.FBasicPeople" class="control-label"></label>:
+                                    <div class="product__details__option">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="@Model.course.FBasicPeople">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="@Model.course.FBasicPeople" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="@Model.course.FLimitPeople" class="control-label"></label>:
+                                    <div class="product__details__option">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="@Model.course.FLimitPeople">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="@Model.course.FLimitPeople" class="text-danger"></span>
+                                </li>
+
+                                <li><label asp-for="@Model.course.FClassState" class="control-label"></label>:<br /> <span>@Html.DropDownListFor(model => model.course.FClassState, (IEnumerable<SelectListItem>)Model.ClassDDL)</span><br /><br /></li>
+                                <li><span asp-validation-for="@Model.course.FClassState" class="text-danger"></span></li>
+                                <li><label asp-for="@Model.course.FClassRoom" class="control-label"></label>: <span><input asp-for="@Model.course.FClassRoom" class="" /></span></li>
+                                <li><span asp-validation-for="@Model.course.FClassRoom" class="text-danger"></span></li>
+                                <li><label asp-for="@Model.course.FTeacher" class="control-label"></label>: <span><input asp-for="@Model.course.FTeacher" class="" /></span></li>
+                                <li><span asp-validation-for="@Model.course.FTeacher" class="text-danger"></span></li>
+                                <li><label asp-for="@Model.course.FDiscountDate" class="control-label"></label>: <span><input asp-for="@Model.course.FDiscountDate" class="" /></span></li>
+                                <li><span asp-validation-for="@Model.course.FDiscountDate" class="text-danger"></span></li>
+                            </ul>
+
+                            <div class="product__details__option">
+                                <a href="#" class="primary-btn">Add to cart</a>
+                                <a href="#" class="heart__btn"><span class="icon_heart_alt"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product__details__tab">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Additional information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Previews(1)</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-lg-8">
+                                        <p>
+                                            This delectable Strawberry Pie is an extraordinary treat filled with sweet and
+                                            tasty chunks of delicious strawberries. Made with the freshest ingredients, one
+                                            bite will send you to summertime. Each gift arrives in an elegant gift box and
+                                            arrives with a greeting card of your choice that you can personalize online!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-lg-8">
+                                        <p>
+                                            This delectable Strawberry Pie is an extraordinary treat filled with sweet and
+                                            tasty chunks of delicious strawberries. Made with the freshest ingredients, one
+                                            bite will send you to summertime. Each gift arrives in an elegant gift box and
+                                            arrives with a greeting card of your choice that you can personalize online!2
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-lg-8">
+                                        <p>
+                                            This delectable Strawberry Pie is an extraordinary treat filled with sweet and
+                                            tasty chunks of delicious strawberries. Made with the freshest ingredients, one
+                                            bite will send you to summertime. Each gift arrives in an elegant gift box and
+                                            arrives with a greeting card of your choice that you can personalize online!3
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Shop Details Section End -->
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+    getPeopleNumber();
+    function getPeopleNumber() {
+        let status = $("#casestatus").val();
+        console.log(status);
+        //新增課程->2
+        if (status == 2) {
+            $("#txtBasicPeople").val(0);
+            $("#txtLimitPeople").val(0);
+        }
+    }
+
+    $(".")
+
+    @*$("#test").on("change", function () {
+        let $input = $("#test");
+        let files = $input.prop("files");
+        console.log(files);
+        let data = new FormData();
+        data.append("avatar", files[0]);
+
+        console.log(data);
+        $.ajax({
+            url: "@Url.Content("~/Course/SavePhoto")",
+            type: "POST",
+            data: data,
+            cache: false,
+            processData: false,
+            contentType:false
+        })
+    })*@
+
+    @*$("#divtest").on("change", "#test", async function () {
+        //console.log(e);
+        //let files = $(e).prop("files");
+        let files = this.files[0];
+        let formData = new FormData();
+        formData.append("file", files);
+        console.log("a");
+        let response = await fetch("@Url.Content("~/Course/SavePhoto")", { method: "POST", body: formData });
+    })*@
+
+    @*let test = document.getElementById("test");
+    test.addEventListener("change", function (e) {
+        let files = $(e).prop("files");
+        console.log(files);
+        //let response = await fetch("@Url.Content("~/Course/SavePhoto")", {method:"POST",body:fordata})
+        //console.log("yes");
+    })*@
+    </script>
+
+}
+@*<div class="form-group">
+        <label asp-for="FEchelonId" class="control-label"></label>
+        <input asp-for="FEchelonId" class="form-control" />
+        <span asp-validation-for="FEchelonId" class="text-danger"></span>
+    </div>*@

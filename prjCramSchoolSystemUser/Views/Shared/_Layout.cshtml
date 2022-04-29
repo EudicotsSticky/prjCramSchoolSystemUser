@@ -1,0 +1,239 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using prjCramSchoolSystemUser.Data
+@using prjCramSchoolSystemUser.Enums
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="CramSchool System">
+    <meta name="keywords" content="course shopping, find teacher, education, junior student">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"] - 補習班</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="~/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__cart">
+            <div class="offcanvas__cart__links">
+                <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
+                <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
+            </div>
+            <div class="offcanvas__cart__item">
+                <a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
+                <div class="cart__price">購物車: <span>$0.00</span></div>
+            </div>
+        </div>
+        <div class="offcanvas__logo">
+            <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" alt="" height="64"></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="header__top__inner">
+                            <div class="header__top__left">
+                                <partial name="_LoginPartial" />
+                            </div>
+                            <div class="header__logo">
+                                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" alt="" height="64"></a>
+                            </div>
+                            <div class="header__top__right">
+                                <div class="header__top__right__links">
+                                    <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
+                                    <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
+                                </div>
+                                <div class="header__top__right__cart">
+                                    <a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
+                                    <div class="cart__price">購物車: <span>$0.00</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas__open"><i class="fa fa-bars"></i></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                            <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Index">課程購買</a></li>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Roles.Default.ToString()))
+                                {
+                                    <li>
+                                        <a class="text-nowrap" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">會員中心</a>
+                                        <ul class="dropdown">
+                                            <li class="text-nowrap">
+                                                <a class="text-nowrap" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">個人資料修改</a>
+                                            </li>
+                                            <li class="text-nowrap">
+                                                <a class="text-nowrap" asp-area="" asp-controller="ParentBinding" asp-action="ViewParent">家長綁定設定</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                                @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Roles.SuperAdmin.ToString()))
+                                {
+                                    <li>
+                                        <a class="text-nowrap" asp-area="" asp-controller="UserRoles" asp-action="Index">管理員中心</a>
+                                        <ul class="dropdown">
+                                            <li class="text-nowrap">
+                                                <a class="text-nowrap" asp-area="" asp-controller="UserRoles" asp-action="Index">會員身分管理</a>
+                                            </li>
+                                            <li class="text-nowrap">
+                                                <a class="text-nowrap" asp-area="" asp-controller="RoleManager" asp-action="Index">身分組更改</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">討論區</a></li>
+                            <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Privacy">隱私權政策</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">聯繫我們</a></li>
+                            @*<li class="text-nowrap"><a asp-area="" asp-controller="RoleManager" asp-action="Index">身分權限管理</a></li>*@
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    @RenderBody()
+
+    <!-- Footer Section Begin -->
+    <footer class="footer set-bg" data-setbg="@Url.Content("~/img/footer-bg.jpg")">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>WORKING HOURS</h6>
+                        <ul>
+                            <li>Monday - Friday: 08:00 am – 08:30 pm</li>
+                            <li>Saturday: 10:00 am – 16:30 pm</li>
+                            <li>Sunday: 10:00 am – 16:30 pm</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="~/img/footer-logo.png" alt=""></a>
+                        </div>
+                        <p>
+                            Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore dolore magna aliqua.
+                        </p>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer__newslatter">
+                        <h6>Subscribe</h6>
+                        <p>Get latest updates and offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Email">
+                            <button type="submit"><i class="fa fa-send-o"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <p class="copyright__text text-white">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="copyright__widget">
+                            <ul>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <li><a href="#">Site Map</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+    <!-- Js Plugins -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/7e8f4242cb.js" crossorigin="anonymous"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery.barfiller.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.nicescroll.min.js"></script>
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

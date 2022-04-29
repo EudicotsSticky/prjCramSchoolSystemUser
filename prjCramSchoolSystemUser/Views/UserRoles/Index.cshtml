@@ -1,0 +1,39 @@
+﻿@using prjCramSchoolSystemUser.Models.RoleViewModels
+@model List<UserRolesViewModel>
+@{
+    ViewData["Title"] = "會員身分管理";
+}
+<section class="instagram spad">
+    <div class="container">
+        <div class="row">
+            <h1>會員身分管理</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>帳號</th>
+                        <th>姓氏</th>
+                        <th>名字</th>
+                        <th>Email</th>
+                        <th>身分</th>
+                        <th>修改</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.Email</td>
+                        <td>@string.Join(", ", user.Roles.ToList())</td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">身分管理</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
