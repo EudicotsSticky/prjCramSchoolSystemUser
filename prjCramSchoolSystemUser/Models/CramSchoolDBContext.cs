@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using prjCramSchoolSystemUser.Models.ParentBindingModel;
 
 #nullable disable
 
@@ -206,13 +205,13 @@ namespace prjCramSchoolSystemUser.Models
                 entity.HasOne(d => d.FCourse)
                     .WithMany(p => p.TCourseInformations)
                     .HasForeignKey(d => d.FCourseId)
-                    .HasConstraintName("FK_tCourseInformation_tCourseModel");
+                    .HasConstraintName("FK_tCourseInformation_tCourseModle");
             });
 
             modelBuilder.Entity<TCourseInformationImg>(entity =>
             {
                 entity.HasKey(e => e.FId)
-                    .HasName("PK_tCourseModelImg");
+                    .HasName("PK_tCourseModleImg");
 
                 entity.ToTable("tCourseInformationImg");
 
@@ -229,13 +228,13 @@ namespace prjCramSchoolSystemUser.Models
                 entity.HasOne(d => d.FEchelon)
                     .WithMany(p => p.TCourseInformationImgs)
                     .HasForeignKey(d => d.FEchelonId)
-                    .HasConstraintName("FK_tCourseModelImg_tCourseModel");
+                    .HasConstraintName("FK_tCourseModleImg_tCourseModle");
             });
 
             modelBuilder.Entity<TCourseModel>(entity =>
             {
                 entity.HasKey(e => e.FCourseId)
-                    .HasName("PK_tCourseModel");
+                    .HasName("PK_tCourseModle");
 
                 entity.ToTable("tCourseModel");
 
@@ -296,7 +295,8 @@ namespace prjCramSchoolSystemUser.Models
 
             modelBuilder.Entity<TCourseModelDetail>(entity =>
             {
-                entity.HasKey(e => e.FId);
+                entity.HasKey(e => e.FId)
+                    .HasName("PK_tCourseModleDetail");
 
                 entity.ToTable("tCourseModelDetail");
 
@@ -343,7 +343,7 @@ namespace prjCramSchoolSystemUser.Models
                 entity.HasOne(d => d.FCourse)
                     .WithMany(p => p.TCourseModelDetails)
                     .HasForeignKey(d => d.FCourseId)
-                    .HasConstraintName("FK_tCourseModelDetail_tCourseModel");
+                    .HasConstraintName("FK_tCourseModleDetail_tCourseModle");
             });
 
             modelBuilder.Entity<TOrder>(entity =>
@@ -720,7 +720,5 @@ namespace prjCramSchoolSystemUser.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<prjCramSchoolSystemUser.Models.ParentBindingModel.ParentBindingModel> ParentBindingModel { get; set; }
     }
 }
