@@ -10,8 +10,8 @@ namespace prjCramSchoolSystemUser.Models
     {
         //使用:CourseModel
         public static string[] c_name = new[] { "國文", "英文", "數學" };
-        public static string[] c_ename = new[] { "CN", "EN", "MT" };
-        public static string[] c_number = new[] { "1", "2", "3" };
+        public static string[] c_ename = new[] { "CN", "EN", "MT", "SC", "NT" };
+        public static string[] c_number = new[] { "1", "2", "3", "4", "5" };
 
         public string[] schoolyear_name = new[] { "上", "下" };
         public string[] schoolyear_number = new[] { "0", "1" };
