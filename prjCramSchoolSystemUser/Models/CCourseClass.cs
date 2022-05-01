@@ -9,7 +9,7 @@ namespace prjCramSchoolSystemUser.Models
     public class CourseData
     {
         //使用:CourseModel
-        public static string[] c_name = new[] { "國文", "英文", "數學" };
+        public static string[] c_name = new[] { "國文", "英文", "數學", "社會", "自然" };
         public static string[] c_ename = new[] { "CN", "EN", "MT", "SC", "NT" };
         public static string[] c_number = new[] { "1", "2", "3", "4", "5" };
 
@@ -20,7 +20,7 @@ namespace prjCramSchoolSystemUser.Models
         //尚未招生->(預排課表時)
         public string[] classstate_name = new[] { "尚未招生", "招生中", "額滿", "開課中", "已刪除" };
         public string[] classstate_number = new[] { "0", "1", "2", "3", "9" };
-
+        //
     }
 
     //科目代碼
