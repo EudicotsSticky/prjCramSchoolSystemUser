@@ -15,7 +15,7 @@
         <div class="container">
             <!-- Related Products Section Begin -->
             <section class="">
-                <div class="container">
+                @*<div class="container">
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <div class="section-title">
@@ -28,7 +28,7 @@
                             <div class="col-lg-3">
                                 <div class="divImg">
                                     <div class="" style="">
-                                        @*<img id="img1" src="~/images/@Model.courseimg_arr[0].FCourseImageName">*@
+                                        <img id="img1" src="~/images/@Model.courseimg_arr[0].FCourseImageName">
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="#">1</a></h6>
@@ -41,7 +41,7 @@
                             <div class="col-lg-3">
                                 <div class="divImg">
                                     <div class="" style="">
-                                        @*<img id="img2" src="~/images/@Model.courseimg_arr[1].FCourseImageName">*@
+                                        <img id="img2" src="~/images/@Model.courseimg_arr[1].FCourseImageName">
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="#">2</a></h6>
@@ -54,7 +54,7 @@
                             <div class="col-lg-3">
                                 <div class="divImg">
                                     <div class="" style="">
-                                        @*<img id="img3" src="~/images/@Model.courseimg_arr[2].FCourseImageName">*@
+                                        <img id="img3" src="~/images/@Model.courseimg_arr[2].FCourseImageName">
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="#">3</a></h6>
@@ -67,7 +67,7 @@
                             <div class="col-lg-3">
                                 <div class="divImg">
                                     <div class="" style="">
-                                        @*<img id="img4" src="~/images/@Model.courseimg_arr[3].FCourseImageName">*@
+                                        <img id="img4" src="~/images/@Model.courseimg_arr[3].FCourseImageName">
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="#">4</a></h6>
@@ -80,7 +80,7 @@
                             <div class="col-lg-3">
                                 <div class="divImg">
                                     <div class="" style="">
-                                        @*<img id="img5" src="~/images/@Model.courseimg_arr[4].FCourseImageName">*@
+                                        <img id="img5" src="~/images/@Model.courseimg_arr[4].FCourseImageName">
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="#">5</a></h6>
@@ -93,7 +93,7 @@
                             <div class="col-lg-3">
                                 <div class="divImg">
                                     <div class="" style="">
-                                        @*<img id="img6" src="~/images/@Model.courseimg_arr[5].FCourseImageName">*@
+                                        <img id="img6" src="~/images/@Model.courseimg_arr[5].FCourseImageName">
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="#">6</a></h6>
@@ -105,10 +105,93 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </section>
             <!-- Related Products Section End -->
             <!-- Shop Details Section Begin -->
+            <div class="row">
+                <div class="col-lg-6" id="product_imgs">
+                    <div class="product__details__img">
+                        <div class="product__details__big__img team__item">
+                            <div class="divImg">
+                                @*big_img*@
+                                @*<img id="img1" src="~/images/@Model.courseimg_arr[0].FCourseImageName">*@
+                                <div class="team__item__text">
+                                    <input type="file" class="uploadPhoto" id="photo1" name="photo1" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__details__thumb">
+                            <div class="pt__item active">
+                                <div class="divImg">
+                                    @*<img id="img2" src="~/images/@Model.courseimg_arr[1].FCourseImageName">*@
+                                    <div class="team__item__text">
+                                        <input type="file" class="uploadPhoto" id="photo2" name="photo2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt__item">
+                                <div class="divImg">
+                                    @*<img id="img3" src="~/images/@Model.courseimg_arr[2].FCourseImageName">*@
+                                    <div class="team__item__text">
+                                        <input type="file" class="uploadPhoto" id="photo3" name="photo3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt__item">
+                                <div class="divImg">
+                                    @*<img id="img4" src="~/images/@Model.courseimg_arr[3].FCourseImageName">*@
+                                    <div class="team__item__text">
+                                        <input type="file" class="uploadPhoto" id="photo4" name="photo4" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt__item">
+                                <div class="divImg">
+                                    @*<img id="img5" src="~/images/@Model.courseimg_arr[4].FCourseImageName">*@
+                                    <div class="team__item__text">
+                                        <input type="file" class="uploadPhoto" id="photo5" name="photo5" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt__item">
+                                <div class="divImg">
+                                    @*<img id="img6" src="~/images/@Model.courseimg_arr[5].FCourseImageName">*@
+                                    <div class="team__item__text">
+                                        <input type="file" class="uploadPhoto" id="photo6" name="photo6" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="product__details__text">
+                        <div class="product__label">Cupcake</div>
+                        <h4>SWEET AUTUMN LEAVES</h4>
+                        <h5>$26.41</h5>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore
+                            et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida
+                        </p>
+                        <ul>
+                            <li>SKU: <span>17</span></li>
+                            <li>Category: <span>Biscuit cake</span></li>
+                            <li>Tags: <span>Gadgets, minimalisstic</span></li>
+                        </ul>
+                        <div class="product__details__option">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value="2">
+                                </div>
+                            </div>
+                            <a href="#" class="primary-btn">Add to cart</a>
+                            <a href="#" class="heart__btn"><span class="icon_heart_alt"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="product__details__tab">
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs" role="tablist">
@@ -132,10 +215,12 @@
                                         <div class="product__label">Cupcake</div>
                                         @*<input type="hidden" asp-for="casestatus" id="casestatus" />*@
                                         <h4>
-                                            <label asp-for="@Model.course.FEchelonId" class="control-label"></label>：<label id="labEchelonId">@Html.DisplayFor(model=>model.course.FEchelonId)</label>
+                                            @*<label asp-for="@Model.course.FEchelonId" class="control-label"></label>：<label id="labEchelonId">@Html.DisplayFor(model => model.course.FEchelonId)</label>*@
+                                            <label asp-for="@Model.course.FEchelonId" class="control-label"></label>：<label id="labEchelonId">@Model.course.FEchelonId</label>
                                         </h4>
                                         <span asp-validation-for="@Model.course.FEchelonId" class="text-danger"></span>
                                         <div>
+                                            @Model.course.FCourseId
                                             @Html.DropDownListFor(model => model.course.FCourseId, (IEnumerable<SelectListItem>)Model.CourseDDL, new { @class = "form-control", id = "txtCategory" })
                                         </div>
                                         <br />
@@ -171,7 +256,8 @@
                                                 <span asp-validation-for="@Model.course.FLimitPeople" class="text-danger"></span>
                                             </li>
 
-                                            <li><label asp-for="@Model.course.FClassState" class="control-label"></label>:<br /> <span>@Html.DropDownListFor(model => model.course.FClassState, (IEnumerable<SelectListItem>)Model.ClassDDL)</span><br /><br /></li>
+                                            <li><label asp-for="@Model.course.FClassState" class="control-label"></label>:<br /> <span>
+                                                @Html.DropDownListFor(model => model.course.FClassState, (IEnumerable<SelectListItem>)Model.ClassDDL, new { @class = "form-control", id = "txtCategory1" })</span><br /><br /></li>
                                             <li><span asp-validation-for="@Model.course.FClassState" class="text-danger"></span></li>
                                             <li><label asp-for="@Model.course.FClassRoom" class="control-label"></label>: <span><input asp-for="@Model.course.FClassRoom" class="" /></span></li>
                                             <li><span asp-validation-for="@Model.course.FClassRoom" class="text-danger"></span></li>
@@ -246,11 +332,26 @@
             }
         }
 
+        $(".pt__item").on("click", function (e) {
+            let cover_picture = document.getElementsByClassName("product__details__big__img")[0].innerHTML;
+            let current = e.currentTarget;
+            let currentdiv = e.currentTarget.closest("div").innerHTML;
+
+            //
+            document.getElementsByClassName("product__details__big__img")[0].innerHTML = currentdiv;
+            e.currentTarget.closest("div").innerHTML=cover_picture
+        })
+
         //let Photo1 = document.getElementsByClassName("classPhoto");
         let Img1 = document.getElementById("img1");
 
         //$(".uploadPhoto").change(fun
-        $(".uploadPhoto").on("change", function (e) {
+        $("#product_imgs").on("change", ".uploadPhoto", function (e) {
+            //因為換過位置
+            //先去母容器裡面找 找到 .uploadPhoto 的 change 事件
+            //讀變動要執行的
+            //沒寫母容器 會錯
+            console.log("aa");
             //練習
             //$("#photo1").closest(".test").css("background", "yellow");
             //$(e.target).closest(".test").css("background", "yellow");
@@ -261,6 +362,7 @@
             //e.target->就是.uploadPhoto
             //往上找到div
             let areaImg = $(e.target).closest(".divImg");
+            console.log(areaImg.innerHTML);
             //拿到上傳圖片
             let photo = e.target.files[0];
             //建立FileReader物件
@@ -269,19 +371,30 @@
             reader.addEventListener("load", (evt) => {
                 //evt.target.result 拿到 base64
                 console.log(evt.target.result);
-                areaImg.children("div").children("img").attr("src", evt.target.result);
+                //areaImg.children("div").children("img").attr("src", evt.target.result);
+                console.log(areaImg.children("img").innerHTML)
+                areaImg.children("img").attr("src", evt.target.result);
             })
             //讀圖
             reader.readAsDataURL(photo);
         })
 
         $("#addCart").click(async function () {
-            let EchelonId = $("#labEchelonId").val();
+            let EchelonId = document.getElementById("labEchelonId").innerText;
             console.log(EchelonId);
             let response = await fetch("@Url.Content("~/Course/AddShoppinCat")" + `?fEchelonId=${EchelonId}`);
-            toastr["success"]("商品已加入購物車！");
+            //toastr["success"]("商品已加入購物車！");
+            toastr.options = {
+                onclick: function () {
+                   // console.log("aa");
+                    window.location.href = "@Url.Content("~/Shopping/Shoppingcart")";
+                }
+            }
+            toastr.success("success");
+            //toastr.options = { onclick: function () { alert("You clicked Me!"); } }
 
         })
+
 
             //Photo1[0].addEventListener("change", (e) => {
             //    console.log("aa");

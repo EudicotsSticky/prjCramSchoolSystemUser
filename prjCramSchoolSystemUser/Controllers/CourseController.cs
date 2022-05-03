@@ -48,7 +48,7 @@ namespace prjCramSchoolSystemUser.Controllers
         public IActionResult Detail(string id)
         {
             CCourseViewModel c = courseDDL("");
-            c.courseimg_arr = new TCourseInformationImg[6];
+            //c.courseimg_arr = new TCourseInformationImg[6];
             CCourseShowState cShow = new CCourseShowState();
             
             if (string.IsNullOrEmpty(id))
@@ -58,12 +58,15 @@ namespace prjCramSchoolSystemUser.Controllers
             if (course == null)
                 return RedirectToAction("List");
 
-            c.casestatus = cShow.showCourse("old");
             c.course = course;
+            c.courseimg = showImg(c.course.FEchelonId);
+            c.Price = string.Format("{0:0,0}",(decimal)checkPrice(course.FCourse.FOriginalPrice, course.FCourse.FSpecialOffer, course.FDiscountDate));
+            c.Detail_List = getDetailList(course.FCourse.FCourseId);
 
-            string[] photoarr = showCourseImg(c.course.FEchelonId);
-            for (int i = 0; i < c.courseimg_arr.Length; i++)
-                c.courseimg_arr[i] = new TCourseInformationImg() { FEchelonId = c.course.FEchelonId, FCourseImageName = photoarr[i] };
+            //c.casestatus = cShow.showCourse("old");
+            //string[] photoarr = showCourseImg(c.course.FEchelonId);
+            //for (int i = 0; i < c.courseimg_arr.Length; i++)
+            //    c.courseimg_arr[i] = new TCourseInformationImg() { FEchelonId = c.course.FEchelonId, FCourseImageName = photoarr[i] };
             return View(c);
         }
         #region
@@ -135,26 +138,46 @@ namespace prjCramSchoolSystemUser.Controllers
             return Content("");
         }
 
-        //顯示圖片
-        [NonAction]
-        private string[] showCourseImg(string fEchelonId)
+        //確認價錢
+        public decimal? checkPrice(decimal? fOriginalPrice, decimal? fSpecialOffer, DateTime? fDiscountDate)
         {
-            string[] photoarr = new string[6] { "NullImg.jpg", "NullImg.jpg", "NullImg.jpg", "NullImg.jpg", "NullImg.jpg", "NullImg.jpg" };
-            var data = from t in _context.TCourseInformationImgs.Where(c => c.FEchelonId.Equals(fEchelonId))
-                       select t;
-            List<TCourseInformationImg> data_List = data.ToList();
+            if (fOriginalPrice == null)
+                fOriginalPrice = 0;
+            if (fSpecialOffer == null)
+                fSpecialOffer = 0;
+            DateTime now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            if (fDiscountDate >= now)
+                return fSpecialOffer;
+            else
+                return fOriginalPrice;
+        }
 
-            if (data_List.Count > 0)
-            {
-                for (int i = 0; i < data_List.Count; i++)
-                {
-                    string imgName = data_List[i].FCourseImageName;
-                    int p = imgName.IndexOf("_");
-                    int num = Convert.ToInt32(imgName.Substring(p + 1, 1));
-                    photoarr[num-1] = imgName;
-                }
-            }
-            return photoarr;
+        public List<CCourseModelDetail_List> getDetailList(string fCourseId)
+        {
+            var data = from t in _context.TCourseModelDetails
+                       where t.FCourseId.Equals(fCourseId)
+                       select new CCourseModelDetail_List()
+                       {
+                           FCourseNumber = t.FCourseNumber,
+                           FSchedule = t.FSchedule,
+                           FScheduleDetail = t.FScheduleDetail,
+                           FTeachingMethod = t.FTeachingMethod,
+                           FRemark = t.FRemark
+                       };
+            List<CCourseModelDetail_List> List = data.ToList();
+            if (List.Count == 0)
+                return null;
+            return List;
+        }
+
+        //顯示圖片
+        private string showImg(string fEchelonId)
+        {
+            string photoarr = "NullImg.jpg";
+            TCourseInformationImg data = _context.TCourseInformationImgs.FirstOrDefault(c => c.FEchelonId.Equals(fEchelonId));
+            if (data == null)
+                return photoarr;
+            return data.FCourseImageName;
         }
 
         //下拉(課程模板)
@@ -199,6 +222,29 @@ namespace prjCramSchoolSystemUser.Controllers
                 string json = HttpContext.Session.GetString(CDictionary.SK_LONGUNED_ID);
                 userID = JsonSerializer.Deserialize<string>(json);
             }
+        }
+
+        //目前沒使用
+        //顯示圖片
+        [NonAction]
+        private string[] showCourseImg(string fEchelonId)
+        {
+            string[] photoarr = new string[6] { "NullImg.jpg", "NullImg.jpg", "NullImg.jpg", "NullImg.jpg", "NullImg.jpg", "NullImg.jpg" };
+            var data = from t in _context.TCourseInformationImgs.Where(c => c.FEchelonId.Equals(fEchelonId))
+                       select t;
+            List<TCourseInformationImg> data_List = data.ToList();
+
+            if (data_List.Count > 0)
+            {
+                for (int i = 0; i < data_List.Count; i++)
+                {
+                    string imgName = data_List[i].FCourseImageName;
+                    int p = imgName.IndexOf("_");
+                    int num = Convert.ToInt32(imgName.Substring(p + 1, 1));
+                    photoarr[num - 1] = imgName;
+                }
+            }
+            return photoarr;
         }
 
         #region

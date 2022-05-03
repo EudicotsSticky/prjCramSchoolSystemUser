@@ -173,10 +173,10 @@
     <None Include="Views\CourseModel\Detail.cshtml" />
     <None Include="Views\CourseModel\Edit.cshtml" />
     <None Include="Views\CourseModel\List.cshtml" />
-    <None Include="Views\Course\Detail.cshtml" />
+    <None Include="Views\Course\Detail3.cshtml" />
     <None Include="Views\Course\Detail1.cshtml" />
     <None Include="Views\Course\Detail2.cshtml" />
-    <None Include="Views\Course\Edit.cshtml" />
+    <None Include="Views\Course\Edit1.cshtml" />
     <None Include="Views\Course\List.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
