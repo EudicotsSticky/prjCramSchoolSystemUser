@@ -50,12 +50,12 @@ namespace prjCramSchoolSystemUser.Controllers
                 {
                     json = HttpContext.Session.GetString(CDictionary.SK_COURSE_PURCHASED_LIST);
                     cart = JsonSerializer.Deserialize<List<CShoppingCart>>(json);
-                    cart = shopping_operate.checkBought(fEchelonId, price, cart, name,course.FCoverImg);
+                    cart = shopping_operate.checkBought(fEchelonId, price, cart, name, showImg(course.FEchelonId));//,course.FCoverImg
                 }
                 else
                 {
                     cart = new List<CShoppingCart>();
-                    CShoppingCart item = shopping_operate.addBuy(echelonId, price, name,course.FCoverImg);
+                    CShoppingCart item = shopping_operate.addBuy(echelonId, price, name, showImg(course.FEchelonId));//,course.FCoverImg
                     cart.Add(item);
                 }
                 c_shoppingcart.ShoppingCart_List = cart;
@@ -115,6 +115,16 @@ namespace prjCramSchoolSystemUser.Controllers
                 HttpContext.Session.SetString(CDictionary.SK_COURSE_PURCHASED_LIST, json);
             }
             return Json(c_shoppingcart);
+        }
+
+        //顯示圖片
+        private string showImg(string fEchelonId)
+        {
+            string photoarr = "NullImg.jpg";
+            TCourseInformationImg data = _context.TCourseInformationImgs.FirstOrDefault(c => c.FEchelonId.Equals(fEchelonId));
+            if (data == null)
+                return photoarr;
+            return data.FCourseImageName;
         }
 
         //目前沒使用到

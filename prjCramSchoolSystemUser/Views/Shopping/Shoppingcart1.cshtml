@@ -1,21 +1,12 @@
 ﻿@model prjCramSchoolSystemUser.ViewModel.CShoppingCartViewModel
 
 @{
-    ViewData["Title"] = "購物車";
+    ViewData["Title"] = "Shoppingcart";
 }
-@section Styles{
-<style>
-    .totalamount {
-        color: #111111;
-        font-size: 16px;
-        font-weight: 600;
-        width: 140px;
-    }
-</style>
- }
+
 @*<h1>Shoppingcart</h1>
 
-    <h4>CShoppingCartViewModel</h4>*@
+<h4>CShoppingCartViewModel</h4>*@
 @*<hr />*@
 <div class="">
     <div class="">
@@ -44,14 +35,12 @@
             <section class="shopping-cart spad">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-8">
                             <div class="shopping__cart__table">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th style="display:none"></th>
-                                            <th style="padding-right:20px;">課程</th>
-                                            <th></th>
+                                            <th>課程</th>
                                             <th>數量</th>
                                             <th>金額</th>
                                             <th></th>
@@ -65,12 +54,12 @@
                                                 {
                                                     <tr>
                                                         <td style="display:none">@Model.ShoppingCart_List[i].EchelonId</td>
-                                                        <td class="product__cart__item" colspan="2">
+                                                        <td class="product__cart__item">
                                                             <div class="product__cart__item__pic">
-                                                                <img src="@Model.ShoppingCart_List[i].PhotoName" style="width:200px;">
+                                                                <img src="@Model.ShoppingCart_List[i].PhotoName" style="width:90px;" alt="">
                                                             </div>
                                                             <div class="product__cart__item__text">
-                                                                <h5>@Model.ShoppingCart_List[i].Name</h5>
+                                                                <h6>@Model.ShoppingCart_List[i].Name</h6>
                                                                 <h5>$@Model.ShoppingCart_List[i].Price.ToString("###,###,##0")</h5>
                                                             </div>
                                                         </td>
@@ -83,7 +72,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td class="cart__price">$@Model.ShoppingCart_List[i].Course_TotalPrice.ToString("###,###,##0")</td>
+                                                        <td class="cart__price">@Model.ShoppingCart_List[i].Course_TotalPrice.ToString("###,###,##0")</td>
                                                         <td class="cart__close"><span class="icon_close"></span></td>
                                                     </tr>
                                                 }
@@ -92,44 +81,35 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @{
-                                if (Model.ShoppingCart_List != null)
-                                {
-                                    <div style="margin-bottom: 30px;text-align:right;">
-                                        <span class="totalamount" style="margin-right:50px;">總金額</span><span class="totalamount">$</span><span id="course_Price" class="totalamount" style="margin-right:20px;">@Model.TotalPrice.ToString("###,###,##0")</span>
-                                    </div>
-                                }
-                            }
-
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="continue__btn">
-                                        <a href="@Url.Content("~/Course/List")">繼續購買</a>
+                                        <div class="continue__btn">
+                                            <a href="@Url.Content("~/Course/List")">繼續購買</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                @*<div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="continue__btn update__btn">
-                                        <a href="@Url.Content("~/Course/List")" style="background-color: #5599FF; border-color: #5599FF ">結帳</a>
+                                        <a href="@Url.Content("~/Course/List")">Continue Shopping</a>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
-                        <!--<div class="col-lg-4">-->
+                        <div class="col-lg-4">
                             @*<div class="cart__discount">
-                                    <h6>Discount codes</h6>
-                                    <form action="#">
-                                        <input type="text" placeholder="Coupon code">
-                                        <button type="submit">Apply</button>
-                                    </form>
-                                </div>*@
-                            <!--<div class="cart__total">
+                                <h6>Discount codes</h6>
+                                <form action="#">
+                                    <input type="text" placeholder="Coupon code">
+                                    <button type="submit">Apply</button>
+                                </form>
+                            </div>*@
+                            <div class="cart__total">
                                 <h6>購物車總數</h6>
                                 <ul>
                                     <li>總金額 <span id="course_Price">@Model.TotalPrice.ToString("###,###,##0")</span></li>
                                 </ul>
                                 <a href="#" class="primary-btn">結帳</a>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </section>
@@ -144,7 +124,6 @@
     <script>
         //e.target 指的是觸發的事件evt的那個物件
         //this 會隨著環境改變
-        //課程數量加一
     $("table").on("click", ".pro-qty #addCount", async function (e) {
                 console.log("aa");
             let row = $(e.target).closest("tr");
@@ -156,7 +135,6 @@
         $("#course_Price").text(data.totalPrice);
     })
 
-        //刪除指定課程
         $("table").on("click", ".cart__close .icon_close", async function (e) {
             let row = $(e.target).closest("tr");
             let EchelonId = row.find("td:eq(0)").text();
@@ -166,8 +144,6 @@
             showTable(data.shoppingCart_List);
             $("#course_Price").text(data.totalPrice);
         })
-
-        //課程數量減一
         $("table").on("click", ".pro-qty #minusCount", async function (e) {
             let row = $(e.target).closest("tr");
             //let count = row.find("td:eq(2)").text();
@@ -180,16 +156,15 @@
         })
 
         function showTable(arr) {
-            console.log(arr);
         const docFrag = $(document.createDocumentFragment());
         $.each(arr, function (idx, rowdata) {
-            const { echelonId, count, price, name, course_TotalPrice, photoName } = rowdata;
-            let row = `<tr><td style="display:none">${echelonId}</td><td class="product__cart__item" colspan="2">`;
-            row += `<div class="product__cart__item__pic"><img src="${photoName}" style="width:200px;"></div>`;
+            const { echelonId, count, price, name, course_TotalPrice } = rowdata;
+            let row = `<tr><td style="display:none">${echelonId}</td><td class="product__cart__item">`;
+            row += `<div class="product__cart__item__pic"><img src="@Url.Content("~/img/shop/cart/cart-1.jpg")"></div>`;
             row += `<div class="product__cart__item__text"><h6>${name}</h6><h5>$${price}</h5></div></td>`;
             row += `<td class="quantity__item"><div class="quantity"><div class="pro-qty"><span id="minusCount" class="dec qtybtn">-</span>`;
-            row += `<input type="text" value="${count}"><span id="addCount" class="inc qtybtn">+</span></div></div></td>`;
-            row += `<td class="cart__price">${course_TotalPrice}</td>`
+            row += `<input type="text" value="${count}"> <span id="addCount" class="inc qtybtn">+</span></div></div></td>`;
+            row += `<td id="coursetotal_price" class="cart__price">${course_TotalPrice}</td>`
             row += `<td class="cart__close"><span class="icon_close"></span></td></tr>`;
             docFrag.append(row);
         })

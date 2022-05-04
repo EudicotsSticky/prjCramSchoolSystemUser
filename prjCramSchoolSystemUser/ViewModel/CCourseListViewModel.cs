@@ -9,6 +9,7 @@ namespace prjCramSchoolSystemUser.ViewModel
     public class CCourseListViewModel
     {
         public List<CCourseList> course { get; set; }
+        public string[] CategoryDDL = CourseData.c_name;
         public int page { get; set; }
     }
     public class CCourseList

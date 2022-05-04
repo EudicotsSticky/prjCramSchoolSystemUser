@@ -18,7 +18,9 @@
 
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
+    <Content Remove="Views\Course\List1.cshtml" />
     <Content Remove="Views\Order\AioCheckOut.cshtml" />
+    <Content Remove="Views\Shopping\Shoppingcart1.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -177,6 +179,7 @@
     <None Include="Views\Course\Detail1.cshtml" />
     <None Include="Views\Course\Detail2.cshtml" />
     <None Include="Views\Course\Edit1.cshtml" />
+    <None Include="Views\Course\List1.cshtml" />
     <None Include="Views\Course\List.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
@@ -186,7 +189,7 @@
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <None Include="Views\Shopping\Shoppingcart.cshtml" />
+    <None Include="Views\Shopping\Shoppingcart1.cshtml" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />

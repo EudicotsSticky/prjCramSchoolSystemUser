@@ -36,11 +36,14 @@ namespace prjCramSchoolSystemUser.Controllers
                            OriginalPrice = t.FCourse.FOriginalPrice,
                            SpecialOffer = t.FCourse.FSpecialOffer,
                            DiscountDate=t.FDiscountDate,
-                           PhotoName=t.FCoverImg
                        };
+            List<CCourseList> List = data.Take(10).ToList();
             int count = data.Count();
+            //c.course = data.Take(10).ToList();
+            foreach (var item in List)
+                item.PhotoName = showImg(item.FEchelonId);
+            c.course = List;
             c.page = (count < 10) ? 1 : (int)Math.Ceiling(Math.Round((decimal)count / 10, 1));
-            c.course = data.Take(10).ToList();
             return View(c);
         }
 
@@ -123,12 +126,12 @@ namespace prjCramSchoolSystemUser.Controllers
                 {
                     json = HttpContext.Session.GetString(CDictionary.SK_COURSE_PURCHASED_LIST);
                     cart = JsonSerializer.Deserialize<List<CShoppingCart>>(json);
-                    cart = shopping_operate.checkBought(fEchelonId, price, cart, name,course.FCoverImg);
+                    cart = shopping_operate.checkBought(fEchelonId, price, cart, name, showImg(course.FEchelonId));//,course.FCoverImg
                 }
                 else
                 {
                     cart = new List<CShoppingCart>();
-                    CShoppingCart item = shopping_operate.addBuy(echelonId, price, name,course.FCoverImg);
+                    CShoppingCart item = shopping_operate.addBuy(echelonId, price, name, showImg(course.FEchelonId));//,course.FCoverImg
                     cart.Add(item);
                 }
 

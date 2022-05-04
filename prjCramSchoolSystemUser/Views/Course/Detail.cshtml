@@ -1,13 +1,21 @@
 ﻿@model prjCramSchoolSystemUser.ViewModel.CCourseViewModel
 
-@{
-    ViewData["Title"] = "Detail";
+@{ 
+    if (!string.IsNullOrEmpty(Model.course.FEchelonId))
+    {
+        ViewData["Title"] = Model.course.FCourse.FName;
+    }
+    else
+    {
+        ViewData["Title"] = "Detail";
+    }
 }
 @section Styles{
     <style>
         .coverimg {
             border: 2px green dashed;
         }
+
         #table_title {
             color: #111111;
             font-weight: 600;
@@ -17,7 +25,6 @@
             padding-bottom: 10px;
             margin-bottom: 10px;
         }
-        
     </style>
 }
 <!-- Breadcrumb Begin -->
@@ -41,7 +48,7 @@
 </div>
 <!-- Breadcrumb End -->
 
-<form asp-action="Edit" class="product-details spad form-inline" enctype="multipart/form-data" style="padding-top:30px;">
+<form asp-action="Edit" class="product-details spad form-inline" enctype="multipart/form-data" style="padding-top:50px;">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="container" id="product_imgs">
         <div class="row">
@@ -64,10 +71,10 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <input type="hidden" asp-for="@Model.course.FEchelonId" id="casestatus" />
-                        <input type="hidden" asp-for="@Model.course.FName" id="casestatus" />
+                        <input type="hidden" asp-for="@Model.course.FEchelonId" id="fEchelonId" />
+                        <input type="hidden" asp-for="@Model.course.FName" id="fName" />
                         <div class="product__details__text">
-                            <div class="product__label">@Html.DisplayFor(model => model.ClassState)</div>
+                            <div class="product__label" style="border-width: 1px; border-style: solid; border-color: #5599FF; padding: 5px; background-color: #FFFFFF; color: #5599FF; ">@Html.DisplayFor(model => model.ClassState)</div>
                             <h4 style="margin-bottom: 10px; margin-top: 10px;">@Html.DisplayFor(model => model.course.FCourse.FName)</h4>
                             @{
                                 string originalprice = "";
@@ -84,9 +91,9 @@
                                 {
                                     <h5 style="text-decoration: line-through; border-bottom:none; padding-bottom:0px; margin-bottom:5px;">$@originalprice</h5>
                                     <h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; ">$@Model.Price</h5>
-                                    <ul style="padding-bottom: 0px; margin-bottom: 5px;">
-                                        <li>優惠價錢至<span>@Model.DiscountDate</span></li>
-                                    </ul>
+                                    @*<ul style="padding-bottom: 0px; margin-bottom: 5px;">
+                                            <li>優惠價錢至<span>@Model.DiscountDate</span></li>
+                                        </ul>*@
                                 }
                                 //原價
                                 else
@@ -95,15 +102,21 @@
                                 }
                             }
                             <ul style="padding-bottom: 0px; margin-bottom: 5px;padding-top:0px;margin-top:5px;">
+                                @{
+                                    if (Model.course.FDiscountDate >= DateTime.Now)
+                                    {
+                                        <li>優惠價錢至<span>@Model.DiscountDate</span></li>
+                                    }
+                                }
                                 <li>授課年級:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FCourse.FGrade)</span><span style="padding-left:6px;">@Model.SchoolYear</span><span>學期</span></li>
                                 @*<li>學期:<span style="padding-left:6px;">@Model.SchoolYear</span></li>*@
                                 <li>課程堂數:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FCourse.FTotalNumber)</span></li>
                                 <li>課程總時數:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FCourse.FTotalHours)</span></li>
-                                <li>開班日期:<span style="padding-left:6px;">@StartTime</span>~<span>@EndTime</span></li>
+                                <li>開班日期:<span style="padding-left:6px;">@StartTime</span>&nbsp;~&nbsp;<span>@EndTime</span></li>
                                 <li>上課時間:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FTime)</span></li>
                                 <li>授課老師:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FTeacher)</span></li>
                             </ul>
-                            <button type="button" class="btn btn-primary">Primary</button>
+                            <button id="addCart" type="button" class="btn" style="text-align: center; border-width: 1px; border-style: solid; border-color: #5599FF; background-color: #FFFFFF; color: #5599FF; "><h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; color: #5599FF;"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;加入購物車</h5></button>
                         </div>
                     </div>
                 </div>
@@ -153,36 +166,29 @@
 </form>
 
 @*<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
-<script>
-        //getPeopleNumber();
-
-        //一開始 欄位預設值輸入
-        function getPeopleNumber() {
-            let status = $("#casestatus").val();
-            //console.log(status);
-            //新增課程
-            if (status == "") {
-                $("#txtBasicPeople").val(0);
-                $("#txtLimitPeople").val(0);
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script>
+        $("#addCart").click(async function () {
+            //let EchelonId = document.getElementById("fEchelonId");
+            let EchelonId = $("#fEchelonId").val();
+            console.log(EchelonId);
+            let response = await fetch("@Url.Content("~/Course/AddShoppinCat")" + `?fEchelonId=${EchelonId}`);
+            //toastr["success"]("商品已加入購物車！");
+            toastr.options = {
+                onclick: function () {
+                    window.location.href = "@Url.Content("~/Shopping/Shoppingcart")";
+                }
             }
-            //封面圖
-            if ($("#txtcoverimg").val() != "") {
-                let t = "#" + $("#txtcoverimg").val();
-                let cover_picture = $(".product__details__big__img").eq(0).children(".divImg").children("img");
-                console.log(cover_picture)
-                let targetdiv = $(t);
-                console.log(targetdiv)
+            //toastr.success("success");
+            toastr.success("課程已加入購物車！");
+            //toastr.options = { onclick: function () { alert("You clicked Me!"); } }
 
-                $(t).closest(".divImg").html(cover_picture);
-                $(".product__details__big__img").eq(0).children(".divImg").html(targetdiv);
-                $(".coverimg").eq(0).removeClass("coverimg");
-                $(".product__details__big__img").eq(0).children(".divImg").children("img").addClass("coverimg");
-            }
-        }
-</script>
+        })
+    </script>
 }
