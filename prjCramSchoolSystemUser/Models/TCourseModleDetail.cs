@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace prjCramSchoolSystemUser.Models
 {
-    public partial class TCourseModelDetail
+    public partial class TCourseModleDetail
     {
         public int FId { get; set; }
         public string FCourseId { get; set; }

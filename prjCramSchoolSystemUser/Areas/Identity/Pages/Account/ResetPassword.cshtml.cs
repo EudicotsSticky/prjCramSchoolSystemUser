@@ -28,18 +28,19 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "請輸入{0}")]
+            [EmailAddress(ErrorMessage = "請輸入有效的電子郵件地址")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "請輸入{0}")]
+            [StringLength(100, ErrorMessage = "{0}必須最少{2}字且不超過{1}字。", MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [Display(Name ="密碼")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "密碼確認")]
+            [Compare("Password", ErrorMessage = "兩次輸入密碼並不相同。")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }

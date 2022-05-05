@@ -31,15 +31,15 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "請輸入新密碼")]
+            [StringLength(100, ErrorMessage = "{0}必須最少{2}字且最多{1}字。", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "新密碼")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "確認新密碼")]
+            [Compare("NewPassword", ErrorMessage = "兩次密碼輸入並不相符。")]
             public string ConfirmPassword { get; set; }
         }
 

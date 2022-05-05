@@ -12,69 +12,105 @@
     <div>
         <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.ThumbnailName"></label>
-                <div class="centered">
-                    <img class="img-thumbnail" id="thumbnailImg" src="@Url.Content(Model.FolderPath)@Model.ThumbnailPath" alt="無此圖片" height=300 />
-                    <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Input.ThumbnailName"></label>
+                        <div class="text-center">
+                            <img class="img-thumbnail rounded" style="max-height:200px" id="thumbnailImg" src="@Url.Content(Model.FolderPath)@Model.ThumbnailPath" alt="無此圖片" />
+                            <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*">
+                        </div>
+                        <span asp-validation-for="Input.ThumbnailName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.LastName"></label>
+                        <input asp-for="Input.LastName" class="form-control" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.FirstName"></label>
+                        <input asp-for="Input.FirstName" class="form-control" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Gender"></label>
-                <input asp-for="Input.Gender" class="form-control" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Input.PhoneNumber"></label>
+                        <input asp-for="Input.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Input.Gender"></label>
+                        <div class="input__model">
+                            <select asp-for="Input.Gender" asp-items="Model.Input.Genders" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
             @{
                 if (Model.User.IsInRole(Roles.Default.ToString()))
                 {
-                    <div class="form-group">
-                        <label asp-for="Input.Grade"></label>
-                        <input asp-for="Input.Grade" class="form-control" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.Grade"></label>
+                                <input asp-for="Input.Grade" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.Status"></label>
+                                <input asp-for="Input.Status" class="form-control" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Input.Status"></label>
-                        <input asp-for="Input.Status" class="form-control" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.BirthDate"></label>
+                                <input asp-for="Input.BirthDate" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.Enrollment"></label>
+                                <input asp-for="Input.Enrollment" class="form-control" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Input.BirthDate"></label>
-                        <input asp-for="Input.BirthDate" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.Address"></label>
-                        <input asp-for="Input.Address" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.Enrollment"></label>
-                        <input asp-for="Input.Enrollment" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="FatherName"></label>
-                        <input asp-for="FatherName" class="form-control" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="MotherName"></label>
-                        <input asp-for="MotherName" class="form-control" disabled />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="FatherName"></label>
+                                <input asp-for="FatherName" class="form-control" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MotherName"></label>
+                                <input asp-for="MotherName" class="form-control" disabled />
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>
                             如家長帳號註冊已完成，請進行<a asp-controller="ParentBinding" asp-action="ViewParent">家長綁定</a>。
                         </label>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Address"></label>
+                        <input asp-for="Input.Address" class="form-control" />
                     </div>
                 }
                 if (Model.User.IsInRole(Roles.Parent.ToString()))

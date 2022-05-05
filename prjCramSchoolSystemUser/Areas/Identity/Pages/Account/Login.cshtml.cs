@@ -44,11 +44,11 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="請輸入帳號 / 信箱")]
             [Display(Name ="帳號 / 信箱")]
             public string LoginInput { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "請輸入密碼")]
             [DataType(DataType.Password)]
             [Display(Name ="密碼")]
             public string Password { get; set; }
@@ -122,7 +122,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "帳號/信箱或密碼輸入錯誤。");
                     return Page();
                 }
             }

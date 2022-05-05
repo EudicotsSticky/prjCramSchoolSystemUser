@@ -47,10 +47,10 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "請輸入驗證碼")]
             [StringLength(7, ErrorMessage = "驗證碼{0}必須最少{2}字，且最多{1}字長。", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Verification Code")]
+            [Display(Name = "驗證碼")]
             public string Code { get; set; }
         }
 
@@ -89,7 +89,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account.Manage
 
             if (!is2faTokenValid)
             {
-                ModelState.AddModelError("Input.Code", "Verification code is invalid.");
+                ModelState.AddModelError("Input.Code", "驗證碼錯誤。");
                 await LoadSharedKeyAndQrCodeUriAsync(user);
                 return Page();
             }
