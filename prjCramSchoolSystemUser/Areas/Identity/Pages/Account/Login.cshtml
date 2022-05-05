@@ -4,16 +4,32 @@
 @{
     ViewData["Title"] = "登入";
 }
-
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-4">
-            <section class="spad">
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>@ViewData["Title"]</h2>
+                    <h5>輸入帳號密碼以進行登入</h5>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
+                    <span>@ViewData["Title"]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<hr />
+<section class="spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
                 <form id="account" method="post">
-                    <h1>@ViewData["Title"]</h1>
-                    <h4>請輸入帳號密碼</h4>
-                    <hr />
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Input.LoginInput"></label>
@@ -48,20 +64,13 @@
                         </p>
                     </div>
                 </form>
-            </section>
-        </div>
-        <div class="col-md-6 col-md-offset-2">
-            <section class="spad">
-                <h4>使用第三方登入</h4>
-                <hr />
+            </div>
+            <div class="col-md-7 col-md-offset-2">
                 @{
                     if ((Model.ExternalLogins?.Count ?? 0) == 0)
                     {
                         <div>
-                            <p>
-                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                for details on setting up this ASP.NET application to support logging in via external services.
-                            </p>
+                            <img src="~/img/login-background.jpg" />
                         </div>
                     }
                     else
@@ -78,10 +87,11 @@
                         </form>
                     }
                 }
-            </section>
+            </div>
         </div>
     </div>
-    </div>
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -31,8 +31,8 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly string _folder;
-        public IList<SelectListItem> UserRoles;
-
+        public readonly IList<SelectListItem> UserRoles;
+        public readonly IList<SelectListItem> Genders;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -52,6 +52,13 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
             {
                 new SelectListItem{Value=Roles.Default.ToString(),Text="我是學生"},
                 new SelectListItem{Value=Roles.Parent.ToString(),Text="我是家長"}
+            };
+
+            Genders = new List<SelectListItem>
+            {
+                new SelectListItem{Value=Enums.Gender.male.ToString(), Text="男"},
+                new SelectListItem{Value=Enums.Gender.female.ToString(), Text="女"},
+                new SelectListItem{Value=Enums.Gender.other.ToString(), Text="其他"},
             };
         }
 
@@ -74,16 +81,16 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
         public class InputModel
         {
             // 更改預設註冊Username
-            [Required]
+            [Required(ErrorMessage = "請輸入{0}")]
             [Display(Name = "帳號")]
             public string Username { get; set; }
 
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "請輸入{0}")]
+            [EmailAddress(ErrorMessage = "請輸入有效的電子郵件地址")]
+            [Display(Name = "電子郵件地址")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "請輸入{0}")]
             [StringLength(100, ErrorMessage = "{0}必須至少包含{2}字且最多不超過{1}字。", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "密碼")]
@@ -99,23 +106,23 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
             [Display(Name = "大頭貼照")]
             public string ThumbnailName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "請輸入{0}")]
             [DataType(DataType.Text)]
             [Display(Name = "名字")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "請輸入{0}")]
             [DataType(DataType.Text)]
             [Display(Name = "姓")]
             public string LastName { get; set; }
 
-            [DataType(DataType.Text)]
             [Display(Name = "性別")]
             public string Gender { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "{0}")]
             [Display(Name = "請選擇身分")]
             public string UserRole { get; set; }
+
             public string ThumbnailUrl { get; set; }
 
             [Display(Name = "個人資料建立日期")]

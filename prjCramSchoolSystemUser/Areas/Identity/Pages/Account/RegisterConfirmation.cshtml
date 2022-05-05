@@ -3,20 +3,49 @@
 @{
     ViewData["Title"] = "驗證信確認";
 }
+<div class="breadcrumb-option">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="breadcrumb__text">
+                <h2>@ViewData["Title"]</h2>
+                <h5>請至信箱檢查驗證信</h5>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="breadcrumb__links">
+                <a asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
+                <span>@ViewData["Title"]</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Breadcrumb End -->
+<!--原生頁面-->
+<!-- About Section Begin -->
+<hr />
+<section class="manage">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @{
+                    if (@Model.DisplayConfirmAccountLink)
+                    {
+                        <p>
+                            This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+                            Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            請至信箱檢查驗證信。
+                        </p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
-    }
-    else
-    {
-<p>
-        請至信箱檢查驗證信。
-</p>
-    }
-}

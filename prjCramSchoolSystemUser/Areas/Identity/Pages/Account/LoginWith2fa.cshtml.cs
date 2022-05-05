@@ -33,7 +33,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="請輸入二階段驗證碼")]
             [StringLength(7, ErrorMessage = "{0}必須為最少{2}字且最大{1}字", MinimumLength = 6)]
             [DataType(DataType.Text)]
             [Display(Name = "二階段驗證碼")]
