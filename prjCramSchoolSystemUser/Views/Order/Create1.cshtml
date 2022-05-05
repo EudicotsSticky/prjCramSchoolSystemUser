@@ -1,0 +1,110 @@
+﻿@model prjCramSchoolSystemUser.ViewModel.COrderCreateViewModel
+
+@{
+    ViewData["Title"] = "建立訂單";
+}
+@section Styles{ 
+<style>
+    .divider {
+        padding-bottom: 25px;
+        margin-bottom: 30px;
+    }
+</style>
+}
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-6">
+                        <div style="border-width: 3px; border-style: double; border-color: #e1e1e1; padding: 25px; ">
+                            <h3 style=" margin-bottom:20px;">付款人資料</h3>
+                            <div class="checkout__input">
+                                <p>@Html.DisplayNameFor(model => model.UserName)<span>*</span></p>
+                                <input asp-for="@Model.UserName" class="form-control" />
+                            </div>
+                            <div class="checkout__input">
+                                <p>@Html.DisplayNameFor(model => model.oder.FUserId)<span>*</span></p>
+                                <input asp-for="@Model.oder.FUserId" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <div style="border-width: 3px; border-style: double; border-color: #e1e1e1; padding: 25px; ">
+                            <h3 class="checkout__title">學生資料</h3>
+                            @{
+                                if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
+                                {
+                                    foreach (var item in Model.coursedata.ShoppingCart_List)
+                                    {
+                                        for (int i = 0; i < item.Count; i++)
+                                        {
+                                            <input type="hidden" asp-for="@item.EchelonId" class="form-control" />
+                                            <div class="checkout__input">
+                                                <p>課程名稱<span>*</span></p>
+                                                <input asp-for="@item.Name" class="form-control" />
+                                            </div>
+                                            <div class="checkout__input">
+                                                <p>購買課程費用<span>*</span></p>
+                                                <input asp-for="@item.Price" class="form-control" />
+                                            </div>
+                                            <div class="checkout__input">
+                                                <!--<p>-->@*@Model.oder_detail[i].FReceiverId<span>*</span>*@<!--</p>-->
+                                                <p>@Html.LabelFor(model=>model.order_detail[i].FReceiverId)<span>*</span></p>
+                                                <input id="txtReceiver" class="form-control checkReceiver" asp-for="@Model.order_detail[i].FReceiverId" />
+                                                <small id="ReceiverMessage" class="form-text text-muted"></small>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                            <hr class="divider" />
+                            <div class="checkout__input">
+                                <label>總金額<span>@Model.coursedata.TotalPrice.ToString("###,###,##0")</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="建立訂單"class="primary-btn" style="border:2px blue none;" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    @*$("#test").click(function () {
+        let response=await fetch("@Url.Content("~/Order/")")
+    })*@
+
+    $("body").on("blur", ".checkReceiver",async function () {
+        console.log("aa");
+        let receiver = $("#txtReceiver").val();
+        let receiverMsg = $("#ReceiverMessage");
+        let message = "";
+        let response = await fetch("@Url.Content("~/order/checkReceiverId")" + `?account=${receiver}`);
+        if (response.status == 200) {
+            let data = await response.text();
+            if (data == "True") {
+                message = "";
+            } else {
+                message = "請確認帳號是否輸入正確";
+            }
+        } else {
+            message = "錯誤發生，無法驗證";
+        }
+        receiverMsg.html(message);
+    })
+</script>
+}

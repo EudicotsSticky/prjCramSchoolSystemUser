@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using prjCramSchoolSystemUser.Models.ParentBindingModel;
 
 #nullable disable
 
@@ -296,7 +295,8 @@ namespace prjCramSchoolSystemUser.Models
 
             modelBuilder.Entity<TCourseModleDetail>(entity =>
             {
-                entity.HasKey(e => e.FId);
+                entity.HasKey(e => e.FId)
+                    .HasName("PK_tCourseModleDetail");
 
                 entity.ToTable("tCourseModleDetail");
 
@@ -720,7 +720,5 @@ namespace prjCramSchoolSystemUser.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<prjCramSchoolSystemUser.Models.ParentBindingModel.ParentBindingModel> ParentBindingModel { get; set; }
     }
 }
