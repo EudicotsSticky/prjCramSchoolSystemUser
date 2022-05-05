@@ -32,8 +32,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="breadcrumb__links">
-                                <a href="./index.html">Home</a>
-                                <span>Shopping cart</span>
+                                <a href="@Url.Content("~/")">首頁</a>
+                                <span>購物車</span>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
             </div>
             <!-- Breadcrumb End -->
             <!-- Shopping Cart Section Begin -->
-            <section class="shopping-cart spad">
+            <section class="shopping-cart spad" style="padding-top:50px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -52,14 +52,14 @@
                                             <th style="display:none"></th>
                                             <th style="padding-right:20px;">課程</th>
                                             <th></th>
-                                            <th>數量</th>
+                                            <th><span style="margin-left:25px;">數量</span></th>
                                             <th>金額</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @{
-                                            if (Model.ShoppingCart_List != null)
+                                            if (Model.ShoppingCart_List != null && Model.ShoppingCart_List.Count != 0)
                                             {
                                                 for (int i = 0; i < Model.ShoppingCart_List.Count; i++)
                                                 {
@@ -93,7 +93,7 @@
                                 </table>
                             </div>
                             @{
-                                if (Model.ShoppingCart_List != null)
+                                if (Model.ShoppingCart_List != null && Model.ShoppingCart_List.Count != 0)
                                 {
                                     <div style="margin-bottom: 30px;text-align:right;">
                                         <span class="totalamount" style="margin-right:50px;">總金額</span><span class="totalamount">$</span><span id="course_Price" class="totalamount" style="margin-right:20px;">@Model.TotalPrice.ToString("###,###,##0")</span>
@@ -109,7 +109,12 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="continue__btn update__btn">
-                                        <a href="@Url.Content("~/Course/List")" style="background-color: #5599FF; border-color: #5599FF ">結帳</a>
+                                        @{
+                                            if (Model.ShoppingCart_List != null && Model.ShoppingCart_List.Count != 0)
+                                            {
+                                                <a href="@Url.Content("~/Order/Create")" style="color: #007bff; border-color: #007bff; background-color: #FFFFFF ">結帳</a>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>

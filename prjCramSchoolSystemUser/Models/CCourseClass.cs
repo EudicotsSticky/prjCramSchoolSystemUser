@@ -61,7 +61,8 @@ namespace prjCramSchoolSystemUser.Models
         {
             int p_express = Array.IndexOf(express, show);
             if (p_express != -1)
-                return p_express + 1;
+                //return p_express + 1;
+                return startnumber[p_express];
             else
                 return 0;
         }
@@ -140,6 +141,13 @@ namespace prjCramSchoolSystemUser.Models
         //public TCourseInformation Course { get; set; }
     }
 
+    public class CShowStudentData
+    {
+        public int UserState { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
     //test
     public class CourseMenu1
     {

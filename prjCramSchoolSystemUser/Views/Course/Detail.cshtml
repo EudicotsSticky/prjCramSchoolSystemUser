@@ -38,9 +38,9 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="breadcrumb__links">
-                    <a href="./index.html">Home</a>
-                    <a href="./shop.html">List</a>
-                    <span>Course</span>
+                    <a href="@Url.Content("~/")">首頁</a>
+                    <a href="@Url.Content("~/Course/List")">開課資訊</a>
+                    <span>課程詳情</span>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
                                 //原價
                                 else
                                 {
-                                    <h5 style="padding-bottom: 0px; margin-bottom: 5px;">$@Model.Price</h5>
+                                    <h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px;">$@Model.Price</h5>
                                 }
                             }
                             <ul style="padding-bottom: 0px; margin-bottom: 5px;padding-top:0px;margin-top:5px;">
@@ -116,7 +116,7 @@
                                 <li>上課時間:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FTime)</span></li>
                                 <li>授課老師:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FTeacher)</span></li>
                             </ul>
-                            <button id="addCart" type="button" class="btn" style="text-align: center; border-width: 1px; border-style: solid; border-color: #5599FF; background-color: #FFFFFF; color: #5599FF; "><h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; color: #5599FF;"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;加入購物車</h5></button>
+                                <button id="addCart" type="button" class="btn" style="text-align: center; border-width: 1px; border-style: solid; border-color: #5599FF; background-color: #FFFFFF; color: #5599FF; "><h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; color: #5599FF;"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;加入購物車</h5></button>
                         </div>
                     </div>
                 </div>

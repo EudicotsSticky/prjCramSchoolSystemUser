@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace prjCramSchoolSystemUser.ViewModel
 {
-    public class COrderCreateViewModel
+    public class COrderReviewViewModel
     {
         [DisplayName("付款人姓名")]
         public string UserName { get; set; }
         public TOrder oder { get; set; }
         public List<TOrderDetail> order_detail { get; set; }
-
-        public CShoppingCartViewModel coursedata { get; set; }
     }
 }

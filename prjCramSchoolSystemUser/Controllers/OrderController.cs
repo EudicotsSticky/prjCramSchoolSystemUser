@@ -23,19 +23,35 @@ namespace prjCramSchoolSystemUser.Controllers
         }
         public IActionResult Create()
         {
+            //取得購物車session
             List<CShoppingCart> List = getShoppingCart();
-            //if (List == null || List.Count == 0)
-            //    return RedirectToAction("", "");
+            if (List == null || List.Count == 0)
+            {//測試
+                List = new List<CShoppingCart>();
+
+                List.Add(new CShoppingCart()
+                {
+                    Count = 1,
+                    Course_TotalPrice = 100,
+                    EchelonId = "CI202205030440306",
+                    Name = "英文文法",
+                    PhotoName = @"https://i.imgur.com/pRmqy56.jpg",
+                    Price = 100
+                });
+
+            }//
+            //return RedirectToAction("List", "Course");
             COrderCreateViewModel c = new COrderCreateViewModel() { coursedata = new CShoppingCartViewModel() };
+            //付款人資料
             string UserId = "", UserName = "";
             DateTime now;
             readUserData(out UserId, out UserName, out now);
-            //付款人資料
+            //姓名
             c.UserName = UserName;
             c.oder = new TOrder() { FUserId = UserId };
             //購買課程
             c.coursedata.ShoppingCart_List = List;
-            c.order_detail = getOderDetail(List.Count);
+            c.order_detail = getOderDetail(List);//.Count
             return View(c);
         }
         [HttpPost]
@@ -91,23 +107,51 @@ namespace prjCramSchoolSystemUser.Controllers
             _context.SaveChanges();
 
             //return View();
+            return RedirectToAction("ReviewOrder");
+        }
+
+        public void testPayPal()
+        {
+            //PayPalEnvironment environment = new SandboxEnvironment(clientId, secret);
+
+        }
+
+        public IActionResult ReviewOrder()
+        {
+            COrderReviewViewModel c = new COrderReviewViewModel();
             return View(c);
         }
 
         //確認使用者帳號是否存在
         public IActionResult checkReceiverId(string account)
         {
-            var buycourse_user = _context.Users.Any(t => t.UserName.Equals(account) || t.Email.Equals(account));
-            return Content(buycourse_user.ToString());//, "text/plain"
+            CCourseModelShowState c = new CCourseModelShowState();
+            User buycourse_user = null;
+            buycourse_user = _context.Users.FirstOrDefault(t => t.UserName.Equals(account));
+            if(buycourse_user==null)
+            buycourse_user = _context.Users.FirstOrDefault(t => t.Email.Equals(account));
+            CShowStudentData student = new CShowStudentData() { UserState= c.showCourse("N"), UserName ="", FirstName = "", LastName = "" };
+            if (buycourse_user != null)
+            {
+                student.UserState = c.showCourse("Y");
+                student.UserName = buycourse_user.UserName;
+                student.FirstName = buycourse_user.FirstName;
+                student.LastName = buycourse_user.LastName;
+            }
+            return Json(student);
+            //return Content(buycourse_user.ToString());//, "text/plain"
         }
 
         //建立訂單詳情List 先預設使用者id為空字串
         [NonAction]
-        public List<TOrderDetail> getOderDetail(int count)
+        public List<TOrderDetail> getOderDetail(List<CShoppingCart>List)
         {
             List<TOrderDetail> oder_detail_list = new List<TOrderDetail>();
-            for(int i = 0; i < count; i++)
-                oder_detail_list.Add(new TOrderDetail() { FReceiverId = "" });
+            foreach (var item in List)
+            {
+                for (int i = 0; i < item.Count; i++)
+                    oder_detail_list.Add(new TOrderDetail() { FReceiverId = "" });
+            }
             return oder_detail_list;
         }
 
