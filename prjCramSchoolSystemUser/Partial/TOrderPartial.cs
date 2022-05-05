@@ -13,7 +13,7 @@ namespace prjCramSchoolSystemUser.Models
         public class TOrderMD
         {
             public string FOrderId { get; set; }
-            [DisplayName("test")]
+            [DisplayName("付款人帳號")]
             public string FUserId { get; set; }
             //
             public int? FPayment { get; set; }
