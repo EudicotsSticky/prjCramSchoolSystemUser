@@ -157,7 +157,7 @@ namespace prjCramSchoolSystemUser.Controllers
 
         public List<CCourseModelDetail_List> getDetailList(string fCourseId)
         {
-            var data = from t in _context.TCourseModleDetails
+            var data = from t in _context.TCourseModelDetails//TCourseModelDetails
                        where t.FCourseId.Equals(fCourseId)
                        select new CCourseModelDetail_List()
                        {
