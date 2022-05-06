@@ -43,7 +43,7 @@ namespace prjCramSchoolSystemUser.Controllers
                 CShoppingcartOperate shopping_operate = new CShoppingcartOperate();//購物車操作class
                 string echelonId = course.FEchelonId;//課程id
                 string name = course.FCourse.FName;//課程名稱
-                DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
+                //DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
                 decimal price = (decimal)shopping_operate.checkPrice(course.FCourse.FOriginalPrice, course.FCourse.FSpecialOffer, course.FDiscountDate);//課程價錢
 
                 if (HttpContext.Session.Keys.Contains(CDictionary.SK_COURSE_PURCHASED_LIST))

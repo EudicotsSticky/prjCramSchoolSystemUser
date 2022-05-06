@@ -29,21 +29,22 @@ namespace prjCramSchoolSystemUser.Controllers
             //取得購物車session
             List<CShoppingCart> List = getShoppingCart();
             if (List == null || List.Count == 0)
-            {//測試
-                List = new List<CShoppingCart>();
+                return RedirectToAction("List", "Course");
+            //{//測試
+            //    List = new List<CShoppingCart>();
 
-                List.Add(new CShoppingCart()
-                {
-                    Count = 1,
-                    Course_TotalPrice = 100,
-                    EchelonId = "CI202205030440306",
-                    Name = "英文文法",
-                    PhotoName = @"https://i.imgur.com/pRmqy56.jpg",
-                    Price = 100
-                });
+            //    List.Add(new CShoppingCart()
+            //    {
+            //        Count = 1,
+            //        Course_TotalPrice = 100,
+            //        EchelonId = "CI202205030440306",
+            //        Name = "英文文法",
+            //        PhotoName = @"https://i.imgur.com/pRmqy56.jpg",
+            //        Price = 100
+            //    });
 
-            }//
-            //return RedirectToAction("List", "Course");
+            //}//
+
             COrderCreateViewModel c = new COrderCreateViewModel() { coursedata = new CShoppingCartViewModel() };
             //付款人資料
             string UserId = "", UserName = "";
@@ -121,8 +122,8 @@ namespace prjCramSchoolSystemUser.Controllers
 
         public IActionResult ReviewOrder()
         {
-            COrderReviewViewModel c = new COrderReviewViewModel();
-            return View(c);
+            //COrderReviewViewModel c = new COrderReviewViewModel();
+            return View();
         }
 
         //確認使用者帳號是否存在
@@ -186,19 +187,26 @@ namespace prjCramSchoolSystemUser.Controllers
         {
             userID = "";
             username = "";
+            string _userid = "";
             string json = "";
             now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            //讀Session-userID
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LONGUNED_ID))
             {
-                //讀Session-userID
+                
                 json = HttpContext.Session.GetString(CDictionary.SK_LONGUNED_ID);
                 userID = JsonSerializer.Deserialize<string>(json);
+                _userid = userID;
             }
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-            {
-                json = HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER);
-                username = JsonSerializer.Deserialize<string>(json);
-            }
+            //讀UserName
+            var user = _context.Users.FirstOrDefault(t => t.UserName.Equals(_userid));
+            if (user != null)
+                username = user.FirstName + user.LastName;
+            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            //{
+            //    json = HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER);
+            //    username = JsonSerializer.Deserialize<string>(json);
+            //}
         }
 
         //public IActionResult Index()

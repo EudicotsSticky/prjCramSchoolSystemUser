@@ -13,23 +13,35 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
     </tbody>
 </table>
+@section Scripts{
+<script>
+    var request = require('request');
+
+    request.post({
+        uri: "https://api.sandbox.paypal.com/v1/oauth2/token",
+        headers: {
+            "Accept": "application/json",
+            "Accept-Language": "en_US",
+            "content-type": "application/x-www-form-urlencoded"
+        },
+        auth: {
+            'user': '---your cliend ID---',
+            'pass': '---your client secret---',
+            // 'sendImmediately': false
+        },
+        form: {
+            "grant_type": "client_credentials"
+        }
+    }, function (error, response, body) {
+        console.log(body);
+    });
+</script>
+}
