@@ -10,7 +10,7 @@ namespace prjCramSchoolSystemUser.Models
         public TCourseModel()
         {
             TCourseInformations = new HashSet<TCourseInformation>();
-            TCourseModleDetails = new HashSet<TCourseModleDetail>();
+            TCourseModelDetails = new HashSet<TCourseModelDetail>();
         }
 
         public string FCourseId { get; set; }
@@ -31,6 +31,6 @@ namespace prjCramSchoolSystemUser.Models
         public DateTime? FSaverDate { get; set; }
 
         public virtual ICollection<TCourseInformation> TCourseInformations { get; set; }
-        public virtual ICollection<TCourseModleDetail> TCourseModleDetails { get; set; }
+        public virtual ICollection<TCourseModelDetail> TCourseModelDetails { get; set; }
     }
 }
