@@ -98,11 +98,10 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var userName = Input.LoginInput;
-                ApplicationUser user = null;
                 // 如果輸入的是信箱，進入下方判斷
                 if (IsValidEmail(Input.LoginInput))
                 {
-                    user = await _userManager.FindByEmailAsync(Input.LoginInput);
+                    var user = await _userManager.FindByEmailAsync(Input.LoginInput);
                     if (user != null)
                         userName = user.UserName;
                 }
@@ -113,6 +112,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = await _userManager.FindByNameAsync(userName);
                     if (user != null)
                     {
                         string userId = user.Id.ToString();
