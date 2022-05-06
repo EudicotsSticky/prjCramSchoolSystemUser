@@ -115,7 +115,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByNameAsync(userName);
                     if (user != null)
                     {
-                        string userId = user.Id.ToString();
+                        string userId = user.UserName.ToString();
                         var json = JsonSerializer.Serialize(userId);
                         HttpContext.Session.SetString(CDictionary.SK_LONGUNED_ID, json);
                     }
