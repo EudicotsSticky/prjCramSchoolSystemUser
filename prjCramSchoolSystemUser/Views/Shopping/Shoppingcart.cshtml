@@ -191,7 +191,7 @@
             const { echelonId, count, price, name, course_TotalPrice, photoName } = rowdata;
             let row = `<tr><td style="display:none">${echelonId}</td><td class="product__cart__item" colspan="2">`;
             row += `<div class="product__cart__item__pic"><img src="${photoName}" style="width:200px;"></div>`;
-            row += `<div class="product__cart__item__text"><h6>${name}</h6><h5>$${price}</h5></div></td>`;
+            row += `<div class="product__cart__item__text"><h5>${name}</h5><h5>$${price}</h5></div></td>`;
             row += `<td class="quantity__item"><div class="quantity"><div class="pro-qty"><span id="minusCount" class="dec qtybtn">-</span>`;
             row += `<input type="text" value="${count}"><span id="addCount" class="inc qtybtn">+</span></div></div></td>`;
             row += `<td class="cart__price">${course_TotalPrice}</td>`

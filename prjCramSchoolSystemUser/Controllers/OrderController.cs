@@ -73,58 +73,25 @@ namespace prjCramSchoolSystemUser.Controllers
             foreach (var item in c.order_detail)
                 ReceiverId_List.Add(item.FReceiverId);
             //建立訂單
-            TOrder order = new TOrder()
-            {
-                FOrderId = orderid,
-                FUserId = UserId,
-                FPayment = 1,//1 : 線上刷卡
-                FOrderState = 0,//0 : 待付款
-                FCreationDate = now,
-                FCreationUser = UserId,
-                FSaverDaate = now,
-                FSaverUser = UserId
-            };
-            _context.TOrders.Add(order);
-            _context.SaveChanges();
+            createOrder(UserId, now, orderid);
             //建立訂單詳情
             List<CShoppingCart> List = getShoppingCart();
-            List<TOrderDetail> orderdetail_List = new List<TOrderDetail>();
-            int x = 0;
-            foreach (var item in List)
-            {
-                for(int i = 0; i < item.Count; i++)
-                {
-                    orderdetail_List.Add(new TOrderDetail()
-                    {
-                        FOrderId = orderid,
-                        FReceiverId = ReceiverId_List[x],
-                        FEchelonId = item.EchelonId,
-                        FMoney = item.Price,
-                        FCreationDate = now,
-                        FCreationUser=UserId,
-                        FSaverDate=now,
-                        FSaverUser=UserId
-                    });
-                    x++;
-                }
-            }
-            _context.TOrderDetails.AddRange(orderdetail_List);
-            _context.SaveChanges();
+            createOrderDetail(UserId, now, orderid, ReceiverId_List, List);
 
             //return View();
-            return RedirectToAction("New");
+            return RedirectToAction("New", new { orderid = orderid });
         }
 
         // POST api/payment
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult New()
+        public IActionResult New(string orderid)
         {
-            return RedirectToAction("checkout");
+            return RedirectToAction("checkout", new { orderid = orderid });
         }
 
         [HttpGet("checkout")]
-        public IActionResult CheckOut()
+        public IActionResult CheckOut(string orderid)
         {
             var service = new
             {
@@ -137,24 +104,39 @@ namespace prjCramSchoolSystemUser.Controllers
                 //ClientUrl = "https://test.com/payment/success"//交易成功
                 ClientUrl = "https://localhost:44376/order/revieworder"//交易成功
             };
+
+            List<CShoppingCart> CommodityList = getShoppingCart();
+            List<Item> List = new List<Item>();
+            foreach (var item in CommodityList)
+            {
+                List.Add(new Item()
+                {
+                    Name = item.Name,
+                    Price = Convert.ToInt32(item.Price),
+                    Quantity = item.Count
+                });
+            }
+
             var transaction = new
             {
-                No = "test00003",
+                //No = "test00003",
+                No = orderid,
                 Description = "測試購物系統",
                 Date = DateTime.Now,
                 Method = EPaymentMethod.Credit,
-                Items = new List<Item>{
-                    new Item{
-                        Name = "手機",
-                        Price = 14000,
-                        Quantity = 2
-                    },
-                    new Item{
-                        Name = "隨身碟",
-                        Price = 900,
-                        Quantity = 10
-                    }
-                }
+                Items=List
+                //Items = new List<Item>{
+                //    new Item{
+                //        Name = "手機",
+                //        Price = 14000,
+                //        Quantity = 2
+                //    },
+                //    new Item{
+                //        Name = "隨身碟",
+                //        Price = 900,
+                //        Quantity = 10
+                //    }
+                //}
             };
             IPayment payment = new PaymentConfiguration()
                 .Send.ToApi(
@@ -198,6 +180,51 @@ namespace prjCramSchoolSystemUser.Controllers
         public IActionResult ReviewOrder()
         {
             return View();
+        }
+
+        //建立訂單
+        private void createOrderDetail(string UserId, DateTime now, string orderid, List<string> ReceiverId_List, List<CShoppingCart> List)
+        {
+            List<TOrderDetail> orderdetail_List = new List<TOrderDetail>();
+            int x = 0;
+            foreach (var item in List)
+            {
+                for (int i = 0; i < item.Count; i++)
+                {
+                    orderdetail_List.Add(new TOrderDetail()
+                    {
+                        FOrderId = orderid,
+                        FReceiverId = ReceiverId_List[x],
+                        FEchelonId = item.EchelonId,
+                        FMoney = item.Price,
+                        FCreationDate = now,
+                        FCreationUser = UserId,
+                        FSaverDate = now,
+                        FSaverUser = UserId
+                    });
+                    x++;
+                }
+            }
+            _context.TOrderDetails.AddRange(orderdetail_List);
+            _context.SaveChanges();
+        }
+
+        //建立訂單詳情
+        private void createOrder(string UserId, DateTime now, string orderid)
+        {
+            TOrder order = new TOrder()
+            {
+                FOrderId = orderid,
+                FUserId = UserId,
+                FPayment = 1,//1 : 線上刷卡
+                FOrderState = 0,//0 : 待付款
+                FCreationDate = now,
+                FCreationUser = UserId,
+                FSaverDaate = now,
+                FSaverUser = UserId
+            };
+            _context.TOrders.Add(order);
+            _context.SaveChanges();
         }
 
         //確認使用者帳號是否存在
