@@ -11,18 +11,16 @@
         }
         /*被彈出的div*/
         .eject {
-            border: 3px #5599FF solid;
+            border: 3px #000000 solid;
             border-radius: 10px;
             width: 300px;
             height: 300px;
-
-            background-color: #FFFFFF;
-            position:fixed;
-            left:50%;
-            top:50%;
-            transform:translate(-50%,-50%);
-            z-index:99;
-
+            background-color: #ECF5FF;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 99;
             /*讓其浮在最上面*/
             position: absolute;
             display: none;
@@ -42,23 +40,23 @@
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <!-- Breadcrumb Begin -->
-    @*<div class="breadcrumb-option">
+    <div class="breadcrumb-option">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="breadcrumb__text">
-                            <h2>購物車</h2>
+                            <h2>建立訂單</h2>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="breadcrumb__links">
                             <a href="@Url.Content("~/")">首頁</a>
-                            <span>購物車</span>
+                            <span>建立訂單</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div>
     <!-- Breadcrumb End -->
     <!-- Shopping Cart Section Begin -->
     <section id="divOrderCreate" class="shopping-cart spad" style="padding-top:50px;">
@@ -70,8 +68,8 @@
                             <thead>
                                 <tr>
                                     <th style="display:none"></th>
+                                    <th>序號</th>
                                     <th style="padding-right:20px;">課程</th>
-                                    <th>課程狀態</th>
                                     <th>使用課程學生</th>
                                     <th></th>
                                     <th>金額</th>
@@ -85,8 +83,10 @@
                                         {
                                             for (int i = 0; i < item.Count; i++)
                                             {
+                                                int num = i + 1;
                                                 <tr>
                                                     <td style="display:none">@item.EchelonId</td>
+                                                    <td class="cart__close">@num</td>
                                                     <td class="product__cart__item">
                                                         <div class="product__cart__item__pic">
                                                             <img src="@item.PhotoName" style="width:200px;">
@@ -95,30 +95,32 @@
                                                             <h5>@item.Name</h5>
                                                         </div>
                                                     </td>
-                                                    <td class="cart__close">課程狀態</td>
                                                     <td class="quantity__item" colspan="2">
-                                                        <div class="showData">
+                                                        <div class="showData d-flex">
                                                             <label class="labReceiver">請輸入使用課程學生資訊</label>
-                                                            <button class="btnCheckReceiver" type="button">+</button>
+                                                            <button class="btn btn-outline-primary btnCheckReceiver d-flex justify-content-center align-items-center" type="button" style="width: 25px; height: 25px;"><i class="fa-solid fa-plus"></i></button>
                                                         </div>
-                                                        <div class="eject" style="opacity:1;">
+                                                        <div class="eject">
                                                             <input type="hidden" class="_txtReceiver" asp-for="@Model.order_detail[i].FReceiverId" />
                                                             <!--做一個點擊關閉的按鈕-->
                                                             <div class="close" style="width: 20px;height: 25px; margin-left: 275px;">
                                                                 <span class="span_close" style="font-size: 25px; color:red;">X</span>
                                                             </div>
                                                             <!--彈出div的內容-->
-                                                            <div class="divReceiver" style="margin: auto; width: 120px; height: 20px;margin-top: 100px;">
-                                                                <h5>請輸入使用課程學生的帳號或Email</h5>
-                                                                <input type="text" class="form-control txtReceiver" />
-                                                                <button type="button" class="checkReceiver">查詢</button>
-                                                                <hr />
-                                                                <h5>查詢結果</h5>
+                                                            <div class="divReceiver" style="height: 300px; width: 300px;">
+                                                                <h5 style="padding-top: 30px; padding-bottom: 15px; color: #111111; font-weight: 600;">請輸入使用課程學生的帳號或Email</h5>
+                                                                <input type="text" class="txtReceiver" style="width:280px; margin-right: 5px; margin-left: 5px; border: 1px #000000 solid;" />
+                                                                <button type="button" class="btn btn-outline-primary checkReceiver" style="margin-right: 5px;">
+                                                                    @*<i class="fa-solid fa-magnifying-glass"></i>*@
+                                                                    確定
+                                                                </button>
+                                                                <h5 style="padding-top: 10px; padding-bottom: 15px; color: #111111; font-weight: 600;">查詢結果</h5>
                                                                 <div class="result_caption"></div>
+                                                                @*<button type="button" class="btn btn-outline-primary btnSaveReceiver">存檔</button>*@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="cart__price">@item.Price.ToString("###,###,##0")</td>
+                                                    <td class="cart__price">$@item.Price.ToString("###,###,##0")</td>
                                                 </tr>
                                             }
 
@@ -129,15 +131,28 @@
                         </table>
                     </div>
                     @{
-                        <div style="margin-bottom: 30px;text-align:right;">
-                            <span class="totalamount" style="margin-right:50px;">總金額</span><span class="totalamount">$</span><span id="course_Price" class="totalamount" style="margin-right:20px;">@Model.coursedata.TotalPrice.ToString("###,###,##0")</span>
-                        </div>
+                        if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
+                        {
+                            <div style="margin-bottom: 30px;text-align:right;">
+                                <span style="margin-right: 50px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">總金額</span>
+                                <span style=" color: #111111; font-size: 16px; font-weight: 600; width: 140px;">$</span>
+                                <span id="course_Price" style="margin-right: 20px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">
+                                @Model.coursedata.TotalPrice.ToString("###,###,##0")
+                                </span>
+                            </div>
+
+                        }
                     }
 
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="@Url.Content("~/Shopping/Shoppingcart")">回購物車</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <input type="submit" value="建立訂單" class="primary-btn" style="border:2px blue none;" />
+                                <input type="submit" value="建立訂單" class="" style="color: #007bff; font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border: 1px solid #007bff; padding: 14px 35px; display: inline-block; background-color: #FFFFFF  " />
                             </div>
                         </div>
                     </div>
@@ -148,10 +163,6 @@
     <!-- Shopping Cart Section End -->
 </form>
 <!-- Checkout Section End -->
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -175,12 +186,12 @@
                 //帳號存在
                 if (arr.userState == 1) {
                     //顯示學生姓名
-                    let name = "";
+                    let name = " 學生 : ";
                     if (arr.firstName != "") {
-                        name = arr.firstName;
+                        name += arr.firstName;
                     }
                     if (arr.lastName != "") {
-                        name = arr.lastName;
+                        name += arr.lastName;
                     }
                     //放進彈跳div
                     receiverMsg.html(`<h5>${name}</h5>`);
@@ -190,6 +201,8 @@
                     //顯示lab裡
                     //$(e.target).closest(".divReceiver").closest(".eject").closest(".quantity__item").closest(".showData").children(".labReceiver").html(name);
                     btnTarget.closest(".quantity__item").children(".showData").children(".labReceiver").html(name);
+                    //顯示存檔按鈕
+                    //??
                 } else {
                     //帳號不存在
                     receiverMsg.html("帳號或信箱不存在，請重新輸入");
