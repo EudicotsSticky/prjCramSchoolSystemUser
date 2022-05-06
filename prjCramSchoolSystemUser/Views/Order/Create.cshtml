@@ -89,11 +89,11 @@
                                 @{
                                     if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
                                     {
+                                        int num = 1;
                                         foreach (var item in Model.coursedata.ShoppingCart_List)
                                         {
                                             for (int i = 0; i < item.Count; i++)
                                             {
-                                                int num = i + 1;
                                                 <tr>
                                                     <td style="display:none">@item.EchelonId</td>
                                                     <td class="cart__close">@num</td>
@@ -132,6 +132,7 @@
                                                     </td>
                                                     <td class="cart__price">$@item.Price.ToString("###,###,##0")</td>
                                                 </tr>
+                                                num++;
                                             }
 
                                         }
