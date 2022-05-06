@@ -50,6 +50,8 @@ namespace prjCramSchoolSystemUser.Models
                 fOriginalPrice = 0;
             if (fSpecialOffer == null)
                 fSpecialOffer = 0;
+            if (fDiscountDate == null)
+                return fOriginalPrice;
             DateTime now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             if (fDiscountDate >= now)
                 return fSpecialOffer;

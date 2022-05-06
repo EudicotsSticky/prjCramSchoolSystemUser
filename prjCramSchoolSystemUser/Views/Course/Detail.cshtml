@@ -131,7 +131,7 @@
                 </div>
             </div>
             @{
-                if (Model.Detail_List.Count > 0)
+                if (Model.Detail_List != null && Model.Detail_List.Count > 0)
                 {
                     foreach (var item in Model.Detail_List)
                     {

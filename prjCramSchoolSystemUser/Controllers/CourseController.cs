@@ -118,7 +118,7 @@ namespace prjCramSchoolSystemUser.Controllers
                 CShoppingcartOperate shopping_operate = new CShoppingcartOperate();//購物車操作class
                 string echelonId = course.FEchelonId;//課程id
                 string name = course.FCourse.FName;//課程名稱
-                DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
+                //DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
                 decimal price = (decimal)shopping_operate.checkPrice(course.FCourse.FOriginalPrice, course.FCourse.FSpecialOffer,course.FDiscountDate);//課程價錢
                 List<CShoppingCart> cart = null;
 
@@ -148,6 +148,8 @@ namespace prjCramSchoolSystemUser.Controllers
                 fOriginalPrice = 0;
             if (fSpecialOffer == null)
                 fSpecialOffer = 0;
+            if (fDiscountDate == null)
+                return fOriginalPrice;
             DateTime now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             if (fDiscountDate >= now)
                 return fSpecialOffer;
@@ -157,7 +159,7 @@ namespace prjCramSchoolSystemUser.Controllers
 
         public List<CCourseModelDetail_List> getDetailList(string fCourseId)
         {
-            var data = from t in _context.TCourseModelDetails
+            var data = from t in _context.TCourseModelDetails//TCourseModelDetails
                        where t.FCourseId.Equals(fCourseId)
                        select new CCourseModelDetail_List()
                        {
