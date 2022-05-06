@@ -1,4 +1,5 @@
 ﻿//using ECPay.Payment.Integration;
+using FluentEcpay;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using prjCramSchoolSystemUser.Models;
@@ -107,19 +108,92 @@ namespace prjCramSchoolSystemUser.Controllers
             _context.SaveChanges();
 
             //return View();
-            return RedirectToAction("ReviewOrder");
+            return RedirectToAction("New");
         }
 
-        public void testPayPal()
+        // POST api/payment
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult New()
         {
-            //PayPalEnvironment environment = new SandboxEnvironment(clientId, secret);
+            return RedirectToAction("checkout");
+        }
 
+        [HttpGet("checkout")]
+        public IActionResult CheckOut()
+        {
+            var service = new
+            {
+                Url = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5",
+                MerchantId = "2000132",
+                HashKey = "5294y06JbISpM5x9",
+                HashIV = "v77hoKGq4kWxNNIS",
+                //ServerUrl = "https://test.com/api/payment/callback",
+                ServerUrl = "https://localhost:44376/order/callback",
+                //ClientUrl = "https://test.com/payment/success"//交易成功
+                ClientUrl = "https://localhost:44376/order/revieworder"//交易成功
+            };
+            var transaction = new
+            {
+                No = "test00003",
+                Description = "測試購物系統",
+                Date = DateTime.Now,
+                Method = EPaymentMethod.Credit,
+                Items = new List<Item>{
+                    new Item{
+                        Name = "手機",
+                        Price = 14000,
+                        Quantity = 2
+                    },
+                    new Item{
+                        Name = "隨身碟",
+                        Price = 900,
+                        Quantity = 10
+                    }
+                }
+            };
+            IPayment payment = new PaymentConfiguration()
+                .Send.ToApi(
+                    url: service.Url)
+                .Send.ToMerchant(
+                    service.MerchantId)
+                .Send.UsingHash(
+                    key: service.HashKey,
+                    iv: service.HashIV)
+                .Return.ToServer(
+                    url: service.ServerUrl)
+                .Return.ToClient(
+                    url: service.ClientUrl)
+                .Transaction.New(
+                    no: transaction.No,
+                    description: transaction.Description,
+                    date: transaction.Date)
+                .Transaction.UseMethod(
+                    method: transaction.Method)
+                .Transaction.WithItems(
+                    items: transaction.Items)
+                .Generate();
+
+            return View(payment);
+        }
+
+        [HttpPost("callback")]
+        public IActionResult Callback(PaymentResult result)
+        {
+            var hashKey = "5294y06JbISpM5x9";
+            var hashIV = "v77hoKGq4kWxNNIS";
+
+            // 務必判斷檢查碼是否正確。
+            if (!CheckMac.PaymentResultIsValid(result, hashKey, hashIV)) return BadRequest();
+
+            // 處理後續訂單狀態的更動等等...。
+
+            return Ok("1|OK");
         }
 
         public IActionResult ReviewOrder()
         {
-            COrderReviewViewModel c = new COrderReviewViewModel();
-            return View(c);
+            return View();
         }
 
         //確認使用者帳號是否存在
