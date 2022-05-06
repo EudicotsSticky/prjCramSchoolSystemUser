@@ -1,4 +1,6 @@
 ﻿//using ECPay.Payment.Integration;
+using FluentEcpay;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using prjCramSchoolSystemUser.Models;
@@ -14,8 +16,10 @@ using System.Web;//
 
 namespace prjCramSchoolSystemUser.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
+        
         private CramSchoolDBContext _context;
         public OrderController(CramSchoolDBContext context)
         {
@@ -26,21 +30,22 @@ namespace prjCramSchoolSystemUser.Controllers
             //取得購物車session
             List<CShoppingCart> List = getShoppingCart();
             if (List == null || List.Count == 0)
-            {//測試
-                List = new List<CShoppingCart>();
+                return RedirectToAction("List", "Course");
+            //{//測試
+            //    List = new List<CShoppingCart>();
 
-                List.Add(new CShoppingCart()
-                {
-                    Count = 1,
-                    Course_TotalPrice = 100,
-                    EchelonId = "CI202205030440306",
-                    Name = "英文文法",
-                    PhotoName = @"https://i.imgur.com/pRmqy56.jpg",
-                    Price = 100
-                });
+            //    List.Add(new CShoppingCart()
+            //    {
+            //        Count = 1,
+            //        Course_TotalPrice = 100,
+            //        EchelonId = "CI202205030440306",
+            //        Name = "英文文法",
+            //        PhotoName = @"https://i.imgur.com/pRmqy56.jpg",
+            //        Price = 100
+            //    });
 
-            }//
-            //return RedirectToAction("List", "Course");
+            //}//
+
             COrderCreateViewModel c = new COrderCreateViewModel() { coursedata = new CShoppingCartViewModel() };
             //付款人資料
             string UserId = "", UserName = "";
@@ -107,19 +112,92 @@ namespace prjCramSchoolSystemUser.Controllers
             _context.SaveChanges();
 
             //return View();
-            return RedirectToAction("ReviewOrder");
+            return RedirectToAction("New");
         }
 
-        public void testPayPal()
+        // POST api/payment
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult New()
         {
-            //PayPalEnvironment environment = new SandboxEnvironment(clientId, secret);
+            return RedirectToAction("checkout");
+        }
 
+        [HttpGet("checkout")]
+        public IActionResult CheckOut()
+        {
+            var service = new
+            {
+                Url = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5",
+                MerchantId = "2000132",
+                HashKey = "5294y06JbISpM5x9",
+                HashIV = "v77hoKGq4kWxNNIS",
+                //ServerUrl = "https://test.com/api/payment/callback",
+                ServerUrl = "https://localhost:44376/order/callback",
+                //ClientUrl = "https://test.com/payment/success"//交易成功
+                ClientUrl = "https://localhost:44376/order/revieworder"//交易成功
+            };
+            var transaction = new
+            {
+                No = "test00003",
+                Description = "測試購物系統",
+                Date = DateTime.Now,
+                Method = EPaymentMethod.Credit,
+                Items = new List<Item>{
+                    new Item{
+                        Name = "手機",
+                        Price = 14000,
+                        Quantity = 2
+                    },
+                    new Item{
+                        Name = "隨身碟",
+                        Price = 900,
+                        Quantity = 10
+                    }
+                }
+            };
+            IPayment payment = new PaymentConfiguration()
+                .Send.ToApi(
+                    url: service.Url)
+                .Send.ToMerchant(
+                    service.MerchantId)
+                .Send.UsingHash(
+                    key: service.HashKey,
+                    iv: service.HashIV)
+                .Return.ToServer(
+                    url: service.ServerUrl)
+                .Return.ToClient(
+                    url: service.ClientUrl)
+                .Transaction.New(
+                    no: transaction.No,
+                    description: transaction.Description,
+                    date: transaction.Date)
+                .Transaction.UseMethod(
+                    method: transaction.Method)
+                .Transaction.WithItems(
+                    items: transaction.Items)
+                .Generate();
+
+            return View(payment);
+        }
+
+        [HttpPost("callback")]
+        public IActionResult Callback(PaymentResult result)
+        {
+            var hashKey = "5294y06JbISpM5x9";
+            var hashIV = "v77hoKGq4kWxNNIS";
+
+            // 務必判斷檢查碼是否正確。
+            if (!CheckMac.PaymentResultIsValid(result, hashKey, hashIV)) return BadRequest();
+
+            // 處理後續訂單狀態的更動等等...。
+
+            return Ok("1|OK");
         }
 
         public IActionResult ReviewOrder()
         {
-            COrderReviewViewModel c = new COrderReviewViewModel();
-            return View(c);
+            return View();
         }
 
         //確認使用者帳號是否存在
@@ -183,19 +261,26 @@ namespace prjCramSchoolSystemUser.Controllers
         {
             userID = "";
             username = "";
+            string _userid = "";
             string json = "";
             now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            //讀Session-userID
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LONGUNED_ID))
             {
-                //讀Session-userID
+                
                 json = HttpContext.Session.GetString(CDictionary.SK_LONGUNED_ID);
                 userID = JsonSerializer.Deserialize<string>(json);
+                _userid = userID;
             }
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-            {
-                json = HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER);
-                username = JsonSerializer.Deserialize<string>(json);
-            }
+            //讀UserName
+            var user = _context.Users.FirstOrDefault(t => t.UserName.Equals(_userid));
+            if (user != null)
+                username = user.FirstName + user.LastName;
+            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            //{
+            //    json = HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER);
+            //    username = JsonSerializer.Deserialize<string>(json);
+            //}
         }
 
         //public IActionResult Index()
