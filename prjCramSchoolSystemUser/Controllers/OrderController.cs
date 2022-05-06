@@ -1,4 +1,5 @@
 ﻿//using ECPay.Payment.Integration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using prjCramSchoolSystemUser.Models;
@@ -14,8 +15,10 @@ using System.Web;//
 
 namespace prjCramSchoolSystemUser.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
+        
         private CramSchoolDBContext _context;
         public OrderController(CramSchoolDBContext context)
         {
