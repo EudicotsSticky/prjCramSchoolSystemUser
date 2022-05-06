@@ -25,9 +25,22 @@ namespace prjCramSchoolSystemUser.Controllers
         {
             //取得購物車session
             List<CShoppingCart> List = getShoppingCart();
-            //todo
             if (List == null || List.Count == 0)
-                return RedirectToAction("List", "Course");
+            {//測試
+                List = new List<CShoppingCart>();
+
+                List.Add(new CShoppingCart()
+                {
+                    Count = 1,
+                    Course_TotalPrice = 100,
+                    EchelonId = "CI202205030440306",
+                    Name = "英文文法",
+                    PhotoName = @"https://i.imgur.com/pRmqy56.jpg",
+                    Price = 100
+                });
+
+            }//
+            //return RedirectToAction("List", "Course");
             COrderCreateViewModel c = new COrderCreateViewModel() { coursedata = new CShoppingCartViewModel() };
             //付款人資料
             string UserId = "", UserName = "";
@@ -95,6 +108,12 @@ namespace prjCramSchoolSystemUser.Controllers
 
             //return View();
             return RedirectToAction("ReviewOrder");
+        }
+
+        public void testPayPal()
+        {
+            //PayPalEnvironment environment = new SandboxEnvironment(clientId, secret);
+
         }
 
         public IActionResult ReviewOrder()

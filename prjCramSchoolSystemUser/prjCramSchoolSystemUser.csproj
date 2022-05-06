@@ -18,9 +18,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
-    <Content Remove="Views\Course\List1.cshtml" />
     <Content Remove="Views\Order\AioCheckOut.cshtml" />
-    <Content Remove="Views\Order\Create1.cshtml" />
     <Content Remove="Views\Shopping\Shoppingcart1.cshtml" />
   </ItemGroup>
 
@@ -175,16 +173,9 @@
     <None Include="Views\CourseModel\Detail.cshtml" />
     <None Include="Views\CourseModel\Edit.cshtml" />
     <None Include="Views\CourseModel\List.cshtml" />
-    <None Include="Views\Course\Detail3.cshtml" />
-    <None Include="Views\Course\Detail1.cshtml" />
-    <None Include="Views\Course\Detail2.cshtml" />
-    <None Include="Views\Course\Edit1.cshtml" />
-    <None Include="Views\Course\List1.cshtml" />
     <None Include="Views\Course\List.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
-    <None Include="Views\Order\CheckOutFeedback.cshtml" />
-    <None Include="Views\Order\Create1.cshtml" />
     <None Include="Views\Order\Create.cshtml" />
     <None Include="Views\ParentBinding\ViewParent.cshtml" />
     <None Include="Views\RoleManager\Index.cshtml" />
