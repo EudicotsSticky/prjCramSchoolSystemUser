@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using prjCramSchoolSystemUser.Data;
 using System.Net.Mail;
+using prjCramSchoolSystemUser.Models;
+using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 {
@@ -23,7 +26,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -44,13 +47,13 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required(ErrorMessage ="請輸入帳號 / 信箱")]
-            [Display(Name ="帳號 / 信箱")]
+            [Required(ErrorMessage = "請輸入帳號 / 信箱")]
+            [Display(Name = "帳號 / 信箱")]
             public string LoginInput { get; set; }
 
             [Required(ErrorMessage = "請輸入密碼")]
             [DataType(DataType.Password)]
-            [Display(Name ="密碼")]
+            [Display(Name = "密碼")]
             public string Password { get; set; }
 
             [Display(Name = "記住我？")]
@@ -63,7 +66,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
                 MailAddress m = new MailAddress(emailAddress);
                 return true;
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
                 return false;
             }
@@ -91,14 +94,15 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+
             if (ModelState.IsValid)
             {
                 var userName = Input.LoginInput;
+                ApplicationUser user = null;
                 // 如果輸入的是信箱，進入下方判斷
                 if (IsValidEmail(Input.LoginInput))
                 {
-                    var user = await _userManager.FindByEmailAsync(Input.LoginInput);
+                    user = await _userManager.FindByEmailAsync(Input.LoginInput);
                     if (user != null)
                         userName = user.UserName;
                 }
@@ -109,6 +113,12 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    if (user != null)
+                    {
+                        string userId = user.Id.ToString();
+                        var json = JsonSerializer.Serialize(userId);
+                        HttpContext.Session.SetString(CDictionary.SK_LONGUNED_ID, json);
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
