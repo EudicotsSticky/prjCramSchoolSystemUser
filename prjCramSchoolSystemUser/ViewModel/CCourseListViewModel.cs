@@ -37,6 +37,11 @@ namespace prjCramSchoolSystemUser.ViewModel
             get { return (decimal)c.checkPrice(OriginalPrice, SpecialOffer, DiscountDate); }
             set { value = (decimal)c.checkPrice(OriginalPrice, SpecialOffer, DiscountDate); }
         }
+
+        public string Price_Format
+        {
+            get { return String.Format("{0:0,0}", Price); }
+        }
         public string PhotoName { get; set; }
     }
 }

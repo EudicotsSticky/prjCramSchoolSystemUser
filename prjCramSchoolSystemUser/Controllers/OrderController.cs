@@ -102,7 +102,7 @@ namespace prjCramSchoolSystemUser.Controllers
                 //ServerUrl = "https://test.com/api/payment/callback",
                 ServerUrl = "https://localhost:44376/order/callback",
                 //ClientUrl = "https://test.com/payment/success"//交易成功
-                ClientUrl = "https://localhost:44376/order/revieworder"//交易成功
+                ClientUrl = "https://localhost:44376/order/revieworder/"+ orderid//交易成功
             };
 
             List<CShoppingCart> CommodityList = getShoppingCart();
@@ -177,9 +177,68 @@ namespace prjCramSchoolSystemUser.Controllers
             return Ok("1|OK");
         }
 
-        public IActionResult ReviewOrder()
+        public IActionResult ReviewOrder(string id)
         {
-            return View();
+            //
+            //TOrder data = _context.TOrders.FirstOrDefault(t => t.FOrderId.Equals(id));
+            //if (data != null)
+            //{
+            //    data.FOrderState = 1;
+            //    _context.SaveChanges();
+            //}
+
+            //
+            COrderReviewViewModel c = new COrderReviewViewModel();
+            //c.order = data;
+            //c.UserName = changeReceiverId(data.FUserId);
+            //COrderShowState c_state = new COrderShowState();
+            //c.OrderState = c_state.showOrder(data.FOrderState);
+
+            //var order_detail = from t in _context.TOrderDetails.Where(t => t.FOrderId.Equals(id))
+            //           select t;
+            //List<TOrderDetail> List = order_detail.ToList();
+            //List<COrderDetailReviewViewModel> OrderDetail_List = new List<COrderDetailReviewViewModel>();
+            //foreach (var item in List)
+            //{
+            //    OrderDetail_List.Add(new COrderDetailReviewViewModel()
+            //    {
+            //        FEchelonId = item.FEchelonId,
+            //        FMoney = item.FMoney,
+            //        FReceiverId = item.FReceiverId,
+            //        FReceiverName = changeReceiverId(item.FReceiverId)
+            //    });
+            //}
+            //c.order_detail = OrderDetail_List;
+
+
+            //測試
+            TOrder ordertest = new TOrder()
+            {
+                FOrderId = "OR202205071012031",
+                FOrderState = 1,
+                FUserId = "momo",
+            };
+            c.order = ordertest;
+            c.UserName = "王大明";
+            c.OrderState = "已付款";
+            List<COrderDetailReviewViewModel> OrderDetail_List = new List<COrderDetailReviewViewModel>();
+            OrderDetail_List.Add(new COrderDetailReviewViewModel()
+            {
+                FEchelonId = "CI202205030440306",
+                FMoney = 100,
+                FReceiverId = "superadmin",
+                FReceiverName = changeReceiverId("superadmin")
+            });
+            c.order_detail = OrderDetail_List;
+            return View(c);
+        }
+
+        private string changeReceiverId(string fEchelonId)
+        {
+            var user = _context.Users.FirstOrDefault(t => t.UserName.Equals(fEchelonId));
+            if (user != null)
+                return user.FirstName + user.LastName;
+            return "";
         }
 
         //建立訂單
