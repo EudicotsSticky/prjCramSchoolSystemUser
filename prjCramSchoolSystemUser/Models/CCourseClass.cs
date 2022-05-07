@@ -163,6 +163,8 @@ namespace prjCramSchoolSystemUser.Models
         //public TCourseInformation Course { get; set; }
     }
 
+    //確認使用者帳號是否存在 顯示學生資料
+    //使用:Order
     public class CShowStudentData
     {
         public int UserState { get; set; }
