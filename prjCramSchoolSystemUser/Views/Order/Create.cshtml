@@ -89,6 +89,7 @@
                                 @{
                                     if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
                                     {
+                                        int x = 0;
                                         int num = 1;
                                         foreach (var item in Model.coursedata.ShoppingCart_List)
                                         {
@@ -111,7 +112,7 @@
                                                             <button class="btn btn-outline-primary btnCheckReceiver d-flex justify-content-center align-items-center" type="button" style="width: 25px; height: 25px;margin-left:10px;"><i class="fa-solid fa-plus"></i></button>
                                                         </div>
                                                         <div class="eject">
-                                                            <input type="hidden" class="_txtReceiver" asp-for="@Model.order_detail[i].FReceiverId" />
+                                                            <input type="hidden" class="_txtReceiver" asp-for="@Model.order_detail[x].FReceiverId" />
                                                             <!--做一個點擊關閉的按鈕-->
                                                             <div class="close" style="width: 20px;height: 25px; margin-left: 275px;">
                                                                 <span class="span_close" style="font-size: 25px; color:red;">X</span>
@@ -132,6 +133,7 @@
                                                     </td>
                                                     <td class="cart__price">$@item.Price.ToString("###,###,##0")</td>
                                                 </tr>
+                                                x++;
                                                 num++;
                                             }
 

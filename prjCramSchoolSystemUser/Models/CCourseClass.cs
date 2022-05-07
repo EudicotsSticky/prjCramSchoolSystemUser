@@ -68,6 +68,28 @@ namespace prjCramSchoolSystemUser.Models
         }
     }
 
+    //訂單狀態
+    //使用:Order
+    public class COrderShowState
+    {
+        //是否付款
+        string[] express = new[] { "待付款", "已付款" };
+        //狀態代表數字
+        int[] startnumber = new[] { 0, 1 };
+        public string showOrder(int? show)
+        {
+            if (show == null)
+                return "";
+            int p_express = Array.IndexOf(startnumber, show);
+            if (p_express != -1)
+                //return p_express + 1;
+                return express[p_express];
+            else
+                return "";
+        }
+    }
+
+
     //讀取舊課程或新增課程
     //使用:CourseInformation
     public class CCourseShowState
