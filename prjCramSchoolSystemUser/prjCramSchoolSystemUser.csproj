@@ -181,7 +181,6 @@
     <None Include="Views\Course\Detail2.cshtml" />
     <None Include="Views\Course\Edit1.cshtml" />
     <None Include="Views\Course\List1.cshtml" />
-    <None Include="Views\Course\List.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
     <None Include="Views\Order\CheckOutFeedback.cshtml" />
