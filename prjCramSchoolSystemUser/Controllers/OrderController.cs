@@ -177,6 +177,49 @@ namespace prjCramSchoolSystemUser.Controllers
             return Ok("1|OK");
         }
 
+        //訂單列表
+        public IActionResult OrderList()
+        {
+            //訂單建立人資料
+            string UserId = "", UserName = "";
+            DateTime now;
+            readUserData(out UserId, out UserName, out now);
+
+            //測試用
+            UserId = "momo";
+            var data = from t in _context.TOrders.Where(t => t.FUserId.Equals(UserId))
+                       orderby t.FCreationDate descending
+                       select t;
+            List<TOrder> List = data.ToList();
+            List<COrderListViewModel> c = new List<COrderListViewModel>();
+            foreach (var item in List)
+            {
+                c.Add(new COrderListViewModel()
+                {
+                    order = item,
+                    order_detail = getOrderDetail_List(item.TOrderDetails.ToList())
+                });
+            }
+            return View(c);
+        }
+
+        //訂單列表 購買課程
+        private List<COrderDetailListViewModel> getOrderDetail_List(List<TOrderDetail> list)
+        {
+            List<COrderDetailListViewModel> c = new List<COrderDetailListViewModel>();
+            foreach (var item in list)
+            {
+                c.Add(new COrderDetailListViewModel()
+                {
+                    FEchelonId = item.FEchelonId,
+                    FMoney = item.FMoney,
+                    Name = item.FEchelon.FCourse.FName
+                });
+            }
+            return c;
+        }
+
+        //訂單詳情
         public IActionResult ReviewOrder(string id)
         {
             //
@@ -187,7 +230,7 @@ namespace prjCramSchoolSystemUser.Controllers
             //    _context.SaveChanges();
             //}
 
-            //
+
             COrderReviewViewModel c = new COrderReviewViewModel();
             //c.order = data;
             //c.UserName = changeReceiverId(data.FUserId);
@@ -195,7 +238,7 @@ namespace prjCramSchoolSystemUser.Controllers
             //c.OrderState = c_state.showOrder(data.FOrderState);
 
             //var order_detail = from t in _context.TOrderDetails.Where(t => t.FOrderId.Equals(id))
-            //           select t;
+            //                   select t;
             //List<TOrderDetail> List = order_detail.ToList();
             //List<COrderDetailReviewViewModel> OrderDetail_List = new List<COrderDetailReviewViewModel>();
             //foreach (var item in List)
@@ -205,7 +248,9 @@ namespace prjCramSchoolSystemUser.Controllers
             //        FEchelonId = item.FEchelonId,
             //        FMoney = item.FMoney,
             //        FReceiverId = item.FReceiverId,
-            //        FReceiverName = changeReceiverId(item.FReceiverId)
+            //        FReceiverName = changeReceiverId(item.FReceiverId),
+            //        PhotoName=getPhoto(item.FReceiverId),
+            //        Name= getCourseModel_Name(item.FEchelon.FCourseId)
             //    });
             //}
             //c.order_detail = OrderDetail_List;
@@ -227,12 +272,33 @@ namespace prjCramSchoolSystemUser.Controllers
                 FEchelonId = "CI202205030440306",
                 FMoney = 100,
                 FReceiverId = "superadmin",
-                FReceiverName = changeReceiverId("superadmin")
+                FReceiverName = changeReceiverId("superadmin"),
+                PhotoName = "https://i.imgur.com/pRmqy56.jpg",
+                Name = "英文文法"
             });
             c.order_detail = OrderDetail_List;
             return View(c);
         }
 
+        //訂單成立 取得課程模板 課程名稱
+        private string getCourseModel_Name(string fCourseId)
+        {
+            var coursemodel = _context.TCourseModels.FirstOrDefault(t => t.FCourseId.Equals(fCourseId));
+            if (coursemodel != null)
+                return coursemodel.FName;
+            return "";
+        }
+
+        //訂單成立 顯示圖片
+        private string getPhoto(string fEchelonId)
+        {
+            var photo = _context.TCourseInformationImgs.FirstOrDefault(t => t.FEchelonId.Equals(fEchelonId));
+            if (photo != null)
+                return photo.FCourseImageName;
+            return "";
+        }
+
+        //訂單成立 使用課程學生id轉name
         private string changeReceiverId(string fEchelonId)
         {
             var user = _context.Users.FirstOrDefault(t => t.UserName.Equals(fEchelonId));
@@ -242,6 +308,24 @@ namespace prjCramSchoolSystemUser.Controllers
         }
 
         //建立訂單
+        private void createOrder(string UserId, DateTime now, string orderid)
+        {
+            TOrder order = new TOrder()
+            {
+                FOrderId = orderid,
+                FUserId = UserId,
+                FPayment = 1,//1 : 線上刷卡
+                FOrderState = 0,//0 : 待付款
+                FCreationDate = now,
+                FCreationUser = UserId,
+                FSaverDaate = now,
+                FSaverUser = UserId
+            };
+            _context.TOrders.Add(order);
+            _context.SaveChanges();
+        }
+
+        //建立訂單詳情
         private void createOrderDetail(string UserId, DateTime now, string orderid, List<string> ReceiverId_List, List<CShoppingCart> List)
         {
             List<TOrderDetail> orderdetail_List = new List<TOrderDetail>();
@@ -265,24 +349,6 @@ namespace prjCramSchoolSystemUser.Controllers
                 }
             }
             _context.TOrderDetails.AddRange(orderdetail_List);
-            _context.SaveChanges();
-        }
-
-        //建立訂單詳情
-        private void createOrder(string UserId, DateTime now, string orderid)
-        {
-            TOrder order = new TOrder()
-            {
-                FOrderId = orderid,
-                FUserId = UserId,
-                FPayment = 1,//1 : 線上刷卡
-                FOrderState = 0,//0 : 待付款
-                FCreationDate = now,
-                FCreationUser = UserId,
-                FSaverDaate = now,
-                FSaverUser = UserId
-            };
-            _context.TOrders.Add(order);
             _context.SaveChanges();
         }
 
