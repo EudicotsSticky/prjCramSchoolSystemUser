@@ -27,9 +27,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <table class="table">
-                    <thead>
-                        <tr>
+<table class="table">
+    <thead>
+        <tr>
                             <th scope="col">訂單編號</th>
                             <th scope="col">訂單日期</th>
                             <th scope="col">金額</th>
@@ -38,26 +38,26 @@
                             <th scope="col">付款狀態</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        </tr>
+    </thead>
+    <tbody>
                         @{
                             if (Model != null)
                             {
                                 foreach (var item in Model)
                                 {
-                                    <tr>
+        <tr>
                                         <th scope="row">@item.order.FOrderId</th>
                                         <td>@item.order.FCreationDate</td>
                                         <td colspan="3">@item.Price</td>
                                         <td colspan="2">已付款</td>
                                         <td><button type="button" class="btn btn-primary" onclick="location.href='@Url.Content("~/Order/ReviewOrder/")@item.order.FOrderId'">查看訂單詳情</button></td>
-                                    </tr>
-                                }
+        </tr>
+}
                             }
                         }
-                    </tbody>
-                </table>
+    </tbody>
+</table>
             </div>
         </div>
     </div>

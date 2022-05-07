@@ -31,6 +31,7 @@ namespace prjCramSchoolSystemUser.Controllers
             List<CShoppingCart> List = getShoppingCart();
             if (List == null || List.Count == 0)
                 return RedirectToAction("List", "Course");
+            #region
             //{//測試
             //    List = new List<CShoppingCart>();
 
@@ -45,6 +46,7 @@ namespace prjCramSchoolSystemUser.Controllers
             //    });
 
             //}//
+            #endregion
 
             COrderCreateViewModel c = new COrderCreateViewModel() { coursedata = new CShoppingCartViewModel() };
             //付款人資料
@@ -102,7 +104,7 @@ namespace prjCramSchoolSystemUser.Controllers
                 //ServerUrl = "https://test.com/api/payment/callback",
                 ServerUrl = "https://localhost:44376/order/callback",
                 //ClientUrl = "https://test.com/payment/success"//交易成功
-                ClientUrl = "https://localhost:44376/order/revieworder/"+ orderid//交易成功
+                ClientUrl = "https://localhost:44376/order/reneworder/" + orderid//交易成功
             };
 
             List<CShoppingCart> CommodityList = getShoppingCart();
@@ -121,7 +123,8 @@ namespace prjCramSchoolSystemUser.Controllers
             {
                 //No = "test00003",
                 No = orderid,
-                Description = "測試購物系統",
+                //Description = "測試購物系統",
+                Description = "艾登登補習班",
                 Date = DateTime.Now,
                 Method = EPaymentMethod.Credit,
                 Items=List
@@ -186,7 +189,7 @@ namespace prjCramSchoolSystemUser.Controllers
             readUserData(out UserId, out UserName, out now);
 
             //測試用
-            UserId = "momo";
+            //UserId = "momo";
             var data = from t in _context.TOrders.Where(t => t.FUserId.Equals(UserId))
                        orderby t.FCreationDate descending
                        select t;
@@ -222,64 +225,73 @@ namespace prjCramSchoolSystemUser.Controllers
             return c;
         }
 
+        //更新訂單狀態為已付款
+        public IActionResult renewOrder(string id)
+        {
+            TOrder data = _context.TOrders.FirstOrDefault(t => t.FOrderId.Equals(id));
+            if (data != null)
+            {
+                data.FOrderState = 1;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ReviewOrder", new { id = id });
+        }
+
         //訂單詳情
         public IActionResult ReviewOrder(string id)
         {
-            //
-            //TOrder data = _context.TOrders.FirstOrDefault(t => t.FOrderId.Equals(id));
-            //if (data != null)
-            //{
-            //    data.FOrderState = 1;
-            //    _context.SaveChanges();
-            //}
+            TOrder data = _context.TOrders.FirstOrDefault(t => t.FOrderId.Equals(id));
+            if (data == null)
+                return RedirectToAction("OrderList");
 
-
+            //瀏覽訂單詳情
             COrderReviewViewModel c = new COrderReviewViewModel();
-            //c.order = data;
-            //c.UserName = changeReceiverId(data.FUserId);
-            //COrderShowState c_state = new COrderShowState();
-            //c.OrderState = c_state.showOrder(data.FOrderState);
+            c.order = data;
+            c.UserName = changeReceiverId(data.FUserId);
+            COrderShowState c_state = new COrderShowState();
+            c.OrderState = c_state.showOrder(data.FOrderState);
 
-            //var order_detail = from t in _context.TOrderDetails.Where(t => t.FOrderId.Equals(id))
-            //                   select t;
-            //List<TOrderDetail> List = order_detail.ToList();
-            //List<COrderDetailReviewViewModel> OrderDetail_List = new List<COrderDetailReviewViewModel>();
-            //foreach (var item in List)
-            //{
-            //    OrderDetail_List.Add(new COrderDetailReviewViewModel()
-            //    {
-            //        FEchelonId = item.FEchelonId,
-            //        FMoney = item.FMoney,
-            //        FReceiverId = item.FReceiverId,
-            //        FReceiverName = changeReceiverId(item.FReceiverId),
-            //        PhotoName=getPhoto(item.FReceiverId),
-            //        Name= getCourseModel_Name(item.FEchelon.FCourseId)
-            //    });
-            //}
-            //c.order_detail = OrderDetail_List;
-
-
-            //測試
-            TOrder ordertest = new TOrder()
-            {
-                FOrderId = "OR202205071012031",
-                FOrderState = 1,
-                FUserId = "momo",
-            };
-            c.order = ordertest;
-            c.UserName = "王大明";
-            c.OrderState = "已付款";
+            var order_detail = from t in _context.TOrderDetails.Where(t => t.FOrderId.Equals(id))
+                               select t;
+            List<TOrderDetail> List = order_detail.ToList();
             List<COrderDetailReviewViewModel> OrderDetail_List = new List<COrderDetailReviewViewModel>();
-            OrderDetail_List.Add(new COrderDetailReviewViewModel()
+            foreach (var item in List)
             {
-                FEchelonId = "CI202205030440306",
-                FMoney = 100,
-                FReceiverId = "superadmin",
-                FReceiverName = changeReceiverId("superadmin"),
-                PhotoName = "https://i.imgur.com/pRmqy56.jpg",
-                Name = "英文文法"
-            });
+                OrderDetail_List.Add(new COrderDetailReviewViewModel()
+                {
+                    FEchelonId = item.FEchelonId,
+                    FMoney = item.FMoney,
+                    FReceiverId = item.FReceiverId,
+                    FReceiverName = changeReceiverId(item.FReceiverId),
+                    PhotoName = getPhoto(item.FReceiverId),
+                    Name = getCourseModel_Name(item.FEchelon.FCourseId)
+                });
+            }
             c.order_detail = OrderDetail_List;
+
+            #region 測試
+            //
+            //TOrder ordertest = new TOrder()
+            //{
+            //    FOrderId = "OR202205071012031",
+            //    FOrderState = 1,
+            //    FUserId = "momo",
+            //};
+            //c.order = ordertest;
+            //c.UserName = "王大明";
+            //c.OrderState = "已付款";
+            //List<COrderDetailReviewViewModel> OrderDetail_List = new List<COrderDetailReviewViewModel>();
+            //OrderDetail_List.Add(new COrderDetailReviewViewModel()
+            //{
+            //    FEchelonId = "CI202205030440306",
+            //    FMoney = 100,
+            //    FReceiverId = "superadmin",
+            //    FReceiverName = changeReceiverId("superadmin"),
+            //    PhotoName = "https://i.imgur.com/pRmqy56.jpg",
+            //    Name = "英文文法"
+            //});
+            //c.order_detail = OrderDetail_List;
+            #endregion
             return View(c);
         }
 
