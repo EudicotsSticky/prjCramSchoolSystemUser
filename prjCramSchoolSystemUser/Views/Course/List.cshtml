@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row g-4">
+            <div class="row g-4" id="divCourse">
                 @{
                     foreach (var item in Model.course)
                     {
@@ -190,3 +190,38 @@
     </div>-->
 </section>
 <!-- Shop Section End -->
+@section Scripts{
+    <script>
+        $("#CategoryDDL").change(function () {
+        //let b = $("#CategoryDDL").find("option: selected").text();
+        //console.log(b);
+            Search();
+        })
+        $("#btnSearch").click(function () {
+            Search();
+        })
+        let Search = async function () {
+            let formData = new FormData();
+            formData.append("txtCategory", $("#CategoryDDL").val());
+            formData.append("txtSearch", $("#txtSearch").val());
+            let response = await fetch("@Url.Content("~/Course/searchList")", { method: "POST", body: formData })
+            let data_arr = await response.json();
+            console.log(data_arr);
+            let docFrag = $(document.createDocumentFragment());
+            $.each(data_arr.course, function (idx, data) {
+                let { fEchelonId, name, classState, courseState, originalPrice, specialOffer, discountDate, price, photoName, price_Format } = data;
+                let row = `<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s" style="padding-bottom:20px;">`
+                row +=`<div class="service-item rounded overflow-hidden">`;
+                row += `<img class="img-fluid" src="${photoName}" style="width: 100%; height: 100%; object-fit: cover; ">`;
+                row += `<div class="position-relative p-4 pt-0"><div class="service-icon"><span>${courseState}</span></div>`;
+                row += `<div class="product__details__text product__item__text_">`
+                row += `<h5 class="mb-3" style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; "><a asp-action="Detail" asp-route-id="${fEchelonId}">${name}</a></h5>`
+                row += `<div class="product__item__price_"><h5 class="mb-3" style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px;">$${price_Format}</h5></div>`
+                row += `<div class="cart_add_"><a style="border-color: #5599FF" asp-action="Detail" asp-route-id="${fEchelonId}" target="_blank">查看課程詳情</a></div></div></div>`
+                row += `</div></div>`
+                docFrag.append(row);
+            })
+            $("#divCourse").html(docFrag);
+        }
+    </script>
+}
