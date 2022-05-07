@@ -64,13 +64,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     @{
-                        if (Model.oder.FUserId != null && Model.UserName != null)
-                        {
-                            <h6 style="color: #111111; font-weight: 600; text-transform: uppercase; margin-top: 25px; margin-bottom: 35px; ">
-                                <span style="margin-right:90px;">訂購人帳號:<span style="margin-left:10px;">@Model.oder.FUserId</span></span>
-                                <span>訂購人姓名:<span style="margin-left:10px;">@Model.UserName</span></span>
-                            </h6>
-                        }
+                        <h6 style="color: #111111; font-weight: 600; text-transform: uppercase; margin-top: 25px; margin-bottom: 35px; ">
+                            <span style="margin-right:90px;">訂購人帳號:<span style="margin-left:10px;">@Model.oder.FUserId</span></span>
+                            <span>訂購人姓名:<span style="margin-left:10px;">@Model.UserName</span></span>
+                        </h6>
                     }
 
                     <div class="shopping__cart__table">
