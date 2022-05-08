@@ -97,7 +97,8 @@
                         <ul>
                             <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
                             <li class="text-nowrap"><a asp-area="" asp-controller="Course" asp-action="List">課程購買</a></li>
-
+                            <li><a asp-area="" asp-controller="Order" asp-action="OrderList">我的訂單</a></li>
+                            <li><a asp-area="" asp-controller="" asp-action="">討論區</a></li>
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Roles.Default.ToString()))
@@ -129,7 +130,6 @@
                                     </li>
                                 }
                             }
-                            <li><a asp-area="" asp-controller="Order" asp-action="OrderList">我的訂單</a></li>
                             <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Privacy">隱私權政策</a></li>
                         </ul>
                     </nav>
