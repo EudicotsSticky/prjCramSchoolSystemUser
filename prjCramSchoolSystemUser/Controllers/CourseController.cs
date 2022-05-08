@@ -102,6 +102,12 @@ namespace prjCramSchoolSystemUser.Controllers
 
             foreach (var item in search_arr)
             {
+                if (changeSearch_Category(item).Count != 0)
+                {
+                    List<int> search_List = changeSearch_Category(item);
+                    foreach (var x in search_List)
+                        pred2 = pred2.Or(p => p.FCourse.FCategory.Equals(x));
+                }
                 if (changeSearch_ClassState(item).Count != 0)
                 {
                     List<int> search_List = changeSearch_ClassState(item);
@@ -116,6 +122,21 @@ namespace prjCramSchoolSystemUser.Controllers
             }
 
             return pred2;
+        }
+
+        //關鍵字搜尋_課程類別文字轉為代碼
+        [NonAction]
+        public List<int> changeSearch_Category(string search)
+        {
+            List<int> list = new List<int>();
+            for (int i = 0; i < CourseData.c_name.Length; i++)
+            {
+                if (CourseData.c_name[i].Contains(search))
+                {
+                    list.Add(Convert.ToInt32(CourseData.c_number[i]));
+                }
+            }
+            return list;
         }
 
         //關鍵字搜尋_課程狀態文字轉為代碼

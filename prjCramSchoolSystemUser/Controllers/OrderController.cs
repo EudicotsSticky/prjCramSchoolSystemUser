@@ -216,12 +216,12 @@ namespace prjCramSchoolSystemUser.Controllers
         }
 
         //訂單列表 購買課程
-        private List<COrderDetailListViewModel> getOrderDetail_List(List<TOrderDetail> list)
+        private List<COrderDetailList> getOrderDetail_List(List<TOrderDetail> list)
         {
-            List<COrderDetailListViewModel> c = new List<COrderDetailListViewModel>();
+            List<COrderDetailList> c = new List<COrderDetailList>();
             foreach (var item in list)
             {
-                c.Add(new COrderDetailListViewModel()
+                c.Add(new COrderDetailList()
                 {
                     FEchelonId = item.FEchelonId,
                     FMoney = item.FMoney,

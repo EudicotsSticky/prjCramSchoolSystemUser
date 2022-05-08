@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<prjCramSchoolSystemUser.ViewModel.COrderListViewModel>
 
 @{
-    ViewData["Title"] = "OrderList";
+    ViewData["Title"] = "我的訂單";
 }
 
 <div class="breadcrumb-option">
@@ -36,7 +36,8 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">訂單編號  @item.order.FOrderId</th>
-                                        <th scope="col">訂單日期  @item.order.FCreationDate</th>
+                                        <th scope="col">訂單日期</th>
+                                        <th scope="col">訂單金額</th>
                                         <th scope="col">訂購人</th>
                                         <th scope="col">付款狀態</th>
                                         <th></th>
@@ -45,15 +46,16 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">
-                                            @if (item.order_detail != null && item.order_detail.Count != 0)
+                                            @if (item.order_detail_count != null && item.order_detail_count.Count != 0)
                                             {
-                                                @foreach (var detail in item.order_detail)
+                                                @foreach (var detail in item.order_detail_count)
                                                 {
-                                                    <h6>@detail.Name</h6>
+                                                    <h6><span>@detail.Name</span><span style="margin-left:5px;">×@detail.Count</span></h6>
                                                 }
                                             }
                                         </th>
-                                        <td>訂單金額  $@item.Price.ToString("###,###,##0")</td>
+                                        <td>@item.order.FCreationDate</td>
+                                        <td>$@item.Price.ToString("###,###,##0")</td>
                                     @*<td>
                                         @if (item.order_detail != null && item.order_detail.Count != 0)
                                         {
