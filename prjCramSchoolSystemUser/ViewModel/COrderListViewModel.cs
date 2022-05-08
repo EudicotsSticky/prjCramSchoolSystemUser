@@ -12,7 +12,7 @@ namespace prjCramSchoolSystemUser.ViewModel
         public string UserName { get; set; }
         public string OrderState { get; set; }
         public TOrder order { get; set; }
-        public List<COrderDetailListViewModel> order_detail { get; set; }
+        public List<COrderDetailList> order_detail { get; set; }
         public decimal Price
         {
             get
@@ -27,8 +27,31 @@ namespace prjCramSchoolSystemUser.ViewModel
                 return _price;
             }
         }
+        public List<CShowOrderDetail> order_detail_count
+        {
+            get
+            {
+                List<CShowOrderDetail> List = new List<CShowOrderDetail>();
+                if (List.Count == 0)
+                    List.Add(new CShowOrderDetail() { Name = order_detail[0].Name, Count = 1 });
+                for (int x = 1, y = 0; x < order_detail.Count; x++)
+                {
+                    if (List[y].Name == order_detail[x].Name)
+                    {
+                        int _count = List[y].Count + 1;
+                        List[y].Count = _count;
+                    }
+                    else
+                    {
+                        List.Add(new CShowOrderDetail() { Name = order_detail[x].Name, Count = 1 });
+
+                    }
+                }
+                return List;
+            }
+        }
     }
-    public class COrderDetailListViewModel
+    public class COrderDetailList
     {
         public string FEchelonId { get; set; }
         public decimal? FMoney { get; set; }
@@ -43,5 +66,11 @@ namespace prjCramSchoolSystemUser.ViewModel
         //        return Convert.ToDecimal(FMoney);
         //    }
         //}
+    }
+
+    public class CShowOrderDetail
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
     }
 }

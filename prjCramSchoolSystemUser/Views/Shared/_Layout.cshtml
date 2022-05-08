@@ -45,12 +45,13 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__cart">
             <div class="offcanvas__cart__links">
-                <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
-                <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
+                @*<a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>*@
+                @*<a href="#"><img src="~/img/icon/heart.png" alt=""></a>*@
             </div>
             <div class="offcanvas__cart__item">
-                <a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
-                <div class="cart__price">購物車: <span>$0.00</span></div>
+                <a asp-controller="Shopping" asp-action="Shoppingcart"><img src="~/img/icon/cart.png" alt=""></a>
+                @*<a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>*@
+                @*<div class="cart__price">購物車: <span>$0.00</span></div>*@
             </div>
         </div>
         <div class="offcanvas__logo">
@@ -77,8 +78,9 @@
                             </div>
                             <div class="header__top__right">
                                 <div class="header__top__right__links">
-                                    <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
-                                    <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
+                                    @*<a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>*@
+                                    @*<a href="#"><img src="~/img/icon/heart.png" alt=""></a>*@
+                                    @*<a href="#"><img src="~/img/icon/heart.png" alt=""></a>*@
                                 </div>
                                 <div class="header__top__right__cart">
                                     <a asp-controller="Shopping" asp-action="Shoppingcart"><img src="~/img/icon/cart.png" alt=""></a>
@@ -98,7 +100,7 @@
                             <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
                             <li class="text-nowrap"><a asp-area="" asp-controller="Course" asp-action="List">課程購買</a></li>
                             <li><a asp-area="" asp-controller="Order" asp-action="OrderList">我的訂單</a></li>
-                            <li><a asp-area="" asp-controller="" asp-action="">討論區</a></li>
+                            @*<li><a asp-area="" asp-controller="" asp-action="">討論區</a></li>*@
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Roles.Default.ToString()))
