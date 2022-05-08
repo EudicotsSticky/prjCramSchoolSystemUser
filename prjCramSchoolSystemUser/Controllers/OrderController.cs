@@ -189,21 +189,27 @@ namespace prjCramSchoolSystemUser.Controllers
             readUserData(out UserId, out UserName, out now);
 
             //測試用
-            //UserId = "momo";
+            UserId = "momo";
             var data = from t in _context.TOrders.Where(t => t.FUserId.Equals(UserId))
                        orderby t.FCreationDate descending
                        select t;
             if (data.Count() == 0)
                 return View(null);
 
-            List<TOrder> List = data.ToList();
             List<COrderListViewModel> c = new List<COrderListViewModel>();
+            //取得資料
+            List<TOrder> List = data.ToList();
+            //訂單狀態
+            COrderShowState c_state = new COrderShowState();
+            //訂單 和 訂單詳情
             foreach (var item in List)
             {
                 c.Add(new COrderListViewModel()
                 {
                     order = item,
-                    order_detail = getOrderDetail_List(item.TOrderDetails.ToList())
+                    order_detail = getOrderDetail_List(item.TOrderDetails.ToList()),
+                    OrderState= c_state.showOrder(item.FOrderState),
+                    UserName= changeReceiverId(item.FUserId)
                 });
             }
             return View(c);
