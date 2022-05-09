@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using LinqKit;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,25 +27,132 @@ namespace prjCramSchoolSystemUser.Controllers
         public IActionResult List()
         {
             CCourseListViewModel c = new CCourseListViewModel();
-            //補圖片檔名
-            IQueryable<CCourseList> data = from t in _context.TCourseInformations
-                       select new CCourseList()
-                       {
-                           FEchelonId = t.FEchelonId,
-                           Name = t.FCourse.FName,
-                           ClassState = t.FClassState.ToString(),
-                           OriginalPrice = t.FCourse.FOriginalPrice,
-                           SpecialOffer = t.FCourse.FSpecialOffer,
-                           DiscountDate=t.FDiscountDate,
-                       };
-            List<CCourseList> List = data.Take(10).ToList();
+            int p = Array.IndexOf(new CourseData().classstate_name, "已刪除");
+            int delete_num = Convert.ToInt32(new CourseData().classstate_number[p]);
+            IQueryable<CCourseList> data = from t in _context.TCourseInformations.Where(c => c.FClassState != delete_num)
+                                           orderby t.FSaverDate descending
+                                           select new CCourseList()
+                                           {
+                                               FEchelonId = t.FEchelonId,
+                                               Name = t.FCourse.FName,
+                                               ClassState = t.FClassState.ToString(),
+                                               OriginalPrice = t.FCourse.FOriginalPrice,
+                                               SpecialOffer = t.FCourse.FSpecialOffer,
+                                               DiscountDate = t.FDiscountDate,
+                                           };
+            //List<CCourseList> List = data.Take(10).ToList();
+            List<CCourseList> List = data.ToList();
             int count = data.Count();
             //c.course = data.Take(10).ToList();
+            //圖片路徑
             foreach (var item in List)
                 item.PhotoName = showImg(item.FEchelonId);
             c.course = List;
             c.page = (count < 10) ? 1 : (int)Math.Ceiling(Math.Round((decimal)count / 10, 1));
             return View(c);
+        }
+
+        //列表搜尋
+        public IActionResult searchList(string txtCategory, string txtSearch)
+        {
+            var pred1 = PredicateBuilder.New<TCourseInformation>();
+            pred1 = pred1.And(p => p.FClassState != (new CCourseModelShowState().showCourse("N")));
+            if (txtCategory != "全部")
+                pred1 = pred1.And(p => p.FCourse.FCategory.Equals(changeCategory_num(txtCategory)));
+
+            var pred2 = PredicateBuilder.New<TCourseInformation>(true);
+            if (!string.IsNullOrEmpty(txtSearch))
+                pred2 = search_KeyWords(pred2, txtSearch);
+
+            var data = _context.TCourseInformations.Where(pred1).Where(pred2).OrderByDescending(t => t.FSaverDate).Select(t => new CCourseList()
+            {
+                FEchelonId = t.FEchelonId,
+                Name = t.FCourse.FName,
+                ClassState = t.FClassState.ToString(),
+                OriginalPrice = t.FCourse.FOriginalPrice,
+                SpecialOffer = t.FCourse.FSpecialOffer,
+                DiscountDate = t.FDiscountDate,
+            });
+
+            CCourseListViewModel c = new CCourseListViewModel();
+            List<CCourseList> List = data.ToList();
+            //圖片路徑
+            foreach (var item in List)
+                item.PhotoName = showImg(item.FEchelonId);
+            c.course = List;
+            int count = data.Count();
+            c.page = (count < 10) ? 1 : (int)Math.Ceiling(Math.Round((decimal)count / 10, 1));
+            return Json(c);
+        }
+
+        //課程類別文字轉為代碼
+        [NonAction]
+        public int changeCategory_num(string category)
+        {
+            int p = Array.IndexOf(CourseData.c_name, category);
+            return Convert.ToInt32(CourseData.c_number[p]);
+        }
+
+        //關鍵字搜尋
+        private ExpressionStarter<TCourseInformation> search_KeyWords(ExpressionStarter<TCourseInformation> pred2, string txtSearch)
+        {
+            DateTime now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
+            txtSearch = txtSearch.Substring(txtSearch.Length - 1, 1) == " " ? txtSearch.Substring(0, txtSearch.Length - 1) : txtSearch;
+            string[] search_arr = txtSearch.Split(" ");
+
+            foreach (var item in search_arr)
+            {
+                if (changeSearch_Category(item).Count != 0)
+                {
+                    List<int> search_List = changeSearch_Category(item);
+                    foreach (var x in search_List)
+                        pred2 = pred2.Or(p => p.FCourse.FCategory.Equals(x));
+                }
+                if (changeSearch_ClassState(item).Count != 0)
+                {
+                    List<int> search_List = changeSearch_ClassState(item);
+                    foreach (var x in search_List)
+                        pred2 = pred2.Or(p => p.FClassState.Equals(x));
+                }
+                pred2 = pred2.Or(p => p.FEchelonId.Contains(item));
+                pred2 = pred2.Or(p => p.FName.Contains(item));
+                pred2 = pred2.Or(p => p.FCourse.FName.Contains(item));
+                pred2 = pred2.Or(p => p.FDiscountDate > now && p.FCourse.FSpecialOffer.ToString().Contains(item));
+                pred2 = pred2.Or(p => p.FDiscountDate < now && p.FCourse.FOriginalPrice.ToString().Contains(item));
+            }
+
+            return pred2;
+        }
+
+        //關鍵字搜尋_課程類別文字轉為代碼
+        [NonAction]
+        public List<int> changeSearch_Category(string search)
+        {
+            List<int> list = new List<int>();
+            for (int i = 0; i < CourseData.c_name.Length; i++)
+            {
+                if (CourseData.c_name[i].Contains(search))
+                {
+                    list.Add(Convert.ToInt32(CourseData.c_number[i]));
+                }
+            }
+            return list;
+        }
+
+        //關鍵字搜尋_課程狀態文字轉為代碼
+        [NonAction]
+        public List<int> changeSearch_ClassState(string search)
+        {
+            CourseData c = new CourseData();
+            List<int> list = new List<int>();
+            for (int i = 0; i < c.classstate_name.Length; i++)
+            {
+                if (c.classstate_name[i].Contains(search))
+                {
+                    list.Add(Convert.ToInt32(c.classstate_number[i]));
+                }
+            }
+            return list;
         }
 
         //瀏覽
@@ -118,7 +226,7 @@ namespace prjCramSchoolSystemUser.Controllers
                 CShoppingcartOperate shopping_operate = new CShoppingcartOperate();//購物車操作class
                 string echelonId = course.FEchelonId;//課程id
                 string name = course.FCourse.FName;//課程名稱
-                DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
+                //DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
                 decimal price = (decimal)shopping_operate.checkPrice(course.FCourse.FOriginalPrice, course.FCourse.FSpecialOffer,course.FDiscountDate);//課程價錢
                 List<CShoppingCart> cart = null;
 
@@ -148,6 +256,8 @@ namespace prjCramSchoolSystemUser.Controllers
                 fOriginalPrice = 0;
             if (fSpecialOffer == null)
                 fSpecialOffer = 0;
+            if (fDiscountDate == null)
+                return fOriginalPrice;
             DateTime now = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             if (fDiscountDate >= now)
                 return fSpecialOffer;

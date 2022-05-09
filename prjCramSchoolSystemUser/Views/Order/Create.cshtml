@@ -22,11 +22,11 @@
             transform: translate(-50%,-50%);
             z-index: 99;
             /*讓其浮在最上面*/
-            position: absolute;
+            /*position: absolute;*/
             display: none;
             /*設置彈出的div窗口位置*/
-            left: 40%;
-            top: 30%;
+            /*left: 40%;
+            top: 30%;*/
         }
         /*彈出窗口後，背部不可點擊操作*/
         /*#background_div {
@@ -59,10 +59,17 @@
         </div>
     <!-- Breadcrumb End -->
     <!-- Shopping Cart Section Begin -->
-    <section id="divOrderCreate" class="shopping-cart spad" style="padding-top:50px;">
+    <section id="divOrderCreate" class="shopping-cart spad" style="padding-top:25px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    @{
+                        <h6 style="color: #111111; font-weight: 600; text-transform: uppercase; margin-top: 25px; margin-bottom: 35px; ">
+                            <span style="margin-right:90px;">訂購人帳號:<span style="margin-left:10px;">@Model.oder.FUserId</span></span>
+                            <span>訂購人姓名:<span style="margin-left:10px;">@Model.UserName</span></span>
+                        </h6>
+                    }
+
                     <div class="shopping__cart__table">
                         <table>
                             <thead>
@@ -79,11 +86,12 @@
                                 @{
                                     if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
                                     {
+                                        int x = 0;
+                                        int num = 1;
                                         foreach (var item in Model.coursedata.ShoppingCart_List)
                                         {
                                             for (int i = 0; i < item.Count; i++)
                                             {
-                                                int num = i + 1;
                                                 <tr>
                                                     <td style="display:none">@item.EchelonId</td>
                                                     <td class="cart__close">@num</td>
@@ -98,10 +106,10 @@
                                                     <td class="quantity__item" colspan="2">
                                                         <div class="showData d-flex">
                                                             <label class="labReceiver">請輸入使用課程學生資訊</label>
-                                                            <button class="btn btn-outline-primary btnCheckReceiver d-flex justify-content-center align-items-center" type="button" style="width: 25px; height: 25px;"><i class="fa-solid fa-plus"></i></button>
+                                                            <button class="btn btn-outline-primary btnCheckReceiver d-flex justify-content-center align-items-center" type="button" style="width: 25px; height: 25px;margin-left:10px;"><i class="fa-solid fa-plus"></i></button>
                                                         </div>
                                                         <div class="eject">
-                                                            <input type="hidden" class="_txtReceiver" asp-for="@Model.order_detail[i].FReceiverId" />
+                                                            <input type="hidden" class="_txtReceiver" asp-for="@Model.order_detail[x].FReceiverId" />
                                                             <!--做一個點擊關閉的按鈕-->
                                                             <div class="close" style="width: 20px;height: 25px; margin-left: 275px;">
                                                                 <span class="span_close" style="font-size: 25px; color:red;">X</span>
@@ -110,10 +118,10 @@
                                                             <div class="divReceiver" style="height: 300px; width: 300px;">
                                                                 <h5 style="padding-top: 30px; padding-bottom: 15px; color: #111111; font-weight: 600;">請輸入使用課程學生的帳號或Email</h5>
                                                                 <input type="text" class="txtReceiver" style="width:280px; margin-right: 5px; margin-left: 5px; border: 1px #000000 solid;" />
-                                                                    <button type="button" class="btn btn-outline-primary checkReceiver" style="margin-right: 5px;">
-                                                                        @*<i class="fa-solid fa-magnifying-glass"></i>*@
-                                                                        確定
-                                                                    </button>
+                                                                <button type="button" class="btn btn-outline-primary checkReceiver" style="margin-top:10px; margin-left: 225px;">
+                                                                    @*<i class="fa-solid fa-magnifying-glass"></i>*@
+                                                                    確定
+                                                                </button>
                                                                 <h5 style="padding-top: 10px; padding-bottom: 15px; color: #111111; font-weight: 600;">查詢結果</h5>
                                                                 <div class="result_caption"></div>
                                                                 @*<button type="button" class="btn btn-outline-primary btnSaveReceiver">存檔</button>*@
@@ -122,6 +130,8 @@
                                                     </td>
                                                     <td class="cart__price">$@item.Price.ToString("###,###,##0")</td>
                                                 </tr>
+                                                x++;
+                                                num++;
                                             }
 
                                         }
@@ -137,7 +147,7 @@
                                 <span style="margin-right: 50px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">總金額</span>
                                 <span style=" color: #111111; font-size: 16px; font-weight: 600; width: 140px;">$</span>
                                 <span id="course_Price" style="margin-right: 20px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">
-                                @Model.coursedata.TotalPrice.ToString("###,###,##0")
+                                    @Model.coursedata.TotalPrice.ToString("###,###,##0")
                                 </span>
                             </div>
 

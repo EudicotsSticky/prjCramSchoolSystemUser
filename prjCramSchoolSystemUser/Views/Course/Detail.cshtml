@@ -1,6 +1,6 @@
 ﻿@model prjCramSchoolSystemUser.ViewModel.CCourseViewModel
 
-@{ 
+@{
     if (!string.IsNullOrEmpty(Model.course.FEchelonId))
     {
         ViewData["Title"] = Model.course.FCourse.FName;
@@ -116,7 +116,7 @@
                                 <li>上課時間:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FTime)</span></li>
                                 <li>授課老師:<span style="padding-left:6px;">@Html.DisplayFor(model => model.course.FTeacher)</span></li>
                             </ul>
-                                <button id="addCart" type="button" class="btn" style="text-align: center; border-width: 1px; border-style: solid; border-color: #5599FF; background-color: #FFFFFF; color: #5599FF; "><h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; color: #5599FF;"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;加入購物車</h5></button>
+                            <button id="addCart" type="button" class="btn" style="text-align: center; border-width: 1px; border-style: solid; border-color: #5599FF; background-color: #FFFFFF; color: #5599FF; "><h5 style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; color: #5599FF;"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;加入購物車</h5></button>
                         </div>
                     </div>
                 </div>
@@ -131,23 +131,24 @@
                 </div>
             </div>
             @{
-                if (Model.Detail_List.Count > 0)
+                if (Model.Detail_List != null && Model.Detail_List.Count > 0)
                 {
-                    foreach (var item in Model.Detail_List)
-                    {
-                        <div class="col-lg-12" style="padding-bottom: 20px;">
-                            <h5 id="table_title">課程細項</h5>
-                            <table class="table table-hover" style="border-style: none;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">課堂數</th>
-                                        <th scope="col">課堂進度(頁數)</th>
-                                        <th scope="col">課程進度說明</th>
-                                        <th scope="col">授課方式</th>
-                                        <th scope="col">說明</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_Detail">
+                    <div class="col-lg-12" style="padding-bottom: 20px;">
+                        <h5 id="table_title">課程細項</h5>
+                        <table class="table table-hover" style="border-style: none;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">課堂數</th>
+                                    <th scope="col">課堂進度(頁數)</th>
+                                    <th scope="col">課程進度說明</th>
+                                    <th scope="col">授課方式</th>
+                                    <th scope="col">說明</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_Detail">
+                                @foreach (var item in Model.Detail_List)
+                                {
+
                                     <tr>
                                         <th scope="row">@item.FCourseNumber</th>
                                         <td>@item.FSchedule</td>
@@ -155,10 +156,10 @@
                                         <td>@item.FTeachingMethod</td>
                                         <td>@item.FRemark</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 }
             }
         </div>
