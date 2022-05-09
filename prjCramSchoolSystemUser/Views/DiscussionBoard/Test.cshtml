@@ -1,0 +1,54 @@
+﻿@model IEnumerable<prjCoreCramSchoolDB.Models.TPost>
+
+@{
+    ViewData["Title"] = "Test";
+}
+
+<h1>Test</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+   
+    
+        @{if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="blog_item">
+                        <div class="blog__item__pic set-bg" data-setbg="~/img/bolg/bolg-1.jpg">
+                            <div class="blog__pic__inner">
+
+                                <ul>
+                                    <li>By<span>@Html.DisplayFor(modelItem => item.FAccount)</span></li>
+                                    <li>@Html.DisplayFor(modelItem => item.FPostTime)</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="blog__item__text">
+                            <h2>@Html.DisplayFor(modelItem => item.FPostTitle)</h2>
+                            <p>
+
+                                @Html.DisplayFor(modelItem => item.FPostContent)
+
+                            </p>
+                            
+                            <a asp-action="Edit" asp-route-id="@item.FPostId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.FPostUpdateTime">Details</a> |
+                            
+                            <a asp-action="Delete" asp-route-id="@item.FPhotoId">Delete</a>
+
+                        </div>
+                    </div>
+                    
+
+                    
+                        
+                            
+                   
+                }
+            }
+        }
+    

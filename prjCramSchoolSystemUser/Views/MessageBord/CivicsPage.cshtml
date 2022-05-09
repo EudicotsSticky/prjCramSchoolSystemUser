@@ -1,0 +1,83 @@
+﻿@model IEnumerable<prjCoreCramSchoolDB.Models.TPost>
+
+@{
+    ViewData["Title"] = "CivicsPage";
+}
+
+<html lang="zxx">
+<head>
+    <style>
+        .blog__pic__inner {
+            color: #6f42c1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__text">
+                        <h2>Blog</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Home</a>
+                        <span>Blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <a href="~/MessageBord/List" class="btn btn-primary">全部分類</a>
+            <a href="~/MessageBord/ChinesePage" class="btn btn-primary">國    文</a>
+            <a href="~/MessageBord/MathPage" class="btn btn-primary">數    學</a>
+            <a href="~/MessageBord/EnglishPage" class="btn btn-primary">英    文</a>
+            <a href="~/MessageBord/ChemicaPage" class="btn btn-primary">化    學</a>
+            <a href="~/MessageBord/BiologyPage" class="btn btn-primary">生    物</a>
+            <a href="~/MessageBord/CivicsPage" class="btn btn-primary">公    民</a>
+            <a href="~/MessageBord/HistoryPage" class="btn btn-primary">歷    史</a>
+            <a href="~/MessageBord/GeographyPage" class="btn btn-primary">地    理</a>
+            <a href="~/MessageBord/Cre" class="btn btn-primary">發表文章</a>
+        </div>
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    @foreach (var item in Model)
+                    {
+                        <div class="blog__item">
+                            <div class="blog__item__pic set-bg">
+                                <img sizes="top center" src="~/board/@item.FPhotoId" width="500" height="400">
+                                <div class="blog__pic__inner">
+                                    <div class="label">@Html.DisplayFor(modelitem => item.FPostSort)</div>
+                                    <ul>
+                                        <li>By <span>@Html.DisplayFor(modelitem => item.FAccount)</span></li>
+                                        <li>發布於: @Html.DisplayFor(modelitem => item.FPostTime)</li>
+                                        <li>編輯於: @Html.DisplayFor(modelitem => item.FPostUpdateTime)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="blog__item__text">
+                                <h2>@Html.DisplayFor(modelitem => item.FPostTitle)</h2>
+                                <p>
+                                    @Html.DisplayFor(modelitem => item.FPostContent)
+                                </p>
+                                <a asp-action="Detail" asp-route-id="@item.FPostId">回覆文章</a>|
+                                <a asp-action="Edit" asp-route-id="@item.FPostId">編輯文章</a>|
+                                <a asp-action="Delete" asp-route-id="@item.FPostId">刪除文章</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

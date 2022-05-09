@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using prjCramSchoolSystemUser.Models;
+using prjCoreCramSchoolDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace prjCramSchoolSystemUser.Controllers
+namespace prjCoreCramSchoolDB.Controllers
 {
     public class HomeController : Controller
     {

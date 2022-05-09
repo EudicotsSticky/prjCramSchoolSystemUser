@@ -1,0 +1,64 @@
+﻿@model prjCoreCramSchoolDB.Models.TPost
+
+@{
+    ViewData["Title"] = "test3";
+}
+
+<h1>貼文一覽</h1>
+
+<h4>新增貼文</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="test3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FPostId" class="control-label"></label>
+                <input asp-for="FPostId" class="form-control" />
+                <span asp-validation-for="FPostId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FPostTitle" class="control-label"></label>
+                <input asp-for="FPostTitle" class="form-control" />
+                <span asp-validation-for="FPostTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FPostContent" class="control-label"></label>
+                <input asp-for="FPostContent" class="form-control" />
+                <span asp-validation-for="FPostContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FPostTime" class="control-label"></label>
+                <input asp-for="FPostTime" class="form-control" />
+                <span asp-validation-for="FPostTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FAccount" class="control-label"></label>
+                <input asp-for="FAccount" class="form-control" />
+                <span asp-validation-for="FAccount" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="FPostUpdateTime" class="control-label"></label>
+                <input asp-for="FPostUpdateTime" class="form-control" />
+                <span asp-validation-for="FPostUpdateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FPhotoId" class="control-label"></label>
+                <input asp-for="FPhotoId" class="form-control" />
+                <span asp-validation-for="FPhotoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

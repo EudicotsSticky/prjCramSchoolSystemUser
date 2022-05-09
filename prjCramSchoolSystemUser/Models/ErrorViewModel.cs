@@ -1,6 +1,6 @@
 using System;
 
-namespace prjCramSchoolSystemUser.Models
+namespace prjCoreCramSchoolDB.Models
 {
     public class ErrorViewModel
     {
