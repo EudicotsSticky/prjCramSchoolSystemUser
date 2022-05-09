@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace prjCramSchoolSystemUser.Models
+namespace prjCoreCramSchoolDB.Models
 {
     public partial class TPost
     {
@@ -14,6 +14,7 @@ namespace prjCramSchoolSystemUser.Models
         public string FAccount { get; set; }
         public DateTime? FPostUpdateTime { get; set; }
         public string FPhotoId { get; set; }
+        public string FPostSort { get; set; }
 
         public virtual TPostComment TPostComment { get; set; }
         public virtual TPostThumbUp TPostThumbUp { get; set; }

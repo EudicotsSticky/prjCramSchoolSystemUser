@@ -51,8 +51,8 @@
 
 
     /*------------------
-        Navigation
-    --------------------*/
+		Navigation
+	--------------------*/
     $(".mobile-menu").slicknav({
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: true
@@ -164,8 +164,8 @@
     $("select").niceSelect();
 
     /*------------------
-        Magnific
-    --------------------*/
+		Magnific
+	--------------------*/
     $('.video-popup').magnificPopup({
         type: 'iframe'
     });
@@ -188,8 +188,8 @@
 
 
     /*------------------
-        Single Product
-    --------------------*/
+		Single Product
+	--------------------*/
     $('.product__details__thumb img').on('click', function () {
         $('.product__details__thumb .pt__item').removeClass('active');
         $(this).addClass('active');
@@ -203,12 +203,11 @@
     });
 
     /*-------------------
-        Quantity change
-    --------------------- */
-    //var proQty = $('.pro-qty');
-    var proQty = $('table');
-    //proQty.prepend('<span class="dec qtybtn">-</span>');
-    //proQty.append('<span class="inc qtybtn">+</span>');
+		Quantity change
+	--------------------- */
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
@@ -225,12 +224,12 @@
         $button.parent().find('input').val(newVal);
     });
 
-
+    
 
     $(".product__details__thumb").niceScroll({
         cursorborder: "",
         cursorcolor: "rgba(0, 0, 0, 0.5)",
         boxzoom: false
-    });
+      });
 
 })(jQuery);
