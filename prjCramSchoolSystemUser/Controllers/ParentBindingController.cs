@@ -114,7 +114,7 @@ namespace prjCramSchoolSystemUser.Controllers
         }
 
         // 點開連結會觸發
-        public async Task<IActionResult> UnbindMather()
+        public async Task<IActionResult> UnbindMother()
         {
             // 解除綁定判斷交給前端，此處直接解綁
             var user = await _userManager.GetUserAsync(User);
