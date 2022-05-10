@@ -35,7 +35,7 @@
                 一旦您掃描QRcode啟用驗證，您的二階段驗證App將提供您一組唯一碼，請於下方輸入該碼進行驗證。
             </p>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <form id="send-code" method="post">
                         <div class="form-group">
                             <label asp-for="Input.Code" class="control-label">驗證唯一碼</label>
@@ -45,6 +45,9 @@
                         <button type="submit" class="btn btn-primary">驗證</button>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     </form>
+                </div>
+                <div class="col-md-6">
+
                 </div>
             </div>
         </li>

@@ -19,6 +19,7 @@
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
     <Content Remove="Views\Order\AioCheckOut.cshtml" />
+    <Content Remove="Views\Shopping\Shoppingcart1.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -158,7 +159,6 @@
     <None Include="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
     <None Include="Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml" />
     <None Include="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
-    <None Include="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
     <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
     <None Include="Areas\Identity\Pages\Account\RegisterConfirmation.cshtml" />
     <None Include="Areas\Identity\Pages\Account\ResendEmailConfirmation.cshtml" />
@@ -173,20 +173,35 @@
     <None Include="Views\CourseModel\Detail.cshtml" />
     <None Include="Views\CourseModel\Edit.cshtml" />
     <None Include="Views\CourseModel\List.cshtml" />
-    <None Include="Views\Course\Detail.cshtml" />
-    <None Include="Views\Course\Detail1.cshtml" />
-    <None Include="Views\Course\Detail2.cshtml" />
-    <None Include="Views\Course\Edit.cshtml" />
     <None Include="Views\Course\List.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
-    <None Include="Views\Order\CheckOutFeedback.cshtml" />
     <None Include="Views\Order\Create.cshtml" />
+    <None Include="Views\ParentBinding\ViewParent.cshtml" />
+    <None Include="Views\RoleManager\Index.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <None Include="Views\Shopping\Shoppingcart.cshtml" />
+    <None Include="Views\UserRoles\Index.cshtml" />
+    <None Include="Views\UserRoles\Manage.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\fonts\ElegantIcons.svg" />
+    <None Include="wwwroot\fonts\Flaticon.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\js\bootstrap.min.js" />
+    <None Include="wwwroot\js\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\js\jquery.barfiller.js" />
+    <None Include="wwwroot\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\js\jquery.nicescroll.min.js" />
+    <None Include="wwwroot\js\jquery.slicknav.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\owl.carousel.min.js" />
+    <None Include="wwwroot\js\qr.js" />
+    <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
@@ -202,9 +217,22 @@
     <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
     <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
     <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\qrcode.js" />
+    <None Include="wwwroot\lib\qrcode.min.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LinqKit" Version="1.2.2" />
     <PackageReference Include="MailKit" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.15" />

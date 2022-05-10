@@ -43,19 +43,19 @@ namespace prjCramSchoolSystemUser.Controllers
                 CShoppingcartOperate shopping_operate = new CShoppingcartOperate();//購物車操作class
                 string echelonId = course.FEchelonId;//課程id
                 string name = course.FCourse.FName;//課程名稱
-                DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
+                //DateTime discountDate = (DateTime)course.FDiscountDate;//打折期限
                 decimal price = (decimal)shopping_operate.checkPrice(course.FCourse.FOriginalPrice, course.FCourse.FSpecialOffer, course.FDiscountDate);//課程價錢
 
                 if (HttpContext.Session.Keys.Contains(CDictionary.SK_COURSE_PURCHASED_LIST))
                 {
                     json = HttpContext.Session.GetString(CDictionary.SK_COURSE_PURCHASED_LIST);
                     cart = JsonSerializer.Deserialize<List<CShoppingCart>>(json);
-                    cart = shopping_operate.checkBought(fEchelonId, price, cart, name,course.FCoverImg);
+                    cart = shopping_operate.checkBought(fEchelonId, price, cart, name, showImg(course.FEchelonId));//,course.FCoverImg
                 }
                 else
                 {
                     cart = new List<CShoppingCart>();
-                    CShoppingCart item = shopping_operate.addBuy(echelonId, price, name,course.FCoverImg);
+                    CShoppingCart item = shopping_operate.addBuy(echelonId, price, name, showImg(course.FEchelonId));//,course.FCoverImg
                     cart.Add(item);
                 }
                 c_shoppingcart.ShoppingCart_List = cart;
@@ -115,6 +115,16 @@ namespace prjCramSchoolSystemUser.Controllers
                 HttpContext.Session.SetString(CDictionary.SK_COURSE_PURCHASED_LIST, json);
             }
             return Json(c_shoppingcart);
+        }
+
+        //顯示圖片
+        private string showImg(string fEchelonId)
+        {
+            string photoarr = "NullImg.jpg";
+            TCourseInformationImg data = _context.TCourseInformationImgs.FirstOrDefault(c => c.FEchelonId.Equals(fEchelonId));
+            if (data == null)
+                return photoarr;
+            return data.FCourseImageName;
         }
 
         //目前沒使用到

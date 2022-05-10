@@ -1,117 +1,277 @@
 ﻿@model prjCramSchoolSystemUser.ViewModel.COrderCreateViewModel
 
 @{
-    ViewData["Title"] = "Creat";
+    ViewData["Title"] = "建立訂單";
 }
-@section Styles{ 
-<style>
-    .divider {
-        padding-bottom: 25px;
-        margin-bottom: 30px;
-    }
-</style>
+@section Styles{
+    <style>
+        .divider {
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+        /*被彈出的div*/
+        .eject {
+            border: 3px #000000 solid;
+            border-radius: 10px;
+            width: 300px;
+            height: 300px;
+            background-color: #ECF5FF;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 99;
+            /*讓其浮在最上面*/
+            /*position: absolute;*/
+            display: none;
+            /*設置彈出的div窗口位置*/
+            /*left: 40%;
+            top: 30%;*/
+        }
+        /*彈出窗口後，背部不可點擊操作*/
+        /*#background_div {
+            background-color: rgba(220,220,220,0.5);
+            position: absolute;
+        }*/
+    </style>
 }
-<h1>Creat</h1>
 
-<h4>COderCreatViewModel</h4>
-<hr />
 <!-- Checkout Section Begin -->
-<section class="checkout spad">
-    <div class="container">
-        <div class="checkout__form">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                        <div style="border-width: 3px; border-style: double; border-color: #e1e1e1; padding: 25px; ">
-                            <h3 style=" margin-bottom:20px;">付款人資料</h3>
-                            <div class="checkout__input">
-                                <p>@Html.DisplayNameFor(model => model.UserName)<span>*</span></p>
-                                <input asp-for="@Model.UserName" class="form-control" />
-                            </div>
-                            <div class="checkout__input">
-                                <p>@Html.DisplayNameFor(model => model.oder.FUserId)<span>*</span></p>
-                                <input asp-for="@Model.oder.FUserId" class="form-control" />
-                            </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breadcrumb__text">
+                            <h2>建立訂單</h2>
                         </div>
-                        <br />
-                        <div style="border-width: 3px; border-style: double; border-color: #e1e1e1; padding: 25px; ">
-                            <h3 class="checkout__title">學生資料</h3>
-                            @{
-                                if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
-                                {
-                                    foreach (var item in Model.coursedata.ShoppingCart_List)
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breadcrumb__links">
+                            <a href="@Url.Content("~/")">首頁</a>
+                            <span>建立訂單</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Breadcrumb End -->
+    <!-- Shopping Cart Section Begin -->
+    <section id="divOrderCreate" class="shopping-cart spad" style="padding-top:25px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    @{
+                        <h6 style="color: #111111; font-weight: 600; text-transform: uppercase; margin-top: 25px; margin-bottom: 35px; ">
+                            <span style="margin-right:90px;">訂購人帳號:<span style="margin-left:10px;">@Model.oder.FUserId</span></span>
+                            <span>訂購人姓名:<span style="margin-left:10px;">@Model.UserName</span></span>
+                        </h6>
+                    }
+
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="display:none"></th>
+                                    <th>序號</th>
+                                    <th style="padding-right:20px;">課程</th>
+                                    <th>使用課程學生</th>
+                                    <th></th>
+                                    <th>金額</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
                                     {
-                                        for (int i = 0; i < item.Count; i++)
+                                        int x = 0;
+                                        int num = 1;
+                                        foreach (var item in Model.coursedata.ShoppingCart_List)
                                         {
-                                            <div class="checkout__input">
-                                                <p>課程名稱<span>*</span></p>
-                                                <input asp-for="@item.Name" class="form-control" />
-                                            </div>
-                                            <div class="checkout__input">
-                                                <p>班別id<span>*</span></p>
-                                                <input asp-for="@item.EchelonId" class="form-control" />
-                                            </div>
-                                            <div class="checkout__input">
-                                                <p>購買課程費用<span>*</span></p>
-                                                <input asp-for="@item.Price" class="form-control" />
-                                            </div>
-                                            <div class="checkout__input">
-                                                <!--<p>-->@*@Model.oder_detail[i].FReceiverId<span>*</span>*@<!--</p>-->
-                                                <p>@Html.LabelFor(model=>model.order_detail[i].FReceiverId)<span>*</span></p>
-                                                <input id="txtReceiver" class="form-control checkReceiver" asp-for="@Model.order_detail[i].FReceiverId" />
-                                                <small id="ReceiverMessage" class="form-text text-muted"></small>
-                                            </div>
+                                            for (int i = 0; i < item.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td style="display:none">@item.EchelonId</td>
+                                                    <td class="cart__close">@num</td>
+                                                    <td class="product__cart__item">
+                                                        <div class="product__cart__item__pic">
+                                                            <img src="@item.PhotoName" style="width:200px;">
+                                                        </div>
+                                                        <div class="product__cart__item__text">
+                                                            <h5>@item.Name</h5>
+                                                        </div>
+                                                    </td>
+                                                    <td class="quantity__item" colspan="2">
+                                                        <div class="showData d-flex">
+                                                            <label class="labReceiver">請輸入使用課程學生資訊</label>
+                                                            <button class="btn btn-outline-primary btnCheckReceiver d-flex justify-content-center align-items-center" type="button" style="width: 25px; height: 25px;margin-left:10px;"><i class="fa-solid fa-plus"></i></button>
+                                                        </div>
+                                                        <div class="eject">
+                                                            <input type="hidden" class="_txtReceiver" asp-for="@Model.order_detail[x].FReceiverId" />
+                                                            <!--做一個點擊關閉的按鈕-->
+                                                            <div class="close" style="width: 20px;height: 25px; margin-left: 275px;">
+                                                                <span class="span_close" style="font-size: 25px; color:red;">X</span>
+                                                            </div>
+                                                            <!--彈出div的內容-->
+                                                            <div class="divReceiver" style="height: 300px; width: 300px;">
+                                                                <h5 style="padding-top: 30px; padding-bottom: 15px; color: #111111; font-weight: 600;">請輸入使用課程學生的帳號或Email</h5>
+                                                                <input type="text" class="txtReceiver" style="width:280px; margin-right: 5px; margin-left: 5px; border: 1px #000000 solid;" />
+                                                                <button type="button" class="btn btn-outline-primary checkReceiver" style="margin-top:10px; margin-left: 225px;">
+                                                                    @*<i class="fa-solid fa-magnifying-glass"></i>*@
+                                                                    確定
+                                                                </button>
+                                                                <h5 style="padding-top: 10px; padding-bottom: 15px; color: #111111; font-weight: 600;">查詢結果</h5>
+                                                                <div class="result_caption"></div>
+                                                                @*<button type="button" class="btn btn-outline-primary btnSaveReceiver">存檔</button>*@
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart__price">$@item.Price.ToString("###,###,##0")</td>
+                                                </tr>
+                                                x++;
+                                                num++;
+                                            }
+
                                         }
                                     }
                                 }
-                            }
-                            <hr class="divider" />
-                            <div class="checkout__input">
-                                <label>總金額<span>@Model.coursedata.TotalPrice.ToString("###,###,##0")</span></label>
+                            </tbody>
+                        </table>
+                    </div>
+                    @{
+                        if (Model.coursedata.ShoppingCart_List != null && Model.coursedata.ShoppingCart_List.Count != 0)
+                        {
+                            <div style="margin-bottom: 30px;text-align:right;">
+                                <span style="margin-right: 50px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">總金額</span>
+                                <span style=" color: #111111; font-size: 16px; font-weight: 600; width: 140px;">$</span>
+                                <span id="course_Price" style="margin-right: 20px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">
+                                    @Model.coursedata.TotalPrice.ToString("###,###,##0")
+                                </span>
                             </div>
-                            <div class="form-group">
-                                <input id="test" type="button" value="test"class="primary-btn" style="border:2px blue none;" />
-                                <input type="submit" value="Save"class="primary-btn" style="border:2px blue none;" />
+
+                        }
+                    }
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="@Url.Content("~/Shopping/Shoppingcart")">回購物車</a>
                             </div>
                         </div>
-                        
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+                                <input type="submit" value="建立訂單" class="" style="color: #007bff; font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border: 1px solid #007bff; padding: 14px 35px; display: inline-block; background-color: #FFFFFF  " />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    <!-- Shopping Cart Section End -->
+</form>
 <!-- Checkout Section End -->
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
-    @*$("#test").click(function () {
-        let response=await fetch("@Url.Content("~/Order/")")
-    })*@
-
-    $("body").on("blur", ".checkReceiver",async function () {
-        console.log("aa");
-        let receiver = $("#txtReceiver").val();
-        let receiverMsg = $("#ReceiverMessage");
-        let message = "";
-        let response = await fetch("@Url.Content("~/order/checkReceiverId")" + `?account=${receiver}`);
-        if (response.status == 200) {
-            let data = await response.text();
-            if (data == "True") {
-                message = "";
+    <script>
+        //這個判斷重新寫
+        //顯示:學生姓名 or 重新輸入
+        //回傳 FirstName + LastName
+        $("#divOrderCreate").on("click", ".checkReceiver", async function (e) {
+            //let btnTarget = $(this);
+            let btnTarget = $(e.target);
+            //取輸入textbox值
+            //let receiver = $(e.target).closest(".divReceiver").children(".txtReceiver").val();
+            let receiver = btnTarget.closest(".divReceiver").children(".txtReceiver").val();
+            console.log(receiver);
+            //查詢結果顯示標籤
+            //let receiverMsg = $(e.target).closest(".divReceiver").children(".result_caption");
+            let receiverMsg = btnTarget.closest(".divReceiver").children(".result_caption");
+            let response = await fetch("@Url.Content("~/order/checkReceiverId")" + `?account=${receiver}`);
+            if (response.status == 200) {
+                let arr = await response.json();
+                //帳號存在
+                if (arr.userState == 1) {
+                    //顯示學生姓名
+                    let name = " 學生 : ";
+                    if (arr.firstName != "") {
+                        name += arr.firstName;
+                    }
+                    if (arr.lastName != "") {
+                        name += arr.lastName;
+                    }
+                    //放進彈跳div
+                    receiverMsg.html(`<h5>${name}</h5>`);
+                    //放進textbox裡
+                    //$(e.target).closest(".divReceiver").closest(".eject").children("._txtReceiver").val(arr.userName);
+                    btnTarget.closest(".divReceiver").closest(".eject").children("._txtReceiver").val(arr.userName);
+                    //顯示lab裡
+                    //$(e.target).closest(".divReceiver").closest(".eject").closest(".quantity__item").closest(".showData").children(".labReceiver").html(name);
+                    btnTarget.closest(".quantity__item").children(".showData").children(".labReceiver").html(name);
+                    //顯示存檔按鈕
+                    //??
+                } else {
+                    //帳號不存在
+                    receiverMsg.html("帳號或信箱不存在，請重新輸入");
+                }                
             } else {
-                message = "請確認帳號是否輸入正確";
+                let message = "錯誤發生，無法驗證";
+                receiverMsg.html(message);
             }
-        } else {
-            message = "錯誤發生，無法驗證";
-        }
-        receiverMsg.html(message);
-    })
-</script>
+        })
+
+
+        //點擊彈出一個div框
+        $("#divOrderCreate").on("click", ".btnCheckReceiver", function (e) { //給按鈕綁定點擊事件
+            let showdiv = $(e.target).closest(".quantity__item").children(".eject");
+            showdiv.show();
+        })
+
+        //點擊關閉這個div框
+        $("#divOrderCreate").on("click", ".close", function (e) {
+            let showdiv = $(e.target).closest(".quantity__item").children(".eject");
+            showdiv.hide();
+        })
+
+        //鼠標移動到關閉按鈕，按鈕變紅色,移除變黑色
+        $("#divOrderCreate").on("mouseover", ".close", function (e) {
+            $(e.target).children(".span_close").css("color", "red");
+            $(e.target).children("span").css("cursor", "default");
+            //$(e.target).children("span").css("color", "red");
+
+        })
+        //$("#divOrderCreate").on("mouseout", ".close", function (e) {
+            //$(e.target).children("span").css("color", "black");
+        //})
+
+
+
+        //點擊彈出一個div框
+        //$("#btnCheckReceiver").click(function () { //給按鈕綁定點擊事件
+        //    var hei = $(document).height();
+        //    var wid = $(document).width();
+        //    $("#background_div").css("width", wid);
+        //    $("#background_div").css("height", hei);
+        //    $("#eject").show();
+        //});
+
+        //點擊關閉這個div框
+        //$("#close").click(function () {
+        //    $("#background_div").css("width", 0);
+        //    $("#background_div").css("height", 0);
+        //    $("#eject").hide();
+        //});
+
+        //鼠標移動到關閉按鈕，按鈕變紅色,移除變黑色
+        //$("#close").mouseover(function () {
+        //    $("#close span").css("color", "red");
+        //    $("#close span").css("cursor", "default");
+        //});
+        //$("#close").mouseout(function () {
+        //    $("#close span").css("color", "black");
+        //});
+    </script>
 }

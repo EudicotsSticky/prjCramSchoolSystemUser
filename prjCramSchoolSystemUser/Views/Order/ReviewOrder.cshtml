@@ -1,0 +1,132 @@
+﻿@model prjCramSchoolSystemUser.ViewModel.COrderReviewViewModel
+
+@{
+    ViewData["Title"] = "訂單詳情";
+}
+
+@section Styles{
+<style>
+    .order_title {
+        color: #111111;
+        font-weight: 600;
+        text-transform: uppercase;
+        /*margin-top: 25px;
+        margin-bottom: 35px;*/
+    }
+    .Receiver_span {
+        color: #111111;
+        font-size: 16px;
+        font-weight: 600;
+        width: 140px;
+    }
+</style>
+ }
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>訂單詳情</h2>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a href="@Url.Content("~/")">首頁</a>
+                    <a href="@Url.Content("~/Order/OrderList")">我的訂單</a>
+                    <span>訂單詳情</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shopping Cart Section Begin -->
+<section id="divOrderCreate" class="shopping-cart spad" style="padding-top:50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 style="margin-bottom: 10px;"><span class="order_title">訂單編號:</span><span style="margin-left:10px;">@Model.order.FOrderId</span></h5>
+                <h6 style="margin-bottom: 10px;">
+                    <span class="order_title">訂購人姓名:</span><span style="margin-left:10px;">@Model.UserName</span>
+                </h6>
+                <h6 style="margin-bottom: 10px;">
+                    <span class="order_title">訂購人帳號:</span><span style="margin-left:10px;">@Model.order.FUserId</span>
+                </h6>
+                <h6 style="margin-bottom: 10px;">
+                    <span class="order_title">訂單時間:</span><span style="margin-left:10px;">@Model.order.FSaverDaate</span>
+                </h6>
+                <h6 style="margin-bottom: 30px;">
+                    <span class="order_title">訂單狀態:</span><span style="margin-left:10px;">@Model.OrderState</span>
+                </h6>
+
+                <div class="shopping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="display:none"></th>
+                                <th>序號</th>
+                                <th style="padding-right:20px;">課程</th>
+                                <th>使用課程學生</th>
+                                <th>金額</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model.order_detail != null && Model.order_detail.Count != 0)
+                                {
+                                    int num = 1;
+                                    foreach (var item in Model.order_detail)
+                                    {
+                                        decimal _fMoney = item.FMoney == null ? 0 : Convert.ToDecimal(item.FMoney);
+
+                                        <tr>
+                                            <td style="display:none">@item.FEchelonId</td>
+                                            <td class="cart__close">@num</td>
+                                            <td class="product__cart__item">
+                                                <div class="product__cart__item__pic" style="margin-right: 10px;">
+                                                    <img src="@item.PhotoName" style="width:200px;">
+                                                </div>
+                                                <div class="product__cart__item__text d-flex align-items-center justify-content-start" style="height: 114.86px;">
+                                                    <h5>@item.Name</h5>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="Receiver_span">姓名: @item.FReceiverName</span><br />
+                                                <span class="Receiver_span">帳號: @item.FReceiverId</span>
+                                            </td>
+                                            <td class="cart__price">$@_fMoney.ToString("###,###,##0")</td>
+                                        </tr>
+                                        num++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @{
+                    if (Model.order_detail != null && Model.order_detail.Count != 0)
+                    {
+                        <div style="margin-bottom: 30px;text-align:right;">
+                            <span style="margin-right: 50px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">總金額</span>
+                            <span style=" color: #111111; font-size: 16px; font-weight: 600; width: 140px;">$</span>
+                            <span id="course_Price" style="margin-right: 20px; color: #111111; font-size: 16px; font-weight: 600; width: 140px;">
+                                @Model.Price.ToString("###,###,##0")
+                            </span>
+                        </div>
+
+                    }
+                }
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn">
+                            <a href="@Url.Content("~/Order/OrderList")">我的訂單</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</section>

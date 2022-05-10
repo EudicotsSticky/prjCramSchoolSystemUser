@@ -31,8 +31,8 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "請輸入{0}")]
+            [EmailAddress(ErrorMessage = "請輸入有效的電子郵件地址")]
             public string Email { get; set; }
         }
 

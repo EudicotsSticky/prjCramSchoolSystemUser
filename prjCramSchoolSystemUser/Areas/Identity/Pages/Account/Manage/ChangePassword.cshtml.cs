@@ -34,19 +34,19 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "請輸入舊密碼")]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "舊密碼")]
             public string OldPassword { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "{0}必須最少{2}字且最多{1}字。", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "新密碼")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
+            [Display(Name = "新密碼確認")]
             [Compare("NewPassword", ErrorMessage = "兩次輸入密碼並不相符。")]
             public string ConfirmPassword { get; set; }
         }

@@ -9,6 +9,7 @@ namespace prjCramSchoolSystemUser.ViewModel
     public class CCourseListViewModel
     {
         public List<CCourseList> course { get; set; }
+        public string[] CategoryDDL = CourseData.c_name;
         public int page { get; set; }
     }
     public class CCourseList
@@ -35,6 +36,11 @@ namespace prjCramSchoolSystemUser.ViewModel
         {
             get { return (decimal)c.checkPrice(OriginalPrice, SpecialOffer, DiscountDate); }
             set { value = (decimal)c.checkPrice(OriginalPrice, SpecialOffer, DiscountDate); }
+        }
+
+        public string Price_Format
+        {
+            get { return String.Format("{0:0,0}", Price); }
         }
         public string PhotoName { get; set; }
     }

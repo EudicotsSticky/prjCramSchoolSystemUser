@@ -45,12 +45,13 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__cart">
             <div class="offcanvas__cart__links">
-                <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
-                <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
+                @*<a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>*@
+                @*<a href="#"><img src="~/img/icon/heart.png" alt=""></a>*@
             </div>
             <div class="offcanvas__cart__item">
-                <a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
-                <div class="cart__price">購物車: <span>$0.00</span></div>
+                <a asp-controller="Shopping" asp-action="Shoppingcart"><img src="~/img/icon/cart.png" alt=""></a>
+                @*<a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>*@
+                @*<div class="cart__price">購物車: <span>$0.00</span></div>*@
             </div>
         </div>
         <div class="offcanvas__logo">
@@ -77,12 +78,12 @@
                             </div>
                             <div class="header__top__right">
                                 <div class="header__top__right__links">
-                                    <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
-                                    <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
+                                    @*<a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>*@
+                                    @*<a href="#"><img src="~/img/icon/heart.png" alt=""></a>*@
+                                    @*<a href="#"><img src="~/img/icon/heart.png" alt=""></a>*@
                                 </div>
                                 <div class="header__top__right__cart">
-                                    <a href="#"><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
-                                    <div class="cart__price">購物車: <span>$0.00</span></div>
+                                    <a asp-controller="Shopping" asp-action="Shoppingcart"><img src="~/img/icon/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -97,24 +98,23 @@
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
-                            <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Index">課程購買</a></li>
-
+                            <li class="text-nowrap"><a asp-area="" asp-controller="Course" asp-action="List">課程購買</a></li>
+                            <li><a asp-area="" asp-controller="Order" asp-action="OrderList">我的訂單</a></li>
+                            @*<li><a asp-area="" asp-controller="" asp-action="">討論區</a></li>*@
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Roles.Default.ToString()))
-                                {
-                                    <li>
-                                        <a class="text-nowrap" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">會員中心</a>
-                                        <ul class="dropdown">
-                                            <li class="text-nowrap">
-                                                <a class="text-nowrap" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">個人資料修改</a>
-                                            </li>
-                                            <li class="text-nowrap">
-                                                <a class="text-nowrap" asp-area="" asp-controller="ParentBinding" asp-action="ViewParent">家長綁定設定</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                }
+                                <li>
+                                    <a class="text-nowrap" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">會員中心</a>
+                                    <ul class="dropdown">
+                                        <li class="text-nowrap">
+                                            <a class="text-nowrap" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">個人資料修改</a>
+                                        </li>
+                                        <li class="text-nowrap">
+                                            <a class="text-nowrap" asp-area="" asp-controller="ParentBinding" asp-action="ViewParent">家長綁定設定</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Roles.SuperAdmin.ToString()))
                                 {
                                     <li>
@@ -130,11 +130,7 @@
                                     </li>
                                 }
                             }
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">討論區</a></li>
                             <li class="text-nowrap"><a asp-area="" asp-controller="Home" asp-action="Privacy">隱私權政策</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">聯繫我們</a></li>
-                            @*<li class="text-nowrap"><a asp-area="" asp-controller="RoleManager" asp-action="Index">身分權限管理</a></li>*@
-
                         </ul>
                     </nav>
                 </div>
@@ -150,7 +146,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__widget">
-                        <h6>WORKING HOURS</h6>
+                        <h6>營業時間：</h6>
                         <ul>
                             <li>Monday - Friday: 08:00 am – 08:30 pm</li>
                             <li>Saturday: 10:00 am – 16:30 pm</li>
@@ -164,8 +160,7 @@
                             <a href="#"><img src="~/img/footer-logo.png" alt=""></a>
                         </div>
                         <p>
-                            Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore dolore magna aliqua.
+                            我是說明，但通常大眾都不會想認真看這裡，嘿嘿。
                         </p>
                         <div class="footer__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -177,8 +172,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__newslatter">
-                        <h6>Subscribe</h6>
-                        <p>Get latest updates and offers.</p>
+                        <h6>訂閱</h6>
+                        <p>取得補習班最新資訊。</p>
                         <form action="#">
                             <input type="text" placeholder="Email">
                             <button type="submit"><i class="fa fa-send-o"></i></button>

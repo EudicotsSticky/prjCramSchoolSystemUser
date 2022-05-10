@@ -9,7 +9,7 @@ namespace prjCramSchoolSystemUser.Models
     public class CourseData
     {
         //使用:CourseModel
-        public static string[] c_name = new[] { "國文", "英文", "數學" };
+        public static string[] c_name = new[] { "國文", "英文", "數學", "社會", "生物" };
         public static string[] c_ename = new[] { "CN", "EN", "MT", "SC", "NT" };
         public static string[] c_number = new[] { "1", "2", "3", "4", "5" };
 
@@ -20,7 +20,7 @@ namespace prjCramSchoolSystemUser.Models
         //尚未招生->(預排課表時)
         public string[] classstate_name = new[] { "尚未招生", "招生中", "額滿", "開課中", "已刪除" };
         public string[] classstate_number = new[] { "0", "1", "2", "3", "9" };
-
+        //
     }
 
     //科目代碼
@@ -61,11 +61,34 @@ namespace prjCramSchoolSystemUser.Models
         {
             int p_express = Array.IndexOf(express, show);
             if (p_express != -1)
-                return p_express + 1;
+                //return p_express + 1;
+                return startnumber[p_express];
             else
                 return 0;
         }
     }
+
+    //訂單狀態
+    //使用:Order
+    public class COrderShowState
+    {
+        //是否付款
+        string[] express = new[] { "待付款", "已付款" };
+        //狀態代表數字
+        int[] startnumber = new[] { 0, 1 };
+        public string showOrder(int? show)
+        {
+            if (show == null)
+                return "";
+            int p_express = Array.IndexOf(startnumber, show);
+            if (p_express != -1)
+                //return p_express + 1;
+                return express[p_express];
+            else
+                return "";
+        }
+    }
+
 
     //讀取舊課程或新增課程
     //使用:CourseInformation
@@ -140,6 +163,15 @@ namespace prjCramSchoolSystemUser.Models
         //public TCourseInformation Course { get; set; }
     }
 
+    //確認使用者帳號是否存在 顯示學生資料
+    //使用:Order
+    public class CShowStudentData
+    {
+        public int UserState { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
     //test
     public class CourseMenu1
     {

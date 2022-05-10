@@ -1,0 +1,80 @@
+﻿@model IEnumerable<prjCramSchoolSystemUser.ViewModel.COrderListViewModel>
+
+@{
+    ViewData["Title"] = "我的訂單";
+}
+
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>我的訂單</h2>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a href="@Url.Content("~/")">首頁</a>
+                    <span>我的訂單</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shopping Cart Section Begin -->
+<section id="divOrderCreate" class="shopping-cart spad" style="padding-top:50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                @{if (Model != null && Model.Count()!=0)
+                    {
+                        foreach (var item in Model)
+                        { 
+                            <table class="table" style="border: 2px solid #dee2e6;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">訂單編號  @item.order.FOrderId</th>
+                                        <th scope="col">訂單日期</th>
+                                        <th scope="col">訂單金額</th>
+                                        <th scope="col">訂購人</th>
+                                        <th scope="col">付款狀態</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            @if (item.order_detail_count != null && item.order_detail_count.Count != 0)
+                                            {
+                                                @foreach (var detail in item.order_detail_count)
+                                                {
+                                                    <h6><span>@detail.Name</span><span style="margin-left:5px;">×@detail.Count</span></h6>
+                                                }
+                                            }
+                                        </th>
+                                        <td>@item.order.FCreationDate</td>
+                                        <td>$@item.Price.ToString("###,###,##0")</td>
+                                    @*<td>
+                                        @if (item.order_detail != null && item.order_detail.Count != 0)
+                                        {
+                                            @foreach (var detail in item.order_detail)
+                                            {
+                                                <h6>@detail.money</h6>
+                                            }
+                                        }
+                                    </td>*@
+                                        <td>@item.UserName</td>
+                                        <td>@item.OrderState</td>
+                                        <td><button type="button" class="btn btn-primary" style="background-color: #FFFFFF; color: #AAAAAA; border: 1px solid #AAAAAA; " onclick="location.href='@Url.Content("~/Order/ReviewOrder/")@item.order.FOrderId'">查看訂單詳情</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

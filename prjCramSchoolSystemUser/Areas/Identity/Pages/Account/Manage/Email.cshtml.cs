@@ -44,9 +44,9 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "New email")]
+            [Required(ErrorMessage ="請輸入新電子郵件地址")]
+            [EmailAddress(ErrorMessage = "請輸入有效的電子郵件地址")]
+            [Display(Name = "新電子郵件地址")]
             public string NewEmail { get; set; }
         }
 

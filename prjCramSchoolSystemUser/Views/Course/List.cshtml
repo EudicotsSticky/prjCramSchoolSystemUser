@@ -2,7 +2,90 @@
 @model prjCramSchoolSystemUser.ViewModel.CCourseListViewModel
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "開課資訊";
+}
+@section Styles{
+    <link href="~/css/style_CourseList.css" rel="stylesheet">
+    <style>
+        .product__item__text_ {
+            padding-top: 0px;
+            margin-top: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+            .product__item__text_ h5 {
+                margin-bottom: 16px;
+            }
+
+                .product__item__text_ h5 a {
+                    color: #111111;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+
+            .product__item__text_ .product__item__price_ {
+                color: #111111;
+                font-weight: 600;
+                font-size: 16px;
+                -webkit-transition: all, 0.3s;
+                -o-transition: all, 0.3s;
+                transition: all, 0.3s;
+            }
+
+            .product__item__text_ .cart_add_ {
+                position: absolute;
+                left: 0;
+                bottom: -20px;
+                width: 100%;
+                -webkit-transition: all, 0.5s;
+                -o-transition: all, 0.5s;
+                transition: all, 0.5s;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+                .product__item__text_ .cart_add_ a {
+                    color: #111111;
+                    font-size: 16px;
+                    font-weight: 600;
+                    display: inline-block;
+                    border-bottom: 2px solid #f08632;
+                    padding-bottom: 4px;
+                }
+
+        .overflow-hidden:hover .product__item__text_ .cart_add_ {
+            opacity: 1;
+            visibility: visible;
+            bottom: -4px;
+        }
+
+        .product__item__text_ .cart_add_ {
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            width: 100%;
+            -webkit-transition: all, 0.5s;
+            -o-transition: all, 0.5s;
+            transition: all, 0.5s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .overflow-hidden:hover .product__item__text_ .product__item__price_ {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .product__item__text_ .product__item__price_ {
+            color: #111111;
+            font-weight: 600;
+            font-size: 16px;
+            -webkit-transition: all, 0.3s;
+            -o-transition: all, 0.3s;
+            transition: all, 0.3s;
+        }
+    </style>
 }
 
 @*<h1>List</h1>*@
@@ -21,8 +104,8 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="breadcrumb__links">
-                    <a href="./index.html">Home</a>
-                    <span>List</span>
+                    <a href="@Url.Content("~/")">首頁</a>
+                    <span>開課資訊</span>
                 </div>
             </div>
         </div>
@@ -30,84 +113,116 @@
 </div>
 <!-- Breadcrumb End -->
 <!-- Shop Section Begin -->
-<section class="shop spad">
-    <div class="container">
-        <div class="shop__option">
-            <div class="row">
+<section class="shop spad" style="margin-top:0px; padding-top:0px;">
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row" style="padding-bottom:60px;">
                 <div class="col-lg-7 col-md-7">
                     <div class="shop__option__search">
-                        <form action="#">
-                            <select>
-                                <option value="">Categories</option>
-                                <option value="">Red Velvet</option>
-                                <option value="">Cup Cake</option>
-                                <option value="">Biscuit</option>
+                        <form action="#"style="margin-bottom:5px;">
+                            <select id="CategoryDDL">
+                                <option value="全部">全部</option>
+                                @{
+                                    if (Model.CategoryDDL.Length > 0)
+                                    {
+
+                                        @foreach (var item in Model.CategoryDDL)
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+
+                                    }
+                                }
                             </select>
-                            <input type="text" placeholder="Search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                            <input id="txtSearch" type="text" placeholder="Search">
+                            <button id="btnSearch" type="button"><i class="fa fa-search"></i></button>
                         </form>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-5">
-                    <div class="shop__option__right">
-                        <select>
-                            <option value="">Default sorting</option>
-                            <option value="">A to Z</option>
-                            <option value="">1 - 8</option>
-                            <option value="">Name</option>
-                        </select>
-                        <a href="#"><i class="fa fa-list"></i></a>
-                        <a href="#"><i class="fa fa-reorder"></i></a>
+                        <small style="margin-left: 170px; color: #666666">多關鍵字搜尋請用空白鍵隔開</small>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            @{
-                foreach (var item in Model.course)
-                {
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="@Url.Content("~/images/")@item.PhotoName">
-                                <div class="product__label">
-                                    <span>@item.CourseState</span>
-                                </div>
-                            </div>
-                            <div class="product__item__text">
-                                <h6><a href="#">@item.Name</a></h6>
-                                <div class="product__item__price">$@item.Price.ToString("###,###,##0")</div>
-                                <div class="cart_add">
-                                    @Html.ActionLink("Detail", "Detail", new { id = item.FEchelonId })
+            <div class="row g-4" id="divCourse">
+                @{
+                    foreach (var item in Model.course)
+                    {
+                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s" style="padding-bottom:20px;">
+                            <div class="service-item rounded overflow-hidden">
+                                <img class="img-fluid" src="@item.PhotoName" style="width: 100%; height: 100%; object-fit: cover; ">
+                                <div class="position-relative p-4 pt-0">
+                                    <div class="service-icon">
+                                        <span>@item.CourseState</span>
+                                    </div>
+                                    <div class="product__details__text product__item__text_">
+                                        <h5 class="mb-3" style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; "><a asp-action="Detail" asp-route-id="@item.FEchelonId">@item.Name</a></h5>
+                                        <div class="product__item__price_"><h5 class="mb-3" style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px;">$@item.Price.ToString("###,###,##0")</h5></div>
+                                        <div class="cart_add_"><a style="border-color: #5599FF" asp-action="Detail" asp-route-id="@item.FEchelonId" target="_blank">查看課程詳情</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
-        </div>
-        <div class="shop__last__option">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="shop__pagination">
-                        @{
-                            int p = 1;
-                            for (int i = 0; i < Model.page; i++)
-                            {
-                                <a href="#">@p</a>
-                                p++;
-                            }
-                        }
-                        @*<a href="#"><span class="arrow_carrot-right"></span></a>*@
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="shop__last__text">
-                        @*<p>Showing 1-9 of 10 results</p>*@
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+
+    <!--<div class="shop__last__option">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="shop__pagination">
+                    @{
+                        //int p = 1;
+                        //for (int i = 0; i < Model.page; i++)
+                        //{
+                            //<a href="#">@p</a>
+                            //p++;
+                        //}
+                    }-->
+    @*<a href="#"><span class="arrow_carrot-right"></span></a>*@
+    <!--</div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="shop__last__text">-->
+    @*<p>Showing 1-9 of 10 results</p>*@
+    <!--</div>
+            </div>
+        </div>
+    </div>-->
 </section>
 <!-- Shop Section End -->
+@section Scripts{
+    <script>
+        $("#CategoryDDL").change(function () {
+        //let b = $("#CategoryDDL").find("option: selected").text();
+        //console.log(b);
+            Search();
+        })
+        $("#btnSearch").click(function () {
+            Search();
+        })
+        let Search = async function () {
+            let formData = new FormData();
+            formData.append("txtCategory", $("#CategoryDDL").val());
+            formData.append("txtSearch", $("#txtSearch").val());
+            let response = await fetch("@Url.Content("~/Course/searchList")", { method: "POST", body: formData })
+            let data_arr = await response.json();
+            console.log(data_arr);
+            let docFrag = $(document.createDocumentFragment());
+            $.each(data_arr.course, function (idx, data) {
+                let { fEchelonId, name, classState, courseState, originalPrice, specialOffer, discountDate, price, photoName, price_Format } = data;
+                let row = `<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s" style="padding-bottom:20px;">`
+                row +=`<div class="service-item rounded overflow-hidden">`;
+                row += `<img class="img-fluid" src="${photoName}" style="width: 100%; height: 100%; object-fit: cover; ">`;
+                row += `<div class="position-relative p-4 pt-0"><div class="service-icon"><span>${courseState}</span></div>`;
+                row += `<div class="product__details__text product__item__text_">`
+                row += `<h5 class="mb-3" style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px; "><a asp-action="Detail" asp-route-id="${fEchelonId}">${name}</a></h5>`
+                row += `<div class="product__item__price_"><h5 class="mb-3" style="border-bottom: none; padding-bottom: 0px; margin-bottom: 5px;">$${price_Format}</h5></div>`
+                row += `<div class="cart_add_"><a style="border-color: #5599FF" asp-action="Detail" asp-route-id="${fEchelonId}" target="_blank">查看課程詳情</a></div></div></div>`
+                row += `</div></div>`
+                docFrag.append(row);
+            })
+            $("#divCourse").html(docFrag);
+        }
+    </script>
+}

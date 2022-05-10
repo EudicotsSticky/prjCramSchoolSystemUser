@@ -1,101 +1,127 @@
 ﻿@model prjCramSchoolSystemUser.Models.ParentBindingModel.ParentBindingModel
 
 @{
-    ViewData["Title"] = "ViewParent";
+    ViewData["Title"] = "綁定帳號";
 }
-
-<h1>ViewParent</h1>
-
-<h4>ParentBindingModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="ViewParent">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="FatherId" />
-            <input type="hidden" asp-for="MotherId" />
-            <div class="form-group">
-                <label asp-for="FatherName" class="control-label"></label>
-                <input asp-for="FatherName" class="form-control" readonly />
-                <!-- Button trigger unbind father modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fatherUnbindingCenter">
-                    解除綁定
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="fatherUnbindingCenter" tabindex="-1" role="dialog" aria-labelledby="fatherUnbindingCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="fatherUnbindingLongTitle">解除綁定確認</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                您確定要解除父親帳號綁定？
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                                <a class="btn btn-danger" asp-action="UnbindFather">確定</a>
-                            </div>
-                        </div>
-                    </div>
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>@ViewData["Title"]</h2>
+                    <h5>
+                        家長註冊帳號後，學生帳號能與家長帳號進行綁定。
+                    </h5>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FatherEmailorUsername" class="control-label"></label>
-                <input asp-for="FatherEmailorUsername" class="form-control" />
-                <label id="haveFather"></label>
-            </div>
-            <div class="form-group">
-                <label asp-for="MotherName" class="control-label"></label>
-                <input asp-for="MotherName" class="form-control" readonly />
-                <!-- Button trigger unbind father modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#motherUnbindingCenter">
-                    解除綁定
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="motherUnbindingCenter" tabindex="-1" role="dialog" aria-labelledby="motherUnbindingCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="motherUnbindingLongTitle">解除綁定確認</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                您確定要解除母親帳號綁定？
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                                <a class="btn btn-danger" asp-action="UnbindMother">確定</a>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
+                    <span>@ViewData["Title"]</span>
                 </div>
-
             </div>
-            <div class="form-group">
-                <label asp-for="MotherEmailorUsername" class="control-label"></label>
-                <input asp-for="MotherEmailorUsername" class="form-control" />
-                <label id="haveMather"></label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<!-- Breadcrumb End -->
+<hr />
+<!-- Instagram Section Begin -->
+<section class="instagram spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="ViewParent">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="FatherId" />
+                    <input type="hidden" asp-for="MotherId" />
+                    <div class="form-group">
+                        <label asp-for="FatherName" class="control-label"></label>
+                        <input asp-for="FatherName" class="form-control" readonly />
+                        <!-- Button trigger unbind father modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fatherUnbindingCenter">
+                            解除綁定
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="fatherUnbindingCenter" tabindex="-1" role="dialog" aria-labelledby="fatherUnbindingCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="fatherUnbindingLongTitle">解除綁定確認</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        您確定要解除父親帳號綁定？
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                        <a class="btn btn-danger" asp-controller="ParentBinding" asp-action="UnbindFather">確定</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FatherEmailorUsername" class="control-label"></label>
+                        <input asp-for="FatherEmailorUsername" class="form-control" />
+                        <label id="haveFather"></label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MotherName" class="control-label"></label>
+                        <input asp-for="MotherName" class="form-control" readonly />
+                        <!-- Button trigger unbind father modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#motherUnbindingCenter">
+                            解除綁定
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="motherUnbindingCenter" tabindex="-1" role="dialog" aria-labelledby="motherUnbindingCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="motherUnbindingLongTitle">解除綁定確認</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        您確定要解除母親帳號綁定？
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                        <a class="btn btn-danger" asp-controller="ParentBinding" asp-action="UnbindMother">確定</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-<div>
-    <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">返回會員中心</a>
-</div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MotherEmailorUsername" class="control-label"></label>
+                        <input asp-for="MotherEmailorUsername" class="form-control" />
+                        <label id="haveMather"></label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="綁定" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">返回會員中心</a>
+        </div>
+    </div>
+</section>
+<!-- Instagram Section End -->
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
+    <script>
         $('#FatherEmailorUsername').focusout(
             function () {
                 $.ajax({
@@ -130,5 +156,5 @@
                 });
             }
     );
-</script>
+    </script>
 }

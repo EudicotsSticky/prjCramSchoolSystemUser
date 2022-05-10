@@ -31,8 +31,8 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "請輸入信箱")]
+            [EmailAddress(ErrorMessage = "請輸入有效的電子郵件地址")]
             public string Email { get; set; }
         }
 
@@ -60,7 +60,7 @@ namespace prjCramSchoolSystemUser.Areas.Identity.Pages.Account
                 await _emailSender.SendEmailAsync(
                     Input.Email,
                     "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"請點擊<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>此處</a>重設您的密碼。");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
