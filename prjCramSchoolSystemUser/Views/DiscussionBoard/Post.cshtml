@@ -1,0 +1,71 @@
+﻿@model IEnumerable<prjCoreCramSchoolDB.Models.TPost>
+
+@{
+    ViewData["Title"] = "Post";
+}
+
+<h1>Post</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FPostTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPostContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPostTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPostUpdateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPhotoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPostSort)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPostTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPostContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPostTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPostUpdateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPhotoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPostSort)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FPostId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FPostId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FPostId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

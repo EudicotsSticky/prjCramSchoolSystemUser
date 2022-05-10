@@ -1,0 +1,54 @@
+﻿@model prjCoreCramSchoolDB.Models.TPost
+
+@{
+    ViewData["Title"] = "Cre";
+}
+
+<h1 class="container">新增貼文</h1>
+<hr />
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="formGroupExampleInput">輸入標題名稱:</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" name="fPostTitle">
+            <label for="formSortleInput">請選擇文章類別:</label>
+        </div>
+        <div class="container">
+            <select name="FPostSort">
+                <option value="全部分類" selected>全部分類</option>
+                <option value="國    文">國    文</option>
+                <option value="數    學">數    學</option>
+                <option value="英    文">英    文</option>
+                <option value="化    學">化    學</option>
+                <option value="生    物">生    物</option>
+                <option value="公    民">公    民</option>
+                <option value="歷    史">歷    史</option>
+                <option value="地    理">地    理</option>
+            </select>
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            <label for="image">請上傳圖片</label>
+            <input type="file" id="image" name="photo">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">請輸入文章內容:</label>
+            <br />
+            <textarea cols="100" rows="5" id="formGroupExampleInput2" name="fPostContent"></textarea>
+            <br />
+            <input type="submit" value="發布文章" />
+        </div>
+    </form>
+</div>
+<div class="container">
+    <a href="https://localhost:44364/MessageBord/List">
+        <p>返回貼文</p>
+    </a>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
