@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,20 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\Areas\**" />
     <Compile Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
-    <Content Remove="Controllers\Areas\**" />
     <Content Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
-    <EmbeddedResource Remove="Controllers\Areas\**" />
     <EmbeddedResource Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
-    <None Remove="Controllers\Areas\**" />
     <None Remove="wwwroot\lib\davidshimjs-qrcodejs-04f46c6\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\ParentRegister.cshtml" />
-    <Content Remove="Views\Order\AioCheckOut.cshtml" />
-    <Content Remove="Views\Shopping\Shoppingcart1.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -173,16 +167,43 @@
     <None Include="Views\CourseModel\Detail.cshtml" />
     <None Include="Views\CourseModel\Edit.cshtml" />
     <None Include="Views\CourseModel\List.cshtml" />
+    <None Include="Views\Course\Detail.cshtml" />
     <None Include="Views\Course\List.cshtml" />
+    <None Include="Views\DiscussionBoard\Creat1.cshtml" />
+    <None Include="Views\DiscussionBoard\Create.cshtml" />
+    <None Include="Views\DiscussionBoard\Edit.cshtml" />
+    <None Include="Views\DiscussionBoard\edittest4.cshtml" />
+    <None Include="Views\DiscussionBoard\Post.cshtml" />
+    <None Include="Views\DiscussionBoard\Test.cshtml" />
+    <None Include="Views\DiscussionBoard\Test2.cshtml" />
+    <None Include="Views\DiscussionBoard\test3.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\MessageBord\articleA.cshtml" />
+    <None Include="Views\MessageBord\BiologyPage.cshtml" />
+    <None Include="Views\MessageBord\ChemicalPage.cshtml" />
+    <None Include="Views\MessageBord\ChinesePage.cshtml" />
+    <None Include="Views\MessageBord\CivicsPage.cshtml" />
+    <None Include="Views\MessageBord\Cre.cshtml" />
+    <None Include="Views\MessageBord\Detail.cshtml" />
+    <None Include="Views\MessageBord\Edit.cshtml" />
+    <None Include="Views\MessageBord\EnglishPage.cshtml" />
+    <None Include="Views\MessageBord\GeographyPage.cshtml" />
+    <None Include="Views\MessageBord\HistoryPage.cshtml" />
+    <None Include="Views\MessageBord\List.cshtml" />
+    <None Include="Views\MessageBord\MathPage.cshtml" />
+    <None Include="Views\Order\CheckOut.cshtml" />
     <None Include="Views\Order\Create.cshtml" />
+    <None Include="Views\Order\OrderList.cshtml" />
+    <None Include="Views\Order\ReviewOrder.cshtml" />
     <None Include="Views\ParentBinding\ViewParent.cshtml" />
     <None Include="Views\RoleManager\Index.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\Shopping\Shoppingcart.cshtml" />
+    <None Include="Views\Shopping\Shoppingcart1.cshtml" />
     <None Include="Views\UserRoles\Index.cshtml" />
     <None Include="Views\UserRoles\Manage.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
@@ -393,6 +414,7 @@
     <Folder Include="Data\Migrations\" />
     <Folder Include="Models\RoleModels\" />
     <Folder Include="wwwroot\Files\thumbnail\" />
+    <Folder Include="wwwroot\board\" />
   </ItemGroup>
 
 </Project>

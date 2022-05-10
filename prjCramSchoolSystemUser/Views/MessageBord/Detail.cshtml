@@ -1,0 +1,143 @@
+﻿@model prjCoreCramSchoolDB.Models.TPost
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<head>
+    <style>
+        #content {
+            display: none;
+        }
+
+            #content.active {
+                display: block;
+            }
+    </style>
+</head>
+<div class="container">
+    <h1>文章一覽</h1>
+</div>
+
+
+<form onsubmit="">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog__item">
+                    <div class="blog__item__pic set-bg">
+                        <img src="~/board/@Html.DisplayFor(model=>model.FPhotoId)" width="500" height="400" />
+                        <div class="blog__pic__inner">
+                            <div class="label">@Html.DisplayFor(model => model.FPostSort)</div>
+                            <ul>
+                                <li>By <span>@Html.DisplayFor(model => model.FAccount)</span></li>
+                                <li>發布於 :@Html.DisplayFor(model => model.FPostTime)</li>
+                                <li>編輯於 :@Html.DisplayFor(model => model.FPostUpdateTime)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="blog__item__text">
+                        <h2>@Html.DisplayFor(model => model.FPostTitle)</h2>
+                        <p>
+                            @Html.DisplayFor(model => model.FPostContent)
+                        </p>
+                    </div>
+
+                    @*<div class="border">
+                        <div class="title">
+                            <label for="image">請上用戶傳圖片</label>
+                            <input type="file" id="image" name="photo">
+                            <br />
+                            <label for="formGroupExampleInput">輸入用戶名稱:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" name="fAccount">
+                            <h5>讚數：<span id="likes">0</span></h5>
+                        </div>
+                        <hr />
+                        <div>
+                            <label for="text">回覆內容</label>
+                            <input type="text" id="text" name=""/>
+                        </div>
+                        <button id="doLikes">按讚</button>
+                        <button id="doSummarize">留言</button>
+                        <label for="image" id="conent">請上用戶傳圖片</label>
+                        <label for="formGroupExampleInput" id="conent">輸入用戶名稱:</label>
+                        <input type="text" class="form-control" id="conent" name="fAccount">
+                        <input type="file" id="conent" name="">
+                        <input id="content" type="text" />
+                    </div>*@
+
+                    @*<div class="border">
+                            <div class="title">
+                                <label for="image">請上用戶傳圖片</label>
+                                <input type="file" id="image" name="fPhotoID">
+                                <br />
+                                <label for="formGroupExampleInput">輸入用戶名稱:</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput" name="fAccount">
+                                <h5>讚數：<span id="likes">0</span></h5>
+                            </div>
+                            <hr />
+                            <div>
+                                <label for="text">回覆內容</label>
+                                <input type="text" id="text" name="fCommentContent" />
+                            </div>
+                            <button id="doLikes">按讚</button>
+                            <button id="doSummarize">留言</button>
+                            <label for="image" id="conent">請上用戶傳圖片</label>
+                            <label for="formGroupExampleInput" id="conent">輸入用戶名稱:</label>
+                            <input type="text" class="form-control" id="conent" name="fPostTitle">
+                            <input type="file" id="conent" name="">
+                            <input id="content" type="text" />
+                        </div>*@
+                    <input type="submit" value="送出">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+
+    fetch({ url: '/MessageBordController/Test', method: 'POST' }).then(async(res) => {
+        const result = await res.json();
+        console.log(result);
+
+    });
+    // 抓到id是doSummarize的按鈕
+    const doSummarize = document.getElementById("doSummarize");
+    const doLikes = document.getElementById("doLikes");
+    // 這個按鈕按下去之後要做的事情
+    doSummarize.onclick = function () {
+        const target = document.getElementById("content");
+        const isActive = target.className.includes("active");
+        // target.classList.add("active");
+
+        if (isActive == true) {
+            target.classList.remove("active");
+        } else {
+            target.classList.add("active");
+        }
+    };
+    doLikes.onclick = function () {
+        const target = document.getElementById("likes");
+        let num = parseInt(target.innerText);
+        console.log(num);
+        if (num) {
+            num = 0;
+        } else {
+            num++;
+        }
+
+        target.innerHTML = num;
+        this.innerHTML = num ? "收回" : "按讚";
+    };
+    //標題a1文章篩選過後likes的長度
+    //a1Likes.length
+    //取得更換數字的目標
+    //var target = document.getElementByID("likes")
+    //替換更換目標的內文(總案讚數)
+    //target.innerText = a1Likes.length
+</script>
+
+
+
+
+

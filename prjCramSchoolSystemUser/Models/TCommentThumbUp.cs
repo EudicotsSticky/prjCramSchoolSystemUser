@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace prjCramSchoolSystemUser.Models
+namespace prjCoreCramSchoolDB.Models
 {
     public partial class TCommentThumbUp
     {

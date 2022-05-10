@@ -2690,7 +2690,7 @@ ol {
             font-size: 14px;
             color: #ffffff;
             font-weight: 600;
-            background: #f08632;
+            background: rgb(0 0 119 / 73%);
             display: inline-block;
             padding: 4px 15px 2px;
         }
