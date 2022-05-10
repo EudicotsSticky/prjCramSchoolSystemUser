@@ -324,7 +324,7 @@ namespace prjCramSchoolSystemUser.Controllers
         {
             var user = _context.Users.FirstOrDefault(t => t.UserName.Equals(fEchelonId));
             if (user != null)
-                return user.FirstName + user.LastName;
+                return user.LastName + user.FirstName;
             return "";
         }
 
@@ -448,7 +448,7 @@ namespace prjCramSchoolSystemUser.Controllers
             //讀UserName
             var user = _context.Users.FirstOrDefault(t => t.UserName.Equals(_userid));
             if (user != null)
-                username = user.FirstName + user.LastName;
+                username = user.LastName + user.FirstName;
             //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             //{
             //    json = HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER);
